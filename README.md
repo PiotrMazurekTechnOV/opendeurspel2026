@@ -1,4 +1,4 @@
-# Opendeurspel2025
+# Opendeurspel2026
 
 ## Technov Quiz App 
 
