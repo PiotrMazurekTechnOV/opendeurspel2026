@@ -37,12 +37,14 @@
             this.antwoord2 = new System.Windows.Forms.TextBox();
             this.antwoord4 = new System.Windows.Forms.TextBox();
             this.vraagtext = new System.Windows.Forms.TextBox();
+            this.scores = new System.Windows.Forms.ListBox();
+            this.checkedListBox1 = new System.Windows.Forms.CheckedListBox();
             this.SuspendLayout();
             // 
             // check1
             // 
             this.check1.AutoSize = true;
-            this.check1.Location = new System.Drawing.Point(382, 288);
+            this.check1.Location = new System.Drawing.Point(221, 138);
             this.check1.Name = "check1";
             this.check1.Size = new System.Drawing.Size(114, 24);
             this.check1.TabIndex = 2;
@@ -52,7 +54,7 @@
             // check2
             // 
             this.check2.AutoSize = true;
-            this.check2.Location = new System.Drawing.Point(382, 403);
+            this.check2.Location = new System.Drawing.Point(225, 244);
             this.check2.Name = "check2";
             this.check2.Size = new System.Drawing.Size(110, 24);
             this.check2.TabIndex = 3;
@@ -62,7 +64,7 @@
             // check3
             // 
             this.check3.AutoSize = true;
-            this.check3.Location = new System.Drawing.Point(794, 288);
+            this.check3.Location = new System.Drawing.Point(577, 138);
             this.check3.Name = "check3";
             this.check3.Size = new System.Drawing.Size(114, 24);
             this.check3.TabIndex = 4;
@@ -72,7 +74,7 @@
             // check4
             // 
             this.check4.AutoSize = true;
-            this.check4.Location = new System.Drawing.Point(807, 403);
+            this.check4.Location = new System.Drawing.Point(577, 246);
             this.check4.Name = "check4";
             this.check4.Size = new System.Drawing.Size(114, 24);
             this.check4.TabIndex = 5;
@@ -81,44 +83,63 @@
             // 
             // antwoord1
             // 
-            this.antwoord1.Location = new System.Drawing.Point(174, 285);
+            this.antwoord1.Location = new System.Drawing.Point(33, 138);
             this.antwoord1.Name = "antwoord1";
             this.antwoord1.Size = new System.Drawing.Size(155, 26);
             this.antwoord1.TabIndex = 6;
             // 
             // antwoord3
             // 
-            this.antwoord3.Location = new System.Drawing.Point(622, 288);
+            this.antwoord3.Location = new System.Drawing.Point(402, 138);
             this.antwoord3.Name = "antwoord3";
             this.antwoord3.Size = new System.Drawing.Size(155, 26);
             this.antwoord3.TabIndex = 7;
             // 
             // antwoord2
             // 
-            this.antwoord2.Location = new System.Drawing.Point(174, 401);
+            this.antwoord2.Location = new System.Drawing.Point(33, 242);
             this.antwoord2.Name = "antwoord2";
             this.antwoord2.Size = new System.Drawing.Size(155, 26);
             this.antwoord2.TabIndex = 8;
             // 
             // antwoord4
             // 
-            this.antwoord4.Location = new System.Drawing.Point(622, 403);
+            this.antwoord4.Location = new System.Drawing.Point(402, 244);
             this.antwoord4.Name = "antwoord4";
             this.antwoord4.Size = new System.Drawing.Size(155, 26);
             this.antwoord4.TabIndex = 9;
             // 
             // vraagtext
             // 
-            this.vraagtext.Location = new System.Drawing.Point(316, 62);
+            this.vraagtext.Location = new System.Drawing.Point(171, 62);
             this.vraagtext.Name = "vraagtext";
             this.vraagtext.Size = new System.Drawing.Size(449, 26);
             this.vraagtext.TabIndex = 10;
+            // 
+            // scores
+            // 
+            this.scores.FormattingEnabled = true;
+            this.scores.ItemHeight = 20;
+            this.scores.Location = new System.Drawing.Point(958, 62);
+            this.scores.Name = "scores";
+            this.scores.Size = new System.Drawing.Size(207, 524);
+            this.scores.TabIndex = 11;
+            // 
+            // checkedListBox1
+            // 
+            this.checkedListBox1.FormattingEnabled = true;
+            this.checkedListBox1.Location = new System.Drawing.Point(717, 53);
+            this.checkedListBox1.Name = "checkedListBox1";
+            this.checkedListBox1.Size = new System.Drawing.Size(207, 533);
+            this.checkedListBox1.TabIndex = 12;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.checkedListBox1);
+            this.Controls.Add(this.scores);
             this.Controls.Add(this.vraagtext);
             this.Controls.Add(this.antwoord4);
             this.Controls.Add(this.antwoord2);
@@ -148,6 +169,8 @@
         private System.Windows.Forms.TextBox antwoord2;
         private System.Windows.Forms.TextBox antwoord4;
         private System.Windows.Forms.TextBox vraagtext;
+        private System.Windows.Forms.ListBox scores;
+        private System.Windows.Forms.CheckedListBox checkedListBox1;
     }
 }
 
