@@ -29,3 +29,17 @@ locatie update:
 UPDATE locations
 SET nummer ='103', naamLokaal = 'Industriële Automatisering lokaal'
 WHERE id = 1;
+
+locatie verwijderen:
+DELETE FROM opendeurdag.users
+WHERE id=1;
+
+
+##Questions queries
+
+question toevoegen:
+INSERT INTO  (question)
+VALUES
+('Is 6ICT de beste?');
+
+
