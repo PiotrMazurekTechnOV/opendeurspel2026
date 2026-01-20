@@ -26,6 +26,7 @@ VALUES
 (112, 'ICT');
 
 locatie update:
+locatie updaten:
 UPDATE locations
 SET nummer ='103', naamLokaal = 'Industriële Automatisering lokaal'
 WHERE id = 1;
@@ -43,3 +44,4 @@ VALUES
 ('Is 6ICT de beste?');
 
 
+('Is 6ICT de beste?');
