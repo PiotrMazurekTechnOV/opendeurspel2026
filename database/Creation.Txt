@@ -1,3 +1,4 @@
+table aanmaken:
 CREATE TABLE users(
 id INT Primary Key Auto_Increment,
 nameGuardian VARCHAR(50),
@@ -6,4 +7,6 @@ email VARCHAR(100) UNIQUE,
 code INT UNIQUE,
 createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+
 
