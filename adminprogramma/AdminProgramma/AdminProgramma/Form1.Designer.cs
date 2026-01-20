@@ -36,7 +36,7 @@
             this.antwoord3 = new System.Windows.Forms.TextBox();
             this.antwoord2 = new System.Windows.Forms.TextBox();
             this.antwoord4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.vraagtext = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // check1
@@ -107,19 +107,19 @@
             this.antwoord4.Size = new System.Drawing.Size(155, 26);
             this.antwoord4.TabIndex = 9;
             // 
-            // textBox5
+            // vraagtext
             // 
-            this.textBox5.Location = new System.Drawing.Point(316, 62);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(449, 26);
-            this.textBox5.TabIndex = 10;
+            this.vraagtext.Location = new System.Drawing.Point(316, 62);
+            this.vraagtext.Name = "vraagtext";
+            this.vraagtext.Size = new System.Drawing.Size(449, 26);
+            this.vraagtext.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1200, 692);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.vraagtext);
             this.Controls.Add(this.antwoord4);
             this.Controls.Add(this.antwoord2);
             this.Controls.Add(this.antwoord3);
@@ -147,7 +147,7 @@
         private System.Windows.Forms.TextBox antwoord3;
         private System.Windows.Forms.TextBox antwoord2;
         private System.Windows.Forms.TextBox antwoord4;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox vraagtext;
     }
 }
 
