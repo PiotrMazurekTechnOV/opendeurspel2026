@@ -6,6 +6,9 @@ user toevoegen:
 INSERT INTO users (nameGuardian, nameChild, email, code)
 VALUES
 ('Mohamed', 'Kai', 'mohames@alibaba.com', 67);
+user verweideren:
+DELETE FROM opendeurdag.users
+WHERE email='m%';
 
 Deze query voegt een nieuwe klaslocatie toe aan de database door het lokaalnummer en de naam van het lokaal op te slaan in de tabel.
 
@@ -14,7 +17,13 @@ INSERT INTO locations (nummer, naamLokaal)
 VALUES
 (112, 'ICT');
 
+locatie verwijderen:
+DELETE FROM opendeurdag.users
+WHERE id=1;
+
+
 question toevoegen:
 INSERT INTO  (question)
 VALUES
 ('Is 6ICT de beste?');
+
