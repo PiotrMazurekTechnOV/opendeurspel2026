@@ -6,9 +6,15 @@ user toevoegen:
 INSERT INTO users (nameGuardian, nameChild, email, code)
 VALUES
 ('Mohamed', 'Kai', 'mohames@alibaba.com', 67);
+user verweideren:
+DELETE FROM opendeurdag.users
+WHERE email='m%';
 
 
 locatie toevoegen:
 INSERT INTO locations (nummer, naamLokaal)
 VALUES
 (112, 'ICT');
+locatie verweideren:
+DELETE FROM opendeurdag.users
+WHERE id=1;
