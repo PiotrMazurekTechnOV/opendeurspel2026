@@ -17,7 +17,7 @@ UPDATE users
 SET nameGuardian = 'Kai', nameChild = 'Mohamed', email = 'Kai@Verret.com', code = 76
 WHERE id = 1;
 
-##Locatie query
+## Locatie query
 
 Deze query voegt een nieuwe klaslocatie toe aan de database door het lokaalnummer en de naam van het lokaal op te slaan in de tabel.
 locatie toevoegen:
@@ -35,7 +35,7 @@ DELETE FROM opendeurdag.users
 WHERE id=1;
 
 
-##Questions queries
+## Questions queries
 
 question toevoegen:
 INSERT INTO  (question)
