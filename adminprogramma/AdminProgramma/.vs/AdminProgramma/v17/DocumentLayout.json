@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\stefanMihali\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\ICT\\GITHUB\\opendeurspel2026\\adminprogramma\\AdminProgramma\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{2ED5D444-CF0F-4B32-8C78-20EF770376F8}|AdminProgramma\\AdminProgramma.csproj|c:\\users\\stefanmihali\\onedrive - katholiek onderwijs vilvoorde machelen diegem vzw\\ict\\github\\opendeurspel2026\\adminprogramma\\adminprogramma\\adminprogramma\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{2ED5D444-CF0F-4B32-8C78-20EF770376F8}|AdminProgramma\\AdminProgramma.csproj|solutionrelative:adminprogramma\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Form1.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\stefanMihali\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\ICT\\GITHUB\\opendeurspel2026\\adminprogramma\\AdminProgramma\\AdminProgramma\\Form1.cs",
+              "RelativeDocumentMoniker": "AdminProgramma\\Form1.cs",
+              "ToolTip": "C:\\Users\\stefanMihali\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\ICT\\GITHUB\\opendeurspel2026\\adminprogramma\\AdminProgramma\\AdminProgramma\\Form1.cs [Design]",
+              "RelativeToolTip": "AdminProgramma\\Form1.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-20T13:16:05.792Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
