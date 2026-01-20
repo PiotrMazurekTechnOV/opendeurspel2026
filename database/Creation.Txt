@@ -15,5 +15,13 @@ nummer INT UNIQUE,
 naamLokaal char(60)
 );
 
+tabel questions aanmaken:
+CREATE TABLE questions(
+id INT Primary Key Auto_Increment,
+question char(150),
+locations_id INT,
+FOREIGN KEY (locations_id) REFERENCES locations(id)
+);
+
 
 
