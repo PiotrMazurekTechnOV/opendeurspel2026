@@ -13,3 +13,8 @@ locatie toevoegen:
 INSERT INTO locations (nummer, naamLokaal)
 VALUES
 (112, 'ICT');
+
+question toevoegen:
+INSERT INTO  (question)
+VALUES
+('Is 6ICT de beste?');
