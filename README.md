@@ -15,7 +15,9 @@ Na de hele toer van de school te hebben gedaan, gaat de deelnemer naar de comput
 
 Origineel project in Python: PiotrMazurekTechnOV/Opendeurspel (github.com) 
 
-Versie 2 project 2024: https://github.com/PiotrMazurekTechnOV/Opendeurspel2024
+Versie project 2024: https://github.com/PiotrMazurekTechnOV/Opendeurspel2024
+
+Versie project 2025: https://github.com/PiotrMazurekTechnOV/opendeurspel2025
 
 ### Team met initiële taken 
 
@@ -31,7 +33,7 @@ Versie 2 project 2024: https://github.com/PiotrMazurekTechnOV/Opendeurspel2024
 
 ## Need-to-have’s 
 
-(wat er in de webapp moet zitten) 
+(wat er in de (web)app moet zitten) 
 
 ### Gebruiker (die een quiz aanmaakt) moet: 
 
@@ -71,19 +73,19 @@ Websocket realtime aanpassen van vragen
 
 ### Adminprogramma: 
 
-Toevoegen/verwijderen/aanpassen van vragen (tekst, multiple choice) 
+Toevoegen/verwijderen/aanpassen van vragen en antwoorden (tekst, multiple choice) 
 
-Antwoorden en scores van deelnemers doorlopen/aanpassen 
+Antwoorden en scores van deelnemers bekijken/aanpassen/verwijderen
 
 ### Vraagprogramma: 
 
-Bij opstart: instellen van de vraag 
+Bij opstart: instellen van de vraag op basis van locatie
 
 Code vragen van de deelnemer  
 
 Vraag tonen met antwoordmogelijkheid 
 
-Verzenden van de antwoord 
+Verzenden van het antwoord 
 
 ### Printprogramma
 
