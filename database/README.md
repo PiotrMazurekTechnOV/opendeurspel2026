@@ -38,8 +38,8 @@ WHERE id=1;
 ## Questions queries
 
 question toevoegen:
-INSERT INTO  (question)
+INSERT INTO  (question, 2)
 VALUES
-('Is 6ICT de beste?');
+('Is 6ICT de beste?', 2);
 
 
