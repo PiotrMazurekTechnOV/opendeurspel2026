@@ -7,8 +7,17 @@ INSERT INTO users (nameGuardian, nameChild, email, code)
 VALUES
 ('Mohamed', 'Kai', 'mohames@alibaba.com', 67);
 
+user update:
+UPDATE users 
+SET nameGuardian = 'Kai', nameChild = 'Mohamed', email = 'Kai@Verret.com', code = 76
+WHERE id = 1;
 
 locatie toevoegen:
 INSERT INTO locations (nummer, naamLokaal)
 VALUES
 (112, 'ICT');
+
+locatie update:
+UPDATE locations
+SET nummer ='103', naamLokaal = 'Industriële Automatisering lokaal'
+WHERE id = 1;
