@@ -1,4 +1,4 @@
-table aanmaken:
+table users aanmaken:
 CREATE TABLE users(
 id INT Primary Key Auto_Increment,
 nameGuardian VARCHAR(50),
@@ -6,6 +6,13 @@ nameChild VARCHAR(50),
 email VARCHAR(100) UNIQUE,
 code INT UNIQUE,
 createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+table locations aanmaken:
+CREATE TABLE locations(
+id INT Primary Key Auto_Increment,
+nummer INT UNIQUE,
+naamLokaal char(60)
 );
 
 
