@@ -28,12 +28,43 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "locationSelectionForm";
+            klasBtn = new Button();
+            codeTextbox = new TextBox();
+            SuspendLayout();
+            // 
+            // klasBtn
+            // 
+            klasBtn.Location = new Point(634, 317);
+            klasBtn.Name = "klasBtn";
+            klasBtn.Size = new Size(112, 34);
+            klasBtn.TabIndex = 0;
+            klasBtn.Text = "Klaar";
+            klasBtn.UseVisualStyleBackColor = true;
+            // 
+            // codeTextbox
+            // 
+            codeTextbox.Location = new Point(612, 251);
+            codeTextbox.Name = "codeTextbox";
+            codeTextbox.Size = new Size(150, 31);
+            codeTextbox.TabIndex = 1;
+            // 
+            // locationSelection
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1352, 509);
+            Controls.Add(codeTextbox);
+            Controls.Add(klasBtn);
+            Name = "locationSelection";
+            Text = "locationSelectionForm";
+            Load += locationSelection_Load;
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Button klasBtn;
+        private TextBox codeTextbox;
     }
 }

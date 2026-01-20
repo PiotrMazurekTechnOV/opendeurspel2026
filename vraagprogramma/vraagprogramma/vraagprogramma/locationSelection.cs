@@ -14,5 +14,13 @@ namespace vraagprogramma
         {
             InitializeComponent();
         }
+
+        private void locationSelection_Load(object sender, EventArgs e)
+        {
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+
+           
+        }
     }
 }
