@@ -7,6 +7,7 @@ INSERT INTO users (nameGuardian, nameChild, email, code)
 VALUES
 ('Mohamed', 'Kai', 'mohames@alibaba.com', 67);
 
+Deze query voegt een nieuwe klaslocatie toe aan de database door het lokaalnummer en de naam van het lokaal op te slaan in de tabel.
 
 locatie toevoegen:
 INSERT INTO locations (nummer, naamLokaal)
