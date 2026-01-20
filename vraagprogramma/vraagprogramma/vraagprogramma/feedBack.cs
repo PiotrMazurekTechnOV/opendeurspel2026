@@ -13,6 +13,8 @@ namespace vraagprogramma
         public feedBack()
         {
             InitializeComponent();
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
         }
     }
 }
