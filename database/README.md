@@ -38,8 +38,19 @@ WHERE id=1;
 ## Questions queries
 
 question toevoegen:
-INSERT INTO  (question, 2)
+INSERT INTO  (question, locations_id)
 VALUES
 ('Is 6ICT de beste?', 2);
 
 
+
+## Answers queries
+
+
+
+
+
+
+
+
+## Scores queries
