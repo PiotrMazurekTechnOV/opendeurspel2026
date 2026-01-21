@@ -19,8 +19,11 @@ namespace vraagprogramma
         {
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+            label1.BackColor = Color.Transparent;
+            label1.Left = (this.ClientSize.Width - label1.Width) / 2;
+            label1.Top = (this.ClientSize.Height - label1.Height) / 3;
 
-           
+
         }
     }
 }

@@ -35,10 +35,11 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Poppins", 25F);
+            label1.Font = new Font("Poppins", 35F);
+            label1.ForeColor = Color.FromArgb(252, 231, 0);
             label1.Location = new Point(300, 114);
             label1.Name = "label1";
-            label1.Size = new Size(768, 88);
+            label1.Size = new Size(1069, 123);
             label1.TabIndex = 0;
             label1.Text = "WELKOM BIJ INDUSTRIELË ICT";
             label1.TextAlign = ContentAlignment.MiddleCenter;

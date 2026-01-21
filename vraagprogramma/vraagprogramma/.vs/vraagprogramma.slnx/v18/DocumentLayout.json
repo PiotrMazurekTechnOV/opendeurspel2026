@@ -1,10 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\AlexanderReyesHolgui\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\",
+  "WorkspaceRootPath": "C:\\Users\\RayyaneLamghaouach\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{FCFB6A12-239C-2185-1D3D-61022F983644}|vraagprogramma\\vraagprogramma.csproj|c:\\users\\alexanderreyesholgui\\onedrive - katholiek onderwijs vilvoorde machelen diegem vzw\\documenten\\github\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{FCFB6A12-239C-2185-1D3D-61022F983644}|vraagprogramma\\vraagprogramma.csproj|solutionrelative:vraagprogramma\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{FCFB6A12-239C-2185-1D3D-61022F983644}|vraagprogramma\\vraagprogramma.csproj|c:\\users\\rayyanelamghaouach\\onedrive - katholiek onderwijs vilvoorde machelen diegem vzw\\documenten\\github\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\locationselection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FCFB6A12-239C-2185-1D3D-61022F983644}|vraagprogramma\\vraagprogramma.csproj|solutionrelative:vraagprogramma\\locationselection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCFB6A12-239C-2185-1D3D-61022F983644}|vraagprogramma\\vraagprogramma.csproj|c:\\users\\rayyanelamghaouach\\onedrive - katholiek onderwijs vilvoorde machelen diegem vzw\\documenten\\github\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\useridentification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{FCFB6A12-239C-2185-1D3D-61022F983644}|vraagprogramma\\vraagprogramma.csproj|solutionrelative:vraagprogramma\\useridentification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{FCFB6A12-239C-2185-1D3D-61022F983644}|vraagprogramma\\vraagprogramma.csproj|c:\\users\\rayyanelamghaouach\\onedrive - katholiek onderwijs vilvoorde machelen diegem vzw\\documenten\\github\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\useridentification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{FCFB6A12-239C-2185-1D3D-61022F983644}|vraagprogramma\\vraagprogramma.csproj|solutionrelative:vraagprogramma\\useridentification.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,20 +22,44 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\AlexanderReyesHolgui\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\Form1.cs",
-              "RelativeDocumentMoniker": "vraagprogramma\\Form1.cs",
-              "ToolTip": "C:\\Users\\AlexanderReyesHolgui\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\Form1.cs",
-              "RelativeToolTip": "vraagprogramma\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "userIdentification.cs",
+              "DocumentMoniker": "C:\\Users\\RayyaneLamghaouach\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\userIdentification.cs",
+              "RelativeDocumentMoniker": "vraagprogramma\\userIdentification.cs",
+              "ToolTip": "C:\\Users\\RayyaneLamghaouach\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\userIdentification.cs",
+              "RelativeToolTip": "vraagprogramma\\userIdentification.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAQwBgAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-01-20T13:56:05.828Z",
+              "WhenOpened": "2026-01-21T10:26:16.299Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "userIdentification.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\RayyaneLamghaouach\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\userIdentification.cs",
+              "RelativeDocumentMoniker": "vraagprogramma\\userIdentification.cs",
+              "ToolTip": "C:\\Users\\RayyaneLamghaouach\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\userIdentification.cs [Design]",
+              "RelativeToolTip": "vraagprogramma\\userIdentification.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T10:24:48.542Z",
+              "EditorCaption": " [Design]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "locationSelection.cs [Design]",
+              "DocumentMoniker": "C:\\Users\\RayyaneLamghaouach\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\locationSelection.cs",
+              "RelativeDocumentMoniker": "vraagprogramma\\locationSelection.cs",
+              "ToolTip": "C:\\Users\\RayyaneLamghaouach\\OneDrive - Katholiek Onderwijs Vilvoorde Machelen Diegem vzw\\Documenten\\GitHub\\opendeurspel2026\\vraagprogramma\\vraagprogramma\\vraagprogramma\\locationSelection.cs [Design]",
+              "RelativeToolTip": "vraagprogramma\\locationSelection.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-21T10:24:35.161Z",
+              "EditorCaption": " [Design]"
             }
           ]
         }
