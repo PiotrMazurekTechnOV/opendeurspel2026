@@ -46,7 +46,9 @@ VALUES
 
 ## Answers queries
 
-
+INSERT INTO answers(answers)
+VALUES
+('Ja');
 
 
 
