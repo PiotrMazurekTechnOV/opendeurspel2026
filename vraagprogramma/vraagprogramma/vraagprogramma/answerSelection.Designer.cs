@@ -59,6 +59,7 @@
             // 
             // answer2
             // 
+            answer2.Anchor = AnchorStyles.None;
             answer2.Location = new Point(553, 150);
             answer2.Name = "answer2";
             answer2.Size = new Size(112, 34);
@@ -68,6 +69,7 @@
             // 
             // answer3
             // 
+            answer3.Anchor = AnchorStyles.None;
             answer3.Location = new Point(127, 311);
             answer3.Name = "answer3";
             answer3.Size = new Size(112, 34);
@@ -77,6 +79,7 @@
             // 
             // answer4
             // 
+            answer4.Anchor = AnchorStyles.None;
             answer4.Location = new Point(553, 311);
             answer4.Name = "answer4";
             answer4.Size = new Size(112, 34);
