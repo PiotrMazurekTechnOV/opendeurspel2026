@@ -54,3 +54,10 @@ VALUES
 
 
 ## Scores queries
+scores toevoegen:
+INSERT INTO scores (user_id,question_id,status)
+VALUES (1,1,0);
+
+score updaten:
+UPDATE scores 
+SET status = 1
