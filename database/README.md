@@ -46,11 +46,19 @@ VALUES
 
 ## Answers queries
 
+answers toevoegen:
 INSERT INTO answers(answers)
 VALUES
 ('Ja');
 
+answers updaten:
+UPDATE answers
+SET answers = 'nee'
+WHERE id = 1;
 
+answers verwijderen:
+DELETE FROM answers
+WHERE id=1;
 
 
 
