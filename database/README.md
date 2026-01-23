@@ -23,7 +23,7 @@ WHERE id = 1;
 Deze query voegt een nieuwe klaslocatie toe aan de database door het lokaalnummer en de naam van het lokaal op te slaan in de tabel.
 
 ### locatie toevoegen:
-INSERT INTO locations (nummer, naamLokaal)
+INSERT INTO locations (nunumber, localName)
 VALUES
 (112, 'ICT');
 
