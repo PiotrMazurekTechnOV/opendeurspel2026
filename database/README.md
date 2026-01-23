@@ -21,13 +21,13 @@ WHERE id = 1;
 Deze query voegt een nieuwe klaslocatie toe aan de database door het lokaalnummer en de naam van het lokaal op te slaan in de tabel.
 
 ### locatie toevoegen:
-INSERT INTO locations (nunumber, localName)
+INSERT INTO locations (number, localName)
 VALUES
 (112, 'ICT');
 
 ### locatie update:
 UPDATE locations
-SET nummer ='103', naamLokaal = 'Industriële Automatisering lokaal'
+SET number ='103', localName = 'Industriële Automatisering lokaal'
 WHERE id = 1;
 
 ### locatie verwijderen:
