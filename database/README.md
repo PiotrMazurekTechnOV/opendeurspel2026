@@ -1,5 +1,4 @@
 # DATABASE documentatie 
-
 Deze query voegt een nieuwe gebruiker toe aan de users-tabel met de naam van de voogt, de naam van het kind, het e-mailadres en de code. De id en createdAt worden automatisch door de database ingevuld.
 
 ## User queries
@@ -19,7 +18,6 @@ SET nameGuardian = 'Kai', nameChild = 'Mohamed', email = 'Kai@Verret.com', code 
 WHERE id = 1;
 
 ## Locatie query
-
 Deze query voegt een nieuwe klaslocatie toe aan de database door het lokaalnummer en de naam van het lokaal op te slaan in de tabel.
 
 ### locatie toevoegen:
@@ -36,7 +34,6 @@ WHERE id = 1;
 DELETE FROM users
 WHERE id=1;
 
-
 ## Questions queries
 
 ### question toevoegen:
@@ -51,7 +48,6 @@ WHERE id=1;
 ### question updaten:
 DELETE FROM questions
 WHERE id=1;
-
 
 ## Answers queries
 
