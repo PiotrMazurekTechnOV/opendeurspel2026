@@ -69,16 +69,32 @@ WHERE id=1;
 
 
 
-
 ## Scores queries
-#scores toevoegen:
-INSERT INTO opendeurspel.scores (user_id,question_id,status)
-VALUES (1,1,0);
 
-#score updaten:
-UPDATE opendeurspel.scores 
-SET status = 1 WHERE id = 1;
 
-#score verwijderen:
-DELETE FROM opendeurspel.scores 
-WHERE id = 1;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
