@@ -1,7 +1,4 @@
 # DATABASE documentatie 
-Deze query voegt een nieuwe gebruiker toe aan de users-tabel met de naam van de voogt, de naam van het kind, het e-mailadres en de code. De id en createdAt worden automatisch door de database ingevuld.
-
-Deze query voegt een nieuwe gebruiker toe aan de users-tabel met de naam van de voogt, de naam van het kind, het e-mailadres en de code. De id en createdAt worden automatisch door de database ingevuld.
 
 Deze query voegt een nieuwe gebruiker toe aan de users-tabel met de naam van de voogt, de naam van het kind, het e-mailadres en de code. De id en createdAt worden automatisch door de database ingevuld.
 
