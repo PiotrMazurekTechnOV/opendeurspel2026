@@ -2,7 +2,7 @@
 
 ## Users
 
-GET /user/get  
+GET /user/get/:id
 Haalt een gebruiker op.  
 Verwacht: id of code
 
@@ -14,14 +14,14 @@ POST /user/update
 Past een gebruiker aan.  
 Verwacht: id + nieuwe gegevens
 
-POST /user/delete  
+GET /user/delete/:id
 Verwijdert een gebruiker.  
 Verwacht: id
 
 
 ## Questions
 
-GET /question/get  
+GET /question/get/:id
 Haalt een vraag op.  
 Verwacht: id of locationId
 
@@ -33,14 +33,14 @@ POST /question/update
 Past een vraag aan.  
 Verwacht: id + nieuwe gegevens
 
-POST /question/delete  
+GET /question/delete/:id
 Verwijdert een vraag.  
 Verwacht: id
 
 
 ## Answers
 
-GET /answer/get  
+GET /answer/get/:id
 Haalt antwoorden op.  
 Verwacht: id of questionId
 
@@ -52,14 +52,14 @@ POST /answer/update
 Past een antwoord aan.  
 Verwacht: id + nieuwe gegevens
 
-POST /answer/delete  
+GET /answer/delete/:id
 Verwijdert een antwoord.  
 Verwacht: id
 
 
 ## Score
 
-GET /score/get  
+GET /score/get/:id
 Haalt score(s) op.  
 Verwacht: code of id
 
@@ -71,14 +71,14 @@ POST /score/update
 Past een score aan.  
 Verwacht: id + nieuwe gegevens
 
-POST /score/delete  
+GET /score/delete/:id
 Verwijdert een score.  
 Verwacht: id
 
 
 ## Locations
 
-GET /location/get  
+GET /location/get/:id
 Haalt een locatie op.  
 Verwacht: id
 
@@ -90,6 +90,6 @@ POST /location/update
 Past een locatie aan.  
 Verwacht: id + nieuwe gegevens
 
-POST /location/delete  
+GET /location/delete/:id
 Verwijdert een locatie.  
 Verwacht: id
