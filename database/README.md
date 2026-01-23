@@ -9,7 +9,7 @@ VALUES
 ('Mohamed', 'Kai', 'mohames@alibaba.com', 67);
 
 user verwijderen:
-DELETE FROM opendeurdag.users
+DELETE FROM users
 WHERE email='m%';
 
 user updaten:
@@ -38,17 +38,34 @@ WHERE id=1;
 ## Questions queries
 
 question toevoegen:
-INSERT INTO  (question, locations_id)
+INSERT INTO questions (question, locations_id)
 VALUES
-('Is 6ICT de beste?', 2);
+('Is 6ICT de beste?');
 
+question verwijderen:
+DELETE FROM questions
+WHERE id=1;
+
+question updaten:
+DELETE FROM questions
+WHERE id=1;
 
 
 ## Answers queries
 
+answers toevoegen:
+INSERT INTO answers(answers)
+VALUES
+('Ja');
 
+answers updaten:
+UPDATE answers
+SET answers = 'nee'
+WHERE id = 1;
 
-
+answers verwijderen:
+DELETE FROM answers
+WHERE id=1;
 
 
 
