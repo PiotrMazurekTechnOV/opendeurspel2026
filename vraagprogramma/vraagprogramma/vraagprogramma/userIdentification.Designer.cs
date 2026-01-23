@@ -30,19 +30,39 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(userIdentification));
             label1 = new Label();
+            textBox1 = new TextBox();
+            vraagCode = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Poppins", 35F);
+            label1.Font = new Font("Poppins", 40F);
             label1.ForeColor = Color.FromArgb(252, 231, 0);
-            label1.Location = new Point(300, 114);
+            label1.Location = new Point(71, 98);
             label1.Name = "label1";
-            label1.Size = new Size(1069, 123);
+            label1.Size = new Size(1220, 141);
             label1.TabIndex = 0;
             label1.Text = "WELKOM BIJ INDUSTRIELË ICT";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(652, 299);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(150, 31);
+            textBox1.TabIndex = 1;
+            // 
+            // vraagCode
+            // 
+            vraagCode.AutoSize = true;
+            vraagCode.Font = new Font("Poppins", 13F);
+            vraagCode.ForeColor = Color.White;
+            vraagCode.Location = new Point(614, 250);
+            vraagCode.Name = "vraagCode";
+            vraagCode.Size = new Size(224, 46);
+            vraagCode.TabIndex = 2;
+            vraagCode.Text = "VUL JE CODE IN:";
             // 
             // userIdentification
             // 
@@ -51,6 +71,8 @@
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(1344, 507);
+            Controls.Add(vraagCode);
+            Controls.Add(textBox1);
             Controls.Add(label1);
             Name = "userIdentification";
             Text = "userIdentification";
@@ -62,5 +84,7 @@
         #endregion
 
         private Label label1;
+        private TextBox textBox1;
+        private Label vraagCode;
     }
 }
