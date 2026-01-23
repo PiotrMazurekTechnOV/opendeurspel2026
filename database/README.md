@@ -1,7 +1,5 @@
 # DATABASE documentatie 
 
-Deze query voegt een nieuwe gebruiker toe aan de users-tabel met de naam van de vocht, de naam van het kind, het e-mailadres en de code. De id en createdAt worden automatisch door de database ingevuld.
-
 ## User queries
 user toevoegen:
 INSERT INTO users (nameGuardian, nameChild, email, code)
@@ -65,36 +63,6 @@ WHERE id = 1;
 
 answers verwijderen:
 DELETE FROM answers
-WHERE id=1;
-
-
+WHERE id= 1;
 
 ## Scores queries
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
