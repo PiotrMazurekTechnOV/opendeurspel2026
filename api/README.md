@@ -2,74 +2,94 @@
 
 ## Users
 
-Users toevoegen:  
-'/user/add'  
-query:
+GET /user/get  
+Haalt een gebruiker op.  
+Verwacht: id of code
 
-Users aanpassen:  
-'/user/update'  
-query:
+POST /user/add  
+Voegt een gebruiker toe.  
+Verwacht: naam, email (optioneel)
 
-Users verwijderen:  
-'/user/delete'  
-query:
+POST /user/update  
+Past een gebruiker aan.  
+Verwacht: id + nieuwe gegevens
+
+POST /user/delete  
+Verwijdert een gebruiker.  
+Verwacht: id
 
 
 ## Questions
 
-Questions toevoegen:  
-'/question/add'  
-query:
+GET /question/get  
+Haalt een vraag op.  
+Verwacht: id of locationId
 
-Questions aanpassen:  
-'/question/update'  
-query:
+POST /question/add  
+Voegt een vraag toe.  
+Verwacht: vraagtekst, locationId
 
-Questions verwijderen:  
-'/question/delete'  
-query:
+POST /question/update  
+Past een vraag aan.  
+Verwacht: id + nieuwe gegevens
+
+POST /question/delete  
+Verwijdert een vraag.  
+Verwacht: id
 
 
 ## Answers
 
-Answers toevoegen:  
-'/answer/add'  
-query:
+GET /answer/get  
+Haalt antwoorden op.  
+Verwacht: id of questionId
 
-Answers aanpassen:  
-'/answer/update'  
-query:
+POST /answer/add  
+Voegt een antwoord toe.  
+Verwacht: questionId, antwoordtekst, correct/incorrect
 
-Answers verwijderen:  
-'/answer/delete'  
-query:
+POST /answer/update  
+Past een antwoord aan.  
+Verwacht: id + nieuwe gegevens
+
+POST /answer/delete  
+Verwijdert een antwoord.  
+Verwacht: id
 
 
 ## Score
 
-Score toevoegen:  
-'/score/add'  
-query:
+GET /score/get  
+Haalt score(s) op.  
+Verwacht: code of id
 
-Score aanpassen:  
-'/score/update'  
-query:
+POST /score/add  
+Voegt een score toe.  
+Verwacht: code, questionId, answerId
 
-Score verwijderen:  
-'/score/delete'  
-query:
+POST /score/update  
+Past een score aan.  
+Verwacht: id + nieuwe gegevens
+
+POST /score/delete  
+Verwijdert een score.  
+Verwacht: id
 
 
 ## Locations
 
-Locations toevoegen:  
-'/location/add'  
-query:
+GET /location/get  
+Haalt een locatie op.  
+Verwacht: id
 
-Locations aanpassen:  
-'/location/update'  
-query:
+POST /location/add  
+Voegt een locatie toe.  
+Verwacht: naam
 
-Locations verwijderen:  
-'/location/delete'  
-query:
+POST /location/update  
+Past een locatie aan.  
+Verwacht: id + nieuwe gegevens
+
+POST /location/delete  
+Verwijdert een locatie.  
+Verwacht: id
