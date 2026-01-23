@@ -31,7 +31,7 @@ SET nummer ='103', naamLokaal = 'Industriële Automatisering lokaal'
 WHERE id = 1;
 
 locatie verwijderen:
-DELETE FROM opendeurdag.users
+DELETE FROM users
 WHERE id=1;
 
 
@@ -60,4 +60,8 @@ VALUES (1,1,0);
 
 score updaten:
 UPDATE scores 
-SET status = 1
+SET status = 1 WHERE user_id = 1;
+
+score verwijderen:
+DELETE FROM scores 
+WHERE user_id = 1;
