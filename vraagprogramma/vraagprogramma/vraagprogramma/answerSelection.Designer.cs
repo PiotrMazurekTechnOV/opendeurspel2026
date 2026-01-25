@@ -39,53 +39,61 @@
             // 
             questionLbl.Anchor = AnchorStyles.None;
             questionLbl.AutoSize = true;
+            questionLbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             questionLbl.Location = new Point(384, 69);
             questionLbl.Name = "questionLbl";
-            questionLbl.Size = new Size(41, 25);
+            questionLbl.Size = new Size(46, 25);
             questionLbl.TabIndex = 0;
             questionLbl.Text = "text";
             questionLbl.TextAlign = ContentAlignment.MiddleCenter;
-            questionLbl.Visible = false;
             // 
             // answer1
             // 
             answer1.Anchor = AnchorStyles.None;
+            answer1.AutoSize = true;
             answer1.Location = new Point(127, 150);
             answer1.Name = "answer1";
-            answer1.Size = new Size(112, 34);
+            answer1.Size = new Size(112, 35);
             answer1.TabIndex = 1;
             answer1.Text = "button1";
             answer1.UseVisualStyleBackColor = true;
+            answer1.Click += answer1_Click;
             // 
             // answer2
             // 
             answer2.Anchor = AnchorStyles.None;
+            answer2.AutoSize = true;
             answer2.Location = new Point(553, 150);
             answer2.Name = "answer2";
-            answer2.Size = new Size(112, 34);
+            answer2.Size = new Size(112, 35);
             answer2.TabIndex = 2;
             answer2.Text = "button2";
             answer2.UseVisualStyleBackColor = true;
+            answer2.Click += answer2_Click;
             // 
             // answer3
             // 
             answer3.Anchor = AnchorStyles.None;
+            answer3.AutoSize = true;
             answer3.Location = new Point(127, 311);
             answer3.Name = "answer3";
-            answer3.Size = new Size(112, 34);
+            answer3.Size = new Size(112, 35);
             answer3.TabIndex = 3;
             answer3.Text = "button3";
             answer3.UseVisualStyleBackColor = true;
+            answer3.Click += answer3_Click;
             // 
             // answer4
             // 
             answer4.Anchor = AnchorStyles.None;
+            answer4.AutoSize = true;
             answer4.Location = new Point(553, 311);
             answer4.Name = "answer4";
-            answer4.Size = new Size(112, 34);
+            answer4.Size = new Size(112, 35);
             answer4.TabIndex = 4;
             answer4.Text = "button4";
             answer4.UseVisualStyleBackColor = true;
+            answer4.Click += answer4_Click;
             // 
             // answerSelection
             // 

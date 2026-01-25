@@ -15,6 +15,22 @@ namespace vraagprogramma
             InitializeComponent();
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+            this.Load += feedBack_Load;
+            bool feedback = false;
+            if (feedback)
+            {
+                feedbackLbl.Text = "True!";
+            }
+            else
+            {
+                feedbackLbl.Text = "False!";
+            }
+        }
+        private void feedBack_Load(object sender, EventArgs e)
+        {
+            float fontSize = this.ClientSize.Height / 30;
+            feedbackLbl.Font = new Font(feedbackLbl.Font.FontFamily, fontSize, feedbackLbl.Font.Style);
+            feedbackLbl.Location = new Point((this.ClientSize.Width - feedbackLbl.Width) / 2, (int)(this.ClientSize.Height - feedbackLbl.Height)/2);
         }
     }
 }
