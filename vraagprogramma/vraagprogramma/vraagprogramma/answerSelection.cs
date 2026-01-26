@@ -17,13 +17,19 @@ namespace vraagprogramma
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.Load += answerSelection_Load;
+            questionLbl.Text = "question";
+            answer1.Text = "button1";
+            answer2.Text = "button2";
+            answer3.Text = "button3";
+            answer4.Text = "button4";
+
         }
 
 
         private void answerSelection_Load(object sender, EventArgs e)
         {
 
-            float fontSize = this.ClientSize.Height / 30;
+            float fontSize = this.ClientSize.Height / 25;
 
             questionLbl.Font = new Font(questionLbl.Font.FontFamily, fontSize, questionLbl.Font.Style);
 
@@ -48,17 +54,9 @@ namespace vraagprogramma
             //stuur 1 naar database
 
             feedBack feedback = new();
-            feedback.Owner = this;
-            this.Hide();
-            var result = feedback.ShowDialog(this);
+            feedback.Show();
+            feedback.FormClosed += (s, args) => this.Close();
 
-            if (result == DialogResult.Abort)
-            {
-                this.Close();
-                return;
-            }
-
-            this.Show();
         }
 
         private void answer2_Click(object sender, EventArgs e)
@@ -66,17 +64,9 @@ namespace vraagprogramma
             //stuur 2 naar database
 
             feedBack feedback = new();
-            feedback.Owner = this;
-            this.Hide();
-            var result = feedback.ShowDialog(this);
+            feedback.Show();
+            feedback.FormClosed += (s, args) => this.Close();
 
-            if (result == DialogResult.Abort)
-            {
-                this.Close();
-                return;
-            }
-
-            this.Show();
         }
 
         private void answer3_Click(object sender, EventArgs e)
@@ -84,17 +74,9 @@ namespace vraagprogramma
             //stuur 3 naar database
 
             feedBack feedback = new();
-            feedback.Owner = this;
-            this.Hide();
-            var result = feedback.ShowDialog(this);
+            feedback.Show();
+            feedback.FormClosed += (s, args) => this.Close();
 
-            if (result == DialogResult.Abort)
-            {
-                this.Close();
-                return;
-            }
-
-            this.Show();
         }
 
         private void answer4_Click(object sender, EventArgs e)
@@ -102,17 +84,10 @@ namespace vraagprogramma
             //stuur 4 naar database
 
             feedBack feedback = new();
-            feedback.Owner = this;
-            this.Hide();
-            var result = feedback.ShowDialog(this);
+            feedback.Show();
+            feedback.FormClosed += (s, args) => this.Close();
 
-            if (result == DialogResult.Abort)
-            {
-                this.Close();
-                return;
-            }
 
-            this.Show();
         }
     }
 }

@@ -43,6 +43,11 @@
             feedbackLbl.TabIndex = 0;
             feedbackLbl.Text = "feedback";
             // 
+            // timer1
+            // 
+            timer1.Interval = 5000;
+            timer1.Tick += timer1_Tick;
+            // 
             // feedBack
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
