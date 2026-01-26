@@ -30,7 +30,14 @@ namespace vraagprogramma
         {
             float fontSize = this.ClientSize.Height / 30;
             feedbackLbl.Font = new Font(feedbackLbl.Font.FontFamily, fontSize, feedbackLbl.Font.Style);
-            feedbackLbl.Location = new Point((this.ClientSize.Width - feedbackLbl.Width) / 2, (int)(this.ClientSize.Height - feedbackLbl.Height)/2);
+            feedbackLbl.Location = new Point((this.ClientSize.Width - feedbackLbl.Width) / 2, (int)(this.ClientSize.Height - feedbackLbl.Height) / 2);
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            
+            this.DialogResult = DialogResult.Abort;
+            this.Close();
         }
     }
 }

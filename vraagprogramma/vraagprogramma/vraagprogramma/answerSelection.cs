@@ -46,24 +46,75 @@ namespace vraagprogramma
         private void answer1_Click(object sender, EventArgs e)
         {
             //stuur 1 naar database
+
+            feedBack feedback = new();
+            feedback.Owner = this;
+            this.Hide();
+            var result = feedback.ShowDialog(this);
+
+            if (result == DialogResult.Abort)
+            {
+                this.Close();
+                return;
+            }
+
+            this.Show();
         }
 
         private void answer2_Click(object sender, EventArgs e)
         {
             //stuur 2 naar database
+
+            feedBack feedback = new();
+            feedback.Owner = this;
+            this.Hide();
+            var result = feedback.ShowDialog(this);
+
+            if (result == DialogResult.Abort)
+            {
+                this.Close();
+                return;
+            }
+
+            this.Show();
         }
 
         private void answer3_Click(object sender, EventArgs e)
         {
             //stuur 3 naar database
+
+            feedBack feedback = new();
+            feedback.Owner = this;
+            this.Hide();
+            var result = feedback.ShowDialog(this);
+
+            if (result == DialogResult.Abort)
+            {
+                this.Close();
+                return;
+            }
+
+            this.Show();
         }
 
         private void answer4_Click(object sender, EventArgs e)
         {
             //stuur 4 naar database
+
+            feedBack feedback = new();
+            feedback.Owner = this;
+            this.Hide();
+            var result = feedback.ShowDialog(this);
+
+            if (result == DialogResult.Abort)
+            {
+                this.Close();
+                return;
+            }
+
+            this.Show();
         }
     }
 }
-
 
 
