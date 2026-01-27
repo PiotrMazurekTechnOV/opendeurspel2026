@@ -1,6 +1,7 @@
 # API documentatie
-
-eerste npm install
+ga naar de terminal en ga naar command promt
+cd api
+npm install
 voor dev: npm run start
 voor productie: npm run prod
 
