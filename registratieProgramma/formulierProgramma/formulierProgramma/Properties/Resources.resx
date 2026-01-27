@@ -121,4 +121,13 @@
   <data name="Gemini_Generated_Image_j9jngij9jngij9jn" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Gemini_Generated_Image_j9jngij9jngij9jn.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="achtergrond " type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\achtergrond .png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="achtergrond registratie" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\achtergrond registratie.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="foto" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\foto.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

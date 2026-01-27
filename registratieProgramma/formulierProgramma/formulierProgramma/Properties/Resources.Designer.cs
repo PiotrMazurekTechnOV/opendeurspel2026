@@ -63,6 +63,36 @@ namespace formulierProgramma.Properties {
         /// <summary>
         ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap achtergrond_ {
+            get {
+                object obj = ResourceManager.GetObject("achtergrond ", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap achtergrond_registratie {
+            get {
+                object obj = ResourceManager.GetObject("achtergrond registratie", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap foto {
+            get {
+                object obj = ResourceManager.GetObject("foto", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Recherche une ressource localisée de type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Gemini_Generated_Image_j9jngij9jngij9jn {
             get {
                 object obj = ResourceManager.GetObject("Gemini_Generated_Image_j9jngij9jngij9jn", resourceCulture);
