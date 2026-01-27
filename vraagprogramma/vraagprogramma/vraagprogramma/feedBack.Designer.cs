@@ -28,12 +28,41 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "feedBack";
+            components = new System.ComponentModel.Container();
+            feedbackLbl = new Label();
+            timer1 = new System.Windows.Forms.Timer(components);
+            SuspendLayout();
+            // 
+            // feedbackLbl
+            // 
+            feedbackLbl.AutoSize = true;
+            feedbackLbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            feedbackLbl.Location = new Point(355, 155);
+            feedbackLbl.Name = "feedbackLbl";
+            feedbackLbl.Size = new Size(90, 25);
+            feedbackLbl.TabIndex = 0;
+            feedbackLbl.Text = "feedback";
+            // 
+            // timer1
+            // 
+            timer1.Interval = 5000;
+            timer1.Tick += timer1_Tick;
+            // 
+            // feedBack
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Controls.Add(feedbackLbl);
+            Name = "feedBack";
+            Text = "feedBack";
+            ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
+
+        private Label feedbackLbl;
+        private System.Windows.Forms.Timer timer1;
     }
 }
