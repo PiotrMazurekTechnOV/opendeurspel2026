@@ -43,11 +43,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::formulierProgramma.Properties.Resources.technov_formulier;
-            this.ClientSize = new System.Drawing.Size(1319, 577);
+            this.BackgroundImage = global::formulierProgramma.Properties.Resources.technov_formulier1;
+            this.ClientSize = new System.Drawing.Size(1201, 514);
             this.Controls.Add(this.label1);
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

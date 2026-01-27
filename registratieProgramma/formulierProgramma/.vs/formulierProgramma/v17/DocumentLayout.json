@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{70C2AD97-D4F8-43C9-A0B2-19FC4E2AD48C}|formulierProgramma\\formulierProgramma.csproj|c:\\users\\ayoubmahouti\\documents\\github\\opendeurspel2026\\registratieprogramma\\formulierprogramma\\formulierprogramma\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{70C2AD97-D4F8-43C9-A0B2-19FC4E2AD48C}|formulierProgramma\\formulierProgramma.csproj|solutionrelative:formulierprogramma\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{70C2AD97-D4F8-43C9-A0B2-19FC4E2AD48C}|formulierProgramma\\formulierProgramma.csproj|c:\\users\\ayoubmahouti\\documents\\github\\opendeurspel2026\\registratieprogramma\\formulierprogramma\\formulierprogramma\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{70C2AD97-D4F8-43C9-A0B2-19FC4E2AD48C}|formulierProgramma\\formulierProgramma.csproj|solutionrelative:formulierprogramma\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
@@ -22,23 +26,40 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Form1.cs",
+              "RelativeDocumentMoniker": "formulierProgramma\\Form1.cs",
+              "ToolTip": "C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Form1.cs*",
+              "RelativeToolTip": "formulierProgramma\\Form1.cs*",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAYwB4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-01-27T13:04:47.746Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "Form1.cs [Design]",
               "DocumentMoniker": "C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Form1.cs",
               "RelativeDocumentMoniker": "formulierProgramma\\Form1.cs",
-              "ToolTip": "C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Form1.cs [Design]",
-              "RelativeToolTip": "formulierProgramma\\Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Form1.cs [Design]*",
+              "RelativeToolTip": "formulierProgramma\\Form1.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-20T15:12:06.699Z",
               "EditorCaption": " [Design]"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Form1.Designer.cs",
               "DocumentMoniker": "C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Form1.Designer.cs",
               "RelativeDocumentMoniker": "formulierProgramma\\Form1.Designer.cs",
@@ -51,7 +72,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Form1.resx",
               "DocumentMoniker": "C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Form1.resx",
               "RelativeDocumentMoniker": "formulierProgramma\\Form1.resx",
@@ -59,10 +80,6 @@
               "RelativeToolTip": "formulierProgramma\\Form1.resx",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001005|",
               "WhenOpened": "2026-01-23T09:25:19.243Z"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
             }
           ]
         }

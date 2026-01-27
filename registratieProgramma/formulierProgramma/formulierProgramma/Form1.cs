@@ -16,5 +16,17 @@ namespace formulierProgramma
         {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            // Fullscreen
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.WindowState = FormWindowState.Maximized;
+
+
+            this.BackgroundImage = Image.FromFile("C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Resources\\technov formulier1.png");
+            this.BackgroundImageLayout = ImageLayout.Stretch; // past aan naar het hele scherm
+
+        }
     }
 }

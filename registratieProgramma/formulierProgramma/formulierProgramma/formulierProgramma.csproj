@@ -87,5 +87,8 @@
   <ItemGroup>
     <None Include="Resources\technov formulier.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\technov formulier1.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
