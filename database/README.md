@@ -52,7 +52,7 @@ WHERE id=1;
 ## Answers queries
 
 ### answers toevoegen:
-INSERT INTO answers(answers)
+INSERT INTO answers(answers, questions_id)
 VALUES
 ('Ja');
 
