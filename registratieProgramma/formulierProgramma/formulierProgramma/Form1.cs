@@ -24,7 +24,7 @@ namespace formulierProgramma
             this.WindowState = FormWindowState.Maximized;
 
 
-            this.BackgroundImage = Image.FromFile("C:\\Users\\AyoubMahouti\\Documents\\GitHub\\opendeurspel2026\\registratieProgramma\\formulierProgramma\\formulierProgramma\\Resources\\technov formulier1.png");
+            this.BackgroundImage = Image.FromFile("images/technov formulier1.png");
             this.BackgroundImageLayout = ImageLayout.Stretch; // past aan naar het hele scherm
 
         }
