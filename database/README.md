@@ -4,16 +4,16 @@ Deze query voegt een nieuwe gebruiker toe aan de users-tabel met de naam van de 
 ## User queries
 
 ### user toevoegen:
-INSERT INTO users (nameGuardian, nameChild, email, code)
+INSERT INTO opendeurspel.users (nameGuardian, nameChild, email, code)
 VALUES
 ('Mohamed', 'Kai', 'mohames@alibaba.com', 67);
 
 ### user verwijderen:
-DELETE FROM users
+DELETE FROM opendeurspel.users
 WHERE email='m%';
 
 ### user updaten:
-UPDATE users 
+UPDATE opendeurspel.users 
 SET nameGuardian = 'Kai', nameChild = 'Mohamed', email = 'Kai@Verret.com', code = 76
 WHERE id = 1;
 
@@ -21,48 +21,48 @@ WHERE id = 1;
 Deze query voegt een nieuwe klaslocatie toe aan de database door het lokaalnummer en de naam van het lokaal op te slaan in de tabel.
 
 ### locatie toevoegen:
-INSERT INTO locations (number, localName)
+INSERT INTO opendeurspel.locations (number, localName)
 VALUES
 (112, 'ICT');
 
 ### locatie update:
-UPDATE locations
+UPDATE opendeurspel.locations
 SET number ='103', localName = 'Industriële Automatisering lokaal'
 WHERE id = 1;
 
 ### locatie verwijderen:
-DELETE FROM users
+DELETE FROM opendeurspel.locations
 WHERE id=1;
 
 ## Questions queries
 
 ### question toevoegen:
-INSERT INTO questions (question, locations_id)
+INSERT INTO opendeurspel.questions (question, locations_id)
 VALUES
-('Is 6ICT de beste?');
+('Is 6ICT de beste?', 1);
 
 ### question verwijderen:
-DELETE FROM questions
+DELETE FROM opendeurspel.questions
 WHERE id=1;
 
 ### question updaten:
-DELETE FROM questions
-WHERE id=1;
+UPDATE opendeurspel.questions
+SET question = "Een ander vraag" WHERE id = 1
 
 ## Answers queries
 
 ### answers toevoegen:
-INSERT INTO answers(answers, questions_id)
+INSERT INTO opendeurspel.answers(answers, questions_id)
 VALUES
-('Ja');
+('Ja',1);
 
 ### answers updaten:
-UPDATE answers
+UPDATE opendeurspel.answers
 SET answers = 'nee'
 WHERE id = 1;
 
 ### answers verwijderen:
-DELETE FROM answers
+DELETE FROM opendeurspel.answers
 WHERE id= 1;
 
 ## Scores queries
