@@ -1,5 +1,9 @@
 # API documentatie
 
+eerste npm install
+voor dev: npm run start
+voor productie: npm run prod
+
 Deze API verzorgt de communicatie tussen de applicaties (adminprogramma, vraagprogramma en printprogramma) en de database van het opendeurspel.  
 De API ontvangt verzoeken om gebruikers, locaties, vragen, antwoorden en scores toe te voegen, aan te passen, op te vragen of te verwijderen,  
 en stuurt deze correct door naar de database.
