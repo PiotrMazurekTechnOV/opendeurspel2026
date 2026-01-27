@@ -28,7 +28,7 @@ namespace vraagprogramma
 
         private void answerSelection_Load(object sender, EventArgs e)
         {
-
+            
             float fontSize = this.ClientSize.Height / 25;
 
             questionLbl.Font = new Font(questionLbl.Font.FontFamily, fontSize, questionLbl.Font.Style);
