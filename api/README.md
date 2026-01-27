@@ -1,100 +1,116 @@
 # API documentatie
 
-Deze API verzorgt de communicatie tussen de applicaties (adminprogramma, vraagprogramma en printprogramma) en de database van het opendeurspel. 
-De API ontvangt verzoeken om gebruikers, locaties, vragen, antwoorden en scores toe te voegen, aan te passen, op te vragen of te verwijderen, 
+Deze API verzorgt de communicatie tussen de applicaties (adminprogramma, vraagprogramma en printprogramma) en de database van het opendeurspel.  
+De API ontvangt verzoeken om gebruikers, locaties, vragen, antwoorden en scores toe te voegen, aan te passen, op te vragen of te verwijderen,  
 en stuurt deze correct door naar de database.
 
 
 ## Users
 
-GET /user/get/:id
-Haalt een gebruiker op.  
-Verwacht: id of code
+GET /user/get/id/:id  
+Haalt een gebruiker op via id.  
+Verwacht: id
+
+GET /user/get/code/:code  
+Haalt een gebruiker op via code.  
+Verwacht: code
 
 POST /user/add  
 Voegt een gebruiker toe.  
 Verwacht: naam, email (optioneel)
 
-POST /user/update  
+POST /user/update/:id  
 Past een gebruiker aan.  
-Verwacht: id + nieuwe gegevens
+Verwacht: nieuwe gegevens
 
-GET /user/delete/:id
+POST /user/delete/:id  
 Verwijdert een gebruiker.  
 Verwacht: id
 
 
 ## Questions
 
-GET /question/get/:id
-Haalt een vraag op.  
-Verwacht: id of locationId
+GET /question/get/id/:id  
+Haalt een vraag op via id.  
+Verwacht: id
+
+GET /question/get/location/:locationId  
+Haalt een vraag op via locatie.  
+Verwacht: locationId
 
 POST /question/add  
 Voegt een vraag toe.  
 Verwacht: vraagtekst, locationId
 
-POST /question/update  
+POST /question/update/:id  
 Past een vraag aan.  
-Verwacht: id + nieuwe gegevens
+Verwacht: nieuwe gegevens
 
-GET /question/delete/:id
+POST /question/delete/:id  
 Verwijdert een vraag.  
 Verwacht: id
 
 
 ## Answers
 
-GET /answer/get/:id
-Haalt antwoorden op.  
-Verwacht: id of questionId
+GET /answer/get/id/:id  
+Haalt een antwoord op via id.  
+Verwacht: id
+
+GET /answer/get/question/:questionId  
+Haalt antwoorden op via questionId.  
+Verwacht: questionId
 
 POST /answer/add  
 Voegt een antwoord toe.  
 Verwacht: questionId, antwoordtekst, correct/incorrect
 
-POST /answer/update  
+POST /answer/update/:id  
 Past een antwoord aan.  
-Verwacht: id + nieuwe gegevens
+Verwacht: nieuwe gegevens
 
-GET /answer/delete/:id
+POST /answer/delete/:id  
 Verwijdert een antwoord.  
 Verwacht: id
 
 
 ## Score
 
-GET /score/get/:id
-Haalt score(s) op.  
-Verwacht: code of id
+GET /score/get/id/:id  
+Haalt een score op via id.  
+Verwacht: id
+
+GET /score/get/code/:code  
+Haalt score(s) op via code.  
+Verwacht: code
 
 POST /score/add  
 Voegt een score toe.  
 Verwacht: code, questionId, answerId
 
-POST /score/update  
+POST /score/update/:id  
 Past een score aan.  
-Verwacht: id + nieuwe gegevens
+Verwacht: nieuwe gegevens
 
-GET /score/delete/:id
+POST /score/delete/:id  
 Verwijdert een score.  
 Verwacht: id
 
 
 ## Locations
 
-GET /location/get/:id
-Haalt een locatie op.  
+GET /location/get/id/:id  
+Haalt een locatie op via id.  
 Verwacht: id
 
 POST /location/add  
 Voegt een locatie toe.  
 Verwacht: naam
 
-POST /location/update  
+POST /location/update/:id  
 Past een locatie aan.  
-Verwacht: id + nieuwe gegevens
+Verwacht: nieuwe gegevens
 
-GET /location/delete/:id
+POST /location/delete/:id  
 Verwijdert een locatie.  
 Verwacht: id
