@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Windows.Forms;
 
@@ -10,10 +12,17 @@ namespace vraagprogramma
 {
     public partial class feedBack : Form
     {
+        static HttpClient client;
         bool reset = false;
         public feedBack()
         {
             InitializeComponent();
+
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:8081/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.Load += feedBack_Load;
