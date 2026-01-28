@@ -28,6 +28,89 @@ async function connect() {
 
 //user
 
+// GET user via id
+app.get("/user/get/id/:id", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM users WHERE id = ?", [req.params.id]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET user via code
+app.get("/user/get/code/:code", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST add user
+app.post("/user/add", async (req, res) => {
+  try {
+    const { nameGuardian, nameChild, email, code } = req.body;
+
+    if (!nameGuardian || !nameChild || !email || code === undefined) {
+      return res.status(400).json({ error: "nameGuardian, nameChild, email, code are required" });
+    }
+
+    const con = await connect();
+    await con.execute(
+      "INSERT INTO users (nameGuardian, nameChild, email, code) VALUES (?, ?, ?, ?)",
+      [nameGuardian, nameChild, email, code]
+    );
+    await con.end();
+
+    res.status(201).json({ message: "User added" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST update user
+app.post("/user/update/:id", async (req, res) => {
+  try {
+    const { nameGuardian, nameChild, email, code } = req.body;
+
+    const con = await connect();
+    const [result] = await con.execute(
+      "UPDATE users SET nameGuardian = ?, nameChild = ?, email = ?, code = ? WHERE id = ?",
+      [nameGuardian, nameChild, email, code, req.params.id]
+    );
+    await con.end();
+
+    if (result.affectedRows === 0) return res.status(404).json({ error: "User not found" });
+    res.json({ message: "User updated" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST delete user
+app.post("/user/delete/:id", async (req, res) => {
+  try {
+    const con = await connect();
+    const [result] = await con.execute("DELETE FROM users WHERE id = ?", [req.params.id]);
+    await con.end();
+
+    if (result.affectedRows === 0) return res.status(404).json({ error: "User not found" });
+    res.json({ message: "User deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 //questions
 
 //answers
