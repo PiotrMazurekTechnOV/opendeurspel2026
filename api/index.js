@@ -48,9 +48,9 @@ server.post("/question/create", async (req, res) => {
       }*/ //not needed yet?
 
       const con = await connect(); 
-      const query = `INSERT INTO users (locations_id, text) VALUES 
+      const query = `INSERT INTO opendeurspel.users (locations_id, question) VALUES 
       (?, ?)`;
-      await con.execute(query, [locations_id, text]);
+      await con.execute(query, [locations_id, question]);
 
       await con.end(); 
       res.status(201).json({ message: "Question created successfully!" });
@@ -59,6 +59,23 @@ server.post("/question/create", async (req, res) => {
   //}
 });
 
+// question update
+app.post("/question/update/", async (req, res)=>{
+ //try {
+    const { id, question} = req.body;
+     //if(!id || !question) {
+      //return res.status(400).json({error: "All fields are required."});
+    //}
+    const con = await connect(); 
+      const query = `UPDATE opendeurspel.questions SET question = ? WHERE id = ?`;
+      await con.execute(query, [id, question]);
+
+      await con.end(); 
+      res.status(200).json({ message: "Data updated!" });
+  //} catch (error) {
+    //res.json(error);
+  //}
+});
 
 //answers
 
