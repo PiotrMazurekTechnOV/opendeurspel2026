@@ -115,6 +115,91 @@ app.post("/user/delete/:id", async (req, res) => {
 
 //answers
 
+// GET answer via id
+app.get("/answer/get/id/:id", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answers WHERE id = ?", [req.params.id]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "Answer not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET answers via questionId
+app.get("/answer/get/question/:questionId", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answers WHERE questions_id = ?", [req.params.questionId]);
+    await con.end();
+
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST add answer
+app.post("/answer/add", async (req, res) => {
+  try {
+    const { answers, questions_id } = req.body;
+
+    if (!answers || questions_id === undefined) {
+      return res.status(400).json({ error: "answers and questions_id are required" });
+    }
+
+    const con = await connect();
+    await con.execute(
+      "INSERT INTO answers (answers, questions_id) VALUES (?, ?)",
+      [answers, questions_id]
+    );
+    await con.end();
+
+    res.status(201).json({ message: "Answer added" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST update answer
+app.post("/answer/update/:id", async (req, res) => {
+  try {
+    const { answers, questions_id } = req.body;
+
+    if (!answers || questions_id === undefined) {
+      return res.status(400).json({ error: "answers and questions_id are required" });
+    }
+
+    const con = await connect();
+    const [result] = await con.execute(
+      "UPDATE answers SET answers = ?, questions_id = ? WHERE id = ?",
+      [answers, questions_id, req.params.id]
+    );
+    await con.end();
+
+    if (result.affectedRows === 0) return res.status(404).json({ error: "Answer not found" });
+    res.json({ message: "Answer updated" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST delete answer
+app.post("/answer/delete/:id", async (req, res) => {
+  try {
+    const con = await connect();
+    const [result] = await con.execute("DELETE FROM answers WHERE id = ?", [req.params.id]);
+    await con.end();
+
+    if (result.affectedRows === 0) return res.status(404).json({ error: "Answer not found" });
+    res.json({ message: "Answer deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 //locations
 //locations(voorbeeld code)
 app.post("/locations/create", async (req, res) => {
