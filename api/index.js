@@ -29,7 +29,7 @@ async function connect() {
 //user
 
 //questions
-//question create
+//question add
 server.post("/question/add", async (req, res) => {
   //try {
       const { locations_id, question } = req.body;
@@ -44,7 +44,7 @@ server.post("/question/add", async (req, res) => {
       await con.execute(query, [locations_id, question]);
 
       await con.end(); 
-      res.status(201).json({ message: "Question created successfully!" });
+      res.status(201).json({ message: "Question added successfully!" });
   //} catch (error) {
     //res.json(error);
   //}
@@ -84,6 +84,33 @@ server.post("/question/delete/", async (req, res)=>{
       res.status(200).json({ message: "Question deleted" });
     }
     catch (error){ res.status(500).json(error);}
+});
+// read question on id
+app.get("/question/read/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params; // Get the question ID from the URL
+
+    if (!id) {
+      return res.status(400).json({ error: "Please provide a question ID." });
+    }
+
+    const con = await connect(); 
+    const query = "SELECT * FROM questions WHERE id = ?";
+    
+    const [rows] = await con.execute(query, [id]);
+    console.log(rows)
+    con.end(); 
+
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Question not found." });
+    }
+
+    res.json({ message: "Question read successfully!", data: rows });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong with the server." });
+  }
 });
 
 //answers
