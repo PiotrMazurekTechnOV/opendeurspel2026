@@ -117,13 +117,7 @@ namespace vraagprogramma
         }
     }
 
-    public class User
-    {
-        public int id { get; set; }
-        public string nameChild { get; set; }
-        public string nameGuardian { get; set; }
-        public int code { get; set; }
-    }
+
 
     public class  Question
     {
