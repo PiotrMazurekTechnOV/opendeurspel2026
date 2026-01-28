@@ -38,6 +38,27 @@ app.get("/", (req, res) => {
 //user
 
 //questions
+//question create
+server.post("/question/create", async (req, res) => {
+  //try {
+      const { locations_id, question } = req.body;
+
+      /*if (!locations_id || !question) {
+          return res.status(400).json({ error: "Some fields are required." });
+      }*/ //not needed yet?
+
+      const con = await connect(); 
+      const query = `INSERT INTO users (locations_id, text) VALUES 
+      (?, ?)`;
+      await con.execute(query, [locations_id, text]);
+
+      await con.end(); 
+      res.status(201).json({ message: "Question created successfully!" });
+  //} catch (error) {
+    //res.json(error);
+  //}
+});
+
 
 //answers
 
