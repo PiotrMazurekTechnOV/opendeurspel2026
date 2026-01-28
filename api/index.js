@@ -24,6 +24,15 @@ async function connect() {
     }
 }
 
+// Start server
+const PORT = process.env.PORT;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+app.get("/", (req, res) => {
+  res.send("WELKOM!!!");
+});
+
 //endpoints programmeren (correcte URL en correcte SQL queries uitvoeren) + response terugsturen//user
 
 //user
