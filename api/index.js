@@ -116,6 +116,100 @@ app.post("/user/delete/:id", async (req, res) => {
 //answers
 
 //locations
+//locations(voorbeeld code)
+app.post("/locations/create", async (req, res) => {
+  try {
+      const { number, name } = req.body;
+
+      if (!number || !name) {
+          return res.status(400).json({ error: "All fields are required." });
+      }
+
+      const con = await connect(); 
+      const query = `INSERT INTO users (number, name) VALUES 
+      (?, ?)`;
+      await con.execute(query, [number, name]);
+
+      await con.end(); 
+      res.status(201).json({ message: "Location created successfully!" });
+  } catch (error) {
+    res.json(error);
+  }
+});
+
+//UPDATES
+app.post("/location/update", async (req, res)=>{
+  try {
+    const { number, name} = req.body;
+    if(!number || !name) {
+      return res.status(400).json({error: "All fields are required."});
+    }
+    const con = await connect(); 
+      const query = `UPDATE locations SET name = ? WHERE number = ?`;
+      await con.execute(query, [name, number]);
+
+      await con.end(); 
+      res.status(200).json({ message: "Data updated!" });
+  } catch (error) {
+    res.json(error);
+  }}
+);
+
+//Read Locations
+app.get("/locations/read/:id", async (req, res, next) => {
+  try {
+    const { id } = req.params; 
+
+    if (!id) {
+      return res.status(400).json({ error: "Please provide a location ID." });
+    }
+
+    const con = await connect(); 
+    const query = "SELECT * FROM locations WHERE id = ?";
+    
+    // Execute query properly
+    const [rows] = await con.execute(query, [id]);
+    console.log(rows)
+    con.end(); // Close connection after the query
+
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Location not found." });
+    }
+
+    res.json({ data: rows });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+
+//DELETE location
+app.get("/location/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Haal het answer ID uit de URL
+
+    if (!id) {
+      return res.status(400).json({ error: "Please provide an location ID." });
+    }
+
+    const con = await connect(); 
+    const query = "DELETE FROM location WHERE id = ?"; 
+    const [result] = await con.execute(query, [id]); // Voer de delete query uit
+
+    await con.end(); 
+    
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Location not found." });
+    }
+
+    res.json({ message: "Location deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
 
 //scores
 //voorbeeld code (niet met onze database verbonden)
@@ -183,7 +277,7 @@ app.post("/scores/create", async (req, res) => {
     console.error(error);
   }});
 
-   //DELETE location
+   //DELETE score
    //er is geen DELETE voor score dus baseer mij op die van location
   app.get("/score/delete/:id", async (req, res) => {
   try {
