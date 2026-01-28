@@ -24,11 +24,11 @@ POST /user/add
 Voegt een gebruiker toe.  
 Verwacht: naam, email (optioneel)
 
-POST /user/update/:id  
+POST /user/update
 Past een gebruiker aan.  
 Verwacht: nieuwe gegevens
 
-POST /user/delete/:id  
+POST /user/delete
 Verwijdert een gebruiker.  
 Verwacht: id
 
@@ -47,11 +47,11 @@ POST /question/add
 Voegt een vraag toe.  
 Verwacht: vraagtekst, locationId
 
-POST /question/update/:id  
+POST /question/update
 Past een vraag aan.  
 Verwacht: nieuwe gegevens
 
-POST /question/delete/:id  
+POST /question/delete
 Verwijdert een vraag.  
 Verwacht: id
 
@@ -70,11 +70,11 @@ POST /answer/add
 Voegt een antwoord toe.  
 Verwacht: questionId, antwoordtekst, correct/incorrect
 
-POST /answer/update/:id  
+POST /answer/update
 Past een antwoord aan.  
 Verwacht: nieuwe gegevens
 
-POST /answer/delete/:id  
+POST /answer/delete
 Verwijdert een antwoord.  
 Verwacht: id
 
@@ -93,11 +93,11 @@ POST /score/add
 Voegt een score toe.  
 Verwacht: code, questionId, answerId
 
-POST /score/update/:id  
+POST /score/update
 Past een score aan.  
 Verwacht: nieuwe gegevens
 
-POST /score/delete/:id  
+POST /score/delete
 Verwijdert een score.  
 Verwacht: id
 
@@ -112,10 +112,10 @@ POST /location/add
 Voegt een locatie toe.  
 Verwacht: naam
 
-POST /location/update/:id  
+POST /location/update
 Past een locatie aan.  
 Verwacht: nieuwe gegevens
 
-POST /location/delete/:id  
+POST /location/delete
 Verwijdert een locatie.  
 Verwacht: id
