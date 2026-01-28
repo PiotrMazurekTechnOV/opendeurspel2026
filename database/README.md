@@ -77,4 +77,4 @@ SET status = 1 WHERE id = 1;
 
 ### score verwijderen:
 DELETE FROM opendeurspel.scores 
-WHERE id = 1;
+WHERE id = 1;   
