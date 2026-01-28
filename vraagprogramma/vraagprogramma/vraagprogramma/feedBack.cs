@@ -26,14 +26,16 @@ namespace vraagprogramma
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.Load += feedBack_Load;
-            bool feedback = false;
+            bool feedback = true;
             if (feedback)
             {
                 feedbackLbl.Text = "True!";
+                this.BackColor = Color.LightGreen;
             }
             else
             {
                 feedbackLbl.Text = "False!";
+                this.BackColor = Color.Red;
             }
         }
         private void feedBack_Load(object sender, EventArgs e)
