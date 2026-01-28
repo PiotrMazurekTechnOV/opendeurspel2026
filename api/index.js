@@ -24,15 +24,6 @@ async function connect() {
     }
 }
 
-// Start server
-const PORT = process.env.PORT;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
-});
-server.get("/", (req, res) => {
-  res.send("WELKOM!!!");
-});
-
 //endpoints programmeren (correcte URL en correcte SQL queries uitvoeren) + response terugsturen//user
 
 //user
@@ -101,3 +92,12 @@ server.post("/question/delete/", async (req, res)=>{
 
 //scores
 
+
+// Start server
+const PORT = process.env.PORT;
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+server.get("/", (req, res) => {
+  res.send("WELKOM!!!");
+});
