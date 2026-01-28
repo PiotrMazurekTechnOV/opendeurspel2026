@@ -29,7 +29,7 @@ async function connect() {
 //user
 
 // GET user via id
-app.get("/user/get/id/:id", async (req, res) => {
+server.get("/user/get/id/:id", async (req, res) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT * FROM users WHERE id = ?", [req.params.id]);
@@ -43,7 +43,7 @@ app.get("/user/get/id/:id", async (req, res) => {
 });
 
 // GET user via code
-app.get("/user/get/code/:code", async (req, res) => {
+server.get("/user/get/code/:code", async (req, res) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
@@ -57,7 +57,7 @@ app.get("/user/get/code/:code", async (req, res) => {
 });
 
 // POST add user
-app.post("/user/add", async (req, res) => {
+server.post("/user/add", async (req, res) => {
   try {
     const { nameGuardian, nameChild, email, code } = req.body;
 
@@ -79,7 +79,7 @@ app.post("/user/add", async (req, res) => {
 });
 
 // POST update user
-app.post("/user/update/:id", async (req, res) => {
+server.post("/user/update/:id", async (req, res) => {
   try {
     const { nameGuardian, nameChild, email, code } = req.body;
 
@@ -98,7 +98,7 @@ app.post("/user/update/:id", async (req, res) => {
 });
 
 // POST delete user
-app.post("/user/delete/:id", async (req, res) => {
+server.post("/user/delete/:id", async (req, res) => {
   try {
     const con = await connect();
     const [result] = await con.execute("DELETE FROM users WHERE id = ?", [req.params.id]);
@@ -169,7 +169,7 @@ server.post("/question/delete/", async (req, res)=>{
     catch (error){ res.status(500).json(error);}
 });
 // read question on id
-app.get("/question/read/:id", async (req, res, next) => {
+server.get("/question/read/:id", async (req, res, next) => {
   try {
     const { id } = req.params; // Get the question ID from the URL
 
@@ -199,7 +199,7 @@ app.get("/question/read/:id", async (req, res, next) => {
 //answers
 
 // GET answer via id
-app.get("/answer/get/id/:id", async (req, res) => {
+server.get("/answer/get/id/:id", async (req, res) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT * FROM answers WHERE id = ?", [req.params.id]);
@@ -213,7 +213,7 @@ app.get("/answer/get/id/:id", async (req, res) => {
 });
 
 // GET answers via questionId
-app.get("/answer/get/question/:questionId", async (req, res) => {
+server.get("/answer/get/question/:questionId", async (req, res) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT * FROM answers WHERE questions_id = ?", [req.params.questionId]);
@@ -226,7 +226,7 @@ app.get("/answer/get/question/:questionId", async (req, res) => {
 });
 
 // POST add answer
-app.post("/answer/add", async (req, res) => {
+server.post("/answer/add", async (req, res) => {
   try {
     const { answers, questions_id } = req.body;
 
@@ -248,7 +248,7 @@ app.post("/answer/add", async (req, res) => {
 });
 
 // POST update answer
-app.post("/answer/update/:id", async (req, res) => {
+server.post("/answer/update/:id", async (req, res) => {
   try {
     const { answers, questions_id } = req.body;
 
@@ -271,7 +271,7 @@ app.post("/answer/update/:id", async (req, res) => {
 });
 
 // POST delete answer
-app.post("/answer/delete/:id", async (req, res) => {
+server.post("/answer/delete/:id", async (req, res) => {
   try {
     const con = await connect();
     const [result] = await con.execute("DELETE FROM answers WHERE id = ?", [req.params.id]);
@@ -285,7 +285,7 @@ app.post("/answer/delete/:id", async (req, res) => {
 });
 //locations
 //locations(voorbeeld code)
-app.post("/locations/create", async (req, res) => {
+server.post("/locations/create", async (req, res) => {
   try {
       const { number, name } = req.body;
 
@@ -306,7 +306,7 @@ app.post("/locations/create", async (req, res) => {
 });
 
 //UPDATES
-app.post("/location/update", async (req, res)=>{
+server.post("/location/update", async (req, res)=>{
   try {
     const { number, name} = req.body;
     if(!number || !name) {
@@ -324,7 +324,7 @@ app.post("/location/update", async (req, res)=>{
 );
 
 //Read Locations
-app.get("/locations/read/:id", async (req, res, next) => {
+server.get("/locations/read/:id", async (req, res, next) => {
   try {
     const { id } = req.params; 
 
@@ -354,7 +354,7 @@ app.get("/locations/read/:id", async (req, res, next) => {
 
 
 //DELETE location
-app.get("/location/delete/:id", async (req, res) => {
+server.get("/location/delete/:id", async (req, res) => {
   try {
     const { id } = req.params; // Haal het answer ID uit de URL
 
@@ -381,7 +381,7 @@ app.get("/location/delete/:id", async (req, res) => {
 
 //scores
 //voorbeeld code (niet met onze database verbonden)
-app.post("/scores/create", async (req, res) => {
+server.post("/scores/create", async (req, res) => {
   try {
       const { user_id, question_id, correct } = req.body;
 
@@ -404,7 +404,7 @@ app.post("/scores/create", async (req, res) => {
   }})
 
   //update score
-  app.post("/score/update/", async (req, res)=>{
+  server.post("/score/update/", async (req, res)=>{
   try {
     const { user_id, question_id, correct} = req.body;
     if(!user_id || !question_id || !correct) {
@@ -422,7 +422,7 @@ app.post("/scores/create", async (req, res) => {
 
 
     //Read scores
-  app.get("/scores/read/:id", async (req, res, next) => {
+  server.get("/scores/read/:id", async (req, res, next) => {
   try {
     const { id } = req.params; 
 
@@ -450,7 +450,7 @@ app.post("/scores/create", async (req, res) => {
 
    //DELETE score
    //er is geen DELETE voor score dus baseer mij op die van location
-  app.get("/score/delete/:id", async (req, res) => {
+  server.get("/score/delete/:id", async (req, res) => {
   try {
     const { id } = req.params; // Haal het answer ID uit de URL
 
