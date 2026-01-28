@@ -26,10 +26,10 @@ async function connect() {
 
 // Start server
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
-app.get("/", (req, res) => {
+server.get("/", (req, res) => {
   res.send("WELKOM!!!");
 });
 
@@ -39,7 +39,7 @@ app.get("/", (req, res) => {
 
 //questions
 //question create
-server.post("/question/create", async (req, res) => {
+server.post("/question/add", async (req, res) => {
   //try {
       const { locations_id, question } = req.body;
 
@@ -60,7 +60,7 @@ server.post("/question/create", async (req, res) => {
 });
 
 // question update
-app.post("/question/update/", async (req, res)=>{
+server.post("/question/update/", async (req, res)=>{
  //try {
     const { id, question} = req.body;
      //if(!id || !question) {
@@ -75,6 +75,24 @@ app.post("/question/update/", async (req, res)=>{
   //} catch (error) {
     //res.json(error);
   //}
+});
+// question delete
+server.post("/question/delete/", async (req, res)=>{
+    try {
+    const id = req.body;
+
+    if (!id) {
+      return res.status(400).json({ error: "Please provide a question ID." });
+    }
+
+    const con = await connect(); 
+    const query = `DELETE FROM questions WHERE id = ?`;
+    await con.execute(query, [id]);
+
+    await con.end(); 
+      res.status(200).json({ message: "Question deleted" });
+    }
+    catch (error){ res.status(500).json(error);}
 });
 
 //answers
