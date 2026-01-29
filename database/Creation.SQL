@@ -18,9 +18,9 @@ localName char(60)
 #table questions aanmaken:
 CREATE TABLE questions(
 id INT Primary Key Auto_Increment,
-question char(150),
-locations_id INT,
-FOREIGN KEY (locations_id) REFERENCES locations(id)
+text char(150),
+location_id INT,
+FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
 #table answers aanmaken:
