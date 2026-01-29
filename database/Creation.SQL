@@ -26,9 +26,10 @@ FOREIGN KEY (locations_id) REFERENCES locations(id)
 #table answers aanmaken:
 CREATE TABLE answers(
 id INT Primary Key Auto_Increment,
-answers char(150),
-questions_id INT NOT NULL,
-FOREIGN KEY (questions_id) REFERENCES questions(id)
+text char(150),
+correct BOOLEAN DEFAULT false,
+question_id INT NOT NULL,
+FOREIGN KEY (question_id) REFERENCES questions(id)
 );
 
 #table scores aanmaken:
@@ -42,9 +43,3 @@ CREATE TABLE scores (
 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );
-
-
-
-
-
-
