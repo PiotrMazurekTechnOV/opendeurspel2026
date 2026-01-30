@@ -27,6 +27,13 @@ namespace vraagprogramma
             vraagCode.Top = label1.Bottom + 20;
             textBox1.Left = (this.ClientSize.Width - textBox1.Width) / 2;
             textBox1.Top = vraagCode.Bottom + 10;
+            confirmBtn.Left = (this.ClientSize.Width - confirmBtn.Width) / 2;
+            confirmBtn.Top = textBox1.Bottom + 20;
+        }
+
+        private void confirmBtn_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
