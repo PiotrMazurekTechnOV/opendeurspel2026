@@ -67,7 +67,7 @@
             this.cuiButton1.HoverOutline = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.cuiButton1.Image = null;
             this.cuiButton1.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton1.Location = new System.Drawing.Point(1482, 529);
+            this.cuiButton1.Location = new System.Drawing.Point(568, 520);
             this.cuiButton1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cuiButton1.Name = "cuiButton1";
             this.cuiButton1.NormalBackground = System.Drawing.Color.White;

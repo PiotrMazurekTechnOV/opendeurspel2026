@@ -61,6 +61,7 @@ namespace formulierProgramma
 
             // achtergrond aanpassen
             this.BackgroundImageLayout = ImageLayout.Stretch; // past aan naar het hele scherm
+            UpdateLabelPositions();
         }
 
         public class User
@@ -83,6 +84,19 @@ namespace formulierProgramma
         {
 
         }
+
+        private void UpdateLabelPositions()
+        {
+            naam_label.Left = this.ClientSize.Width/30;
+            naam_label.Top = this.ClientSize.Height/3;
+
+            naamOuder_label.Left = this.ClientSize.Width/30;
+            naamOuder_label.Top = this.ClientSize.Height/2;
+
+            email_Label.Left = this.ClientSize.Width/30;
+            email_Label.Top = this.ClientSize.Height / 3 * 2;
+        }
+
 
 
 
