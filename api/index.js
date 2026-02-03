@@ -402,45 +402,65 @@ server.get("/locations/read/:id", async (req, res, next) => {
 
 //scores
 //voorbeeld code (niet met onze database verbonden)
-server.post("/scores/create", async (req, res) => {
-  try {
-      const { user_id, question_id, correct } = req.body;
+//^ nu wel
+server.post("/scores/add", async (req, res) => {
+  //try {
+      const { user_id, question_id, status } = req.body;
 
-
-
-
-      if (!user_id || !question_id ||!correct) {
+      /*if (!user_id || !question_id ||!status) {
           return res.status(400).json({ error: "All fields are required." });
-      }
+      }*/
 
       const con = await connect(); 
-      const query = `INSERT INTO users (user_id, question_id, correct) VALUES 
+      const query = `INSERT INTO users (user_id, question_id, status) VALUES 
       (?, ?, ?)`;
-      await con.execute(query, [user_id, question_id, correct]);
+      await con.execute(query, [user_id, question_id, status]);
 
       await con.end(); 
-      res.status(201).json({ message: "Scores created successfully!" });
-  } catch (error) {
-    res.json(error);
-  }})
+      res.status(201).json({ message: "Score added successfully!" });
+  //} catch (error) {
+    //res.json(error);
+  //}
+  })
 
   //update score
   server.post("/score/update/", async (req, res)=>{
-  try {
-    const { user_id, question_id, correct} = req.body;
-    if(!user_id || !question_id || !correct) {
+  //try {
+    const { question_id, status} = req.body;
+    /*if(!user_id || !question_id || !status) {
       return res.status(400).json({error: "All fields are required."});
-    }
+    }*/
     const con = await connect(); 
-      const query = `UPDATE scores SET user_id = ?, correct = ?, WHERE location_id = ?`;
-      await con.execute(query, [location_id, text]);
+      const query = `UPDATE scores SET status = ?, WHERE question_id = ?`;
+      await con.execute(query, [status, question_id]);
 
       await con.end(); 
       res.status(200).json({ message: "Data updated!" });
-  } catch (error) {
-    res.json(error);
-  }})
+  //} catch (error) {
+    //res.json(error);
+  //}
+  })
 
+   //score delete
+   //er is geen DELETE voor score dus baseer mij op die van location
+   //^ beter was om op die van question te baseren
+  server.post("/score/delete/", async (req, res) => {
+    try {
+      const id = req.body;
+
+      if (!id) {
+        return res.status(400).json({ error: "Please provide a score ID." });
+      }
+
+      const con = await connect(); 
+      const query = `DELETE FROM scores WHERE id = ?`;
+      await con.execute(query, [id]);
+      await con.end(); 
+
+      res.status(200).json({ message: "Score deleted" });
+    }
+    catch (error){ res.status(500).json({error: "But it refused"});}//heh
+});
 
     //Read scores
   server.get("/scores/read/:id", async (req, res, next) => {
@@ -468,32 +488,6 @@ server.post("/scores/create", async (req, res) => {
   } catch (error) {
     console.error(error);
   }});
-
-   //DELETE score
-   //er is geen DELETE voor score dus baseer mij op die van location
-  server.get("/score/delete/:id", async (req, res) => {
-  try {
-    const { id } = req.params; // Haal het answer ID uit de URL
-
-    if (!id) {
-      return res.status(400).json({ error: "Please provide an score ID." });
-    }
-
-    const con = await connect(); 
-    const query = "DELETE FROM score WHERE id = ?"; 
-    const [result] = await con.execute(query, [id]); // Voer de delete query uit
-
-    await con.end(); 
-    
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Score not found." });
-    }
-
-    res.json({ message: "Score deleted successfully!" });
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong." });
-  }
-});
 
 // Start server
 const PORT = process.env.PORT;
