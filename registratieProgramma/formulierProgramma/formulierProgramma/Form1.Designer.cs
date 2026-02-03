@@ -78,6 +78,7 @@
             this.cuiButton1.TextAlignment = System.Drawing.StringAlignment.Center;
             this.cuiButton1.TextPadding = 12;
             this.cuiButton1.TextSpacing = 2;
+            this.cuiButton1.Click += new System.EventHandler(this.cuiButton1_Click);
             // 
             // Form1
             // 

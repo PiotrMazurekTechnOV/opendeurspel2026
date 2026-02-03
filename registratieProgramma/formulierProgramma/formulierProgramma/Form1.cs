@@ -72,5 +72,11 @@ namespace formulierProgramma
             public int code { get; set; }
         }
 
+        private void cuiButton1_Click(object sender, EventArgs e)
+        {
+            Code codewindow = new Code();
+            this.Hide();
+            codewindow.Show();
+        }
     }
 }
