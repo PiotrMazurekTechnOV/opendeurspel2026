@@ -180,11 +180,11 @@ server.post("/question/delete/", async (req, res)=>{
     const con = await connect(); 
     const query = `DELETE FROM questions WHERE id = ?`;
     await con.execute(query, [id]);
-
     await con.end(); 
+
       res.status(200).json({ message: "Question deleted" });
     }
-    catch (error){ res.status(500).json(error);}
+    catch (error){ res.status(500).json({error: "Something went terribly wrong"});}
 });
 // read question on id
 server.get("/question/get/:id", async (req, res, next) => {
@@ -200,12 +200,8 @@ server.get("/question/get/:id", async (req, res, next) => {
     const [rows] = await con.execute(query, [id]);
     con.end(); 
 
-    if (rows.length === 0) { // Checking if the result set is empty
-      return res.status(404).json({ error: "Question not found." });
-    }
-    res.json({ message: "Question read successfully!", data: rows });
+    res.status(200).json({ message: "Question read successfully!", data: rows });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Something went wrong with the server." });
   }
 });
@@ -213,130 +209,167 @@ server.get("/question/get/:id", async (req, res, next) => {
 //answers
 // POST add answer
 server.post("/answer/add", async (req, res) => {
-  try {
-    const { answers, questions_id } = req.body;
-///// don't forget to change all "answers" to "text"
-// don't forget to thange all "questions_id" to "question_id"
-    if (!answers || questions_id === undefined) {
-      return res.status(400).json({ error: "answers and questions_id are required" });
-    }
+  //try {
+    const { text, question_id } = req.body;
+    //if (!text || question_id === undefined) {
+      //return res.status(400).json({ error: "answer and question_id are required" });
+    //}
 
     const con = await connect();
     await con.execute(
-      "INSERT INTO answers (answers, questions_id) VALUES (?, ?)",
-      [answers, questions_id]
+      "INSERT INTO answers (text, question_id) VALUES (?, ?)",
+      [text, question_id]
     );
     await con.end();
-
     res.status(201).json({ message: "Answer added" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+  //} catch (err) {
+    //res.status(500).json({ error: err.message });
+  //}
 });
 
 // POST update answer
-server.post("/answer/update/:id", async (req, res) => {
-  try {
-    const { answers, questions_id } = req.body;
+server.post("/answer/update/", async (req, res) => {
+  //try {
+    const { id, text } = req.body;
 
-    if (!answers || questions_id === undefined) {
-      return res.status(400).json({ error: "answers and questions_id are required" });
-    }
+    //if (!id || !text ) {
+      //return res.status(400).json({ error: "not all fields are filled" });
+    //}
 
     const con = await connect();
-    const [result] = await con.execute(
-      "UPDATE answers SET answers = ?, questions_id = ? WHERE id = ?",
-      [answers, questions_id, req.params.id]
+    await con.execute(
+      "UPDATE answers SET text = ? WHERE id = ?",
+      [id,text]
     );
     await con.end();
 
-    if (result.affectedRows === 0) return res.status(404).json({ error: "Answer not found" });
-    res.json({ message: "Answer updated" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    //if (result.affectedRows === 0) return res.status(404).json({ error: "Answer not found" });
+    res.status(200).json({ message: "Answer updated" });
+  //} catch (err) {
+    //res.status(500).json({ error: err.message });
+  //}
 });
 
 // POST delete answer
-server.post("/answer/delete/:id", async (req, res) => {
+server.post("/answer/delete/", async (req, res) => {
   try {
-    const con = await connect();
-    const [result] = await con.execute("DELETE FROM answers WHERE id = ?", [req.params.id]);
-    await con.end();
+    const id = req.body;
 
-    if (result.affectedRows === 0) return res.status(404).json({ error: "Answer not found" });
-    res.json({ message: "Answer deleted" });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
+    if (!id) {
+      return res.status(400).json({ error: "Please provide an answer ID." });
+    }
+
+    const con = await connect(); 
+    const query = `DELETE FROM answers WHERE id = ?`;
+    await con.execute(query, [id]);
+    await con.end(); 
+
+      res.status(200).json({ message: "Answer deleted" });
+    }
+  catch (error){ res.status(500).json(error);}
 });
+ 
+
 // GET answer via id
 server.get("/answer/get/id/:id", async (req, res) => {
   try {
-    const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM answers WHERE id = ?", [req.params.id]);
-    await con.end();
+    const { id } = req.params; // Get the answer ID
 
-    if (rows.length === 0) return res.status(404).json({ error: "Answer not found" });
-    res.json(rows[0]);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    if (!id) {
+      return res.status(400).json({ error: "Please provide a answer ID." });
+    }
+
+    const con = await connect(); 
+    const query = "SELECT * FROM answers WHERE id = ?";
+    const [rows] = await con.execute(query, [id]);
+    con.end(); 
+
+    res.json({ message: "Answer read successfully!", data: rows });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong with the server." });
   }
 });
 
-// GET answers via questionId
-server.get("/answer/get/question/:questionId", async (req, res) => {
-  try {
-    const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM answers WHERE questions_id = ?", [req.params.questionId]);
-    await con.end();
 
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+// GET answers via questionId
+server.get("/answer/get/question/:question_id", async (req, res) => {//`_` should be allowed to be used in URLs  
+  try {
+    const { question_id } = req.params; // Get the answer ID
+
+    if (!question_id) {
+      return res.status(400).json({ error: "Please provide a question ID." });
+    }
+
+    const con = await connect(); 
+    const query = "SELECT * FROM answers WHERE question_id = ?";
+    const [rows] = await con.execute(query, [question_id]);
+    con.end(); 
+
+    res.json({ message: "Answer read successfully!", data: rows });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong with the server." });
   }
 });
 
 //locations
-//locations(voorbeeld code)
-server.post("/locations/create", async (req, res) => {
-  try {
-      const { number, name } = req.body;
+//location add
+server.post("/locations/add", async (req, res) => {
+  //try {
+      const { number, localName } = req.body;
 
-      if (!number || !name) {
+      /*if (!number || !localName) {
           return res.status(400).json({ error: "All fields are required." });
-      }
+      }*/
 
       const con = await connect(); 
-      const query = `INSERT INTO users (number, name) VALUES 
+      const query = `INSERT INTO locations (number, localName) VALUES 
       (?, ?)`;
-      await con.execute(query, [number, name]);
-
+      await con.execute(query, [number, localName]);
       await con.end(); 
       res.status(201).json({ message: "Location created successfully!" });
-  } catch (error) {
-    res.json(error);
-  }
+  //} catch (error) {
+    ///res.json(error);
+  //}
 });
 
-//UPDATES
+//location UPDATE
 server.post("/location/update", async (req, res)=>{
-  try {
-    const { number, name} = req.body;
-    if(!number || !name) {
-      return res.status(400).json({error: "All fields are required."});
-    }
+  //try {
+    const { number, localName} = req.body;
+    /*if(!number || !localName) {
+      return res.status(400).json({error: "Some fields are required."});
+    }*/
     const con = await connect(); 
-      const query = `UPDATE locations SET name = ? WHERE number = ?`;
-      await con.execute(query, [name, number]);
+      const query = `UPDATE locations SET localName = ? WHERE number = ?`;
+      await con.execute(query, [localName, number]);
 
       await con.end(); 
-      res.status(200).json({ message: "Data updated!" });
-  } catch (error) {
-    res.json(error);
-  }}
-);
+      res.status(200).json({ message: "Success!" });
+  //} catch (error) {
+    //res.json(error);
+  //}
+});
 
+//DELETE location
+server.post("/location/delete/", async (req, res) => {
+  try {
+    const { id } = req.params; // Haal het answer ID uit de URL
+
+    if (!id) {
+      return res.status(400).json({ error: "Please provide a location ID." });
+    }
+
+    const con = await connect(); 
+    const query = "DELETE FROM location WHERE id = ?"; 
+    await con.execute(query, [id]); // Voer de delete query uit
+    await con.end(); 
+
+    res.status(200).json({ message: "Location deleted successfully!" });
+  } 
+  catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
 //Read Locations
 server.get("/locations/read/:id", async (req, res, next) => {
   try {
@@ -351,47 +384,21 @@ server.get("/locations/read/:id", async (req, res, next) => {
     
     // Execute query properly
     const [rows] = await con.execute(query, [id]);
-    console.log(rows)
+    //console.log(rows)
     con.end(); // Close connection after the query
 
+    /*
     if (rows.length === 0) { // Checking if the result set is empty
       return res.status(404).json({ error: "Location not found." });
     }
-
-    res.json({ data: rows });
+    */
+    res.status(200).json({message: "Data read successfully!", data: rows});
 
   } catch (error) {
-    console.error(error);
+    //console.error(error);
     res.status(500).json({ error: "Something went wrong." });
   }
 });
-
-
-//DELETE location
-server.get("/location/delete/:id", async (req, res) => {
-  try {
-    const { id } = req.params; // Haal het answer ID uit de URL
-
-    if (!id) {
-      return res.status(400).json({ error: "Please provide an location ID." });
-    }
-
-    const con = await connect(); 
-    const query = "DELETE FROM location WHERE id = ?"; 
-    const [result] = await con.execute(query, [id]); // Voer de delete query uit
-
-    await con.end(); 
-    
-    if (result.affectedRows === 0) {
-      return res.status(404).json({ error: "Location not found." });
-    }
-
-    res.json({ message: "Location deleted successfully!" });
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong." });
-  }
-});
-
 
 //scores
 //voorbeeld code (niet met onze database verbonden)
