@@ -15,7 +15,7 @@ namespace formulierProgramma
 {
     public partial class Form1 : Form
     {
-        public HttpClient client;
+        static HttpClient client;
         public Form1()
         {
             InitializeComponent();
