@@ -476,17 +476,18 @@ server.post("/scores/add", async (req, res) => {
     
     // Execute query properly
     const [rows] = await con.execute(query, [id]);
-    console.log(rows)
+    //console.log(rows)
     con.end(); // Close connection after the query
-
-    if (rows.length === 0) { // Checking if the result set is empty
+    
+    /*if (rows.length === 0) { // Checking if the result set is empty
       return res.status(404).json({ error: " not found." });
-    }
+    }*/
 
-    res.json({ data: rows });
+    res.status(200).json({ message: "Score read successfully!", data: rows });
 
   } catch (error) {
-    console.error(error);
+    res.status(500).json({error: "Something went wrong..."});
+    //console.error(error);
   }});
 
 // Start server
