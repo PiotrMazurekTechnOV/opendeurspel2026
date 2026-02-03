@@ -13,10 +13,10 @@ using Newtonsoft.Json;
 
 namespace formulierProgramma
 {
-    public partial class Form1 : Form
+    public partial class form1 : Form
     {
         static HttpClient client;
-        public Form1()
+        public form1()
         {
             InitializeComponent();
             client = new HttpClient();
@@ -78,5 +78,13 @@ namespace formulierProgramma
             this.Hide();
             codewindow.Show();
         }
+
+        private void cuiTextBox2_ContentChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
+
     }
 }
