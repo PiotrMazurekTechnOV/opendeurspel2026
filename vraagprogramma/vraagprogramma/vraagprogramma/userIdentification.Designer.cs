@@ -40,20 +40,18 @@
             label1.AutoSize = true;
             label1.Font = new Font("Poppins", 40F);
             label1.ForeColor = Color.FromArgb(252, 231, 0);
-            label1.Location = new Point(50, 59);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(71, 98);
             label1.Name = "label1";
-            label1.Size = new Size(824, 95);
+            label1.Size = new Size(1220, 141);
             label1.TabIndex = 0;
-            label1.Text = "WELKOM BIJ INDUSTRIELË ICT";
+            label1.Text = "WELKOM BIJ INDUSTRIËLE ICT";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(456, 179);
-            textBox1.Margin = new Padding(2, 2, 2, 2);
+            textBox1.Location = new Point(651, 298);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(106, 23);
+            textBox1.Size = new Size(150, 31);
             textBox1.TabIndex = 1;
             // 
             // vraagCode
@@ -61,18 +59,18 @@
             vraagCode.AutoSize = true;
             vraagCode.Font = new Font("Poppins", 13F);
             vraagCode.ForeColor = Color.White;
-            vraagCode.Location = new Point(430, 150);
-            vraagCode.Margin = new Padding(2, 0, 2, 0);
+            vraagCode.Location = new Point(614, 250);
             vraagCode.Name = "vraagCode";
-            vraagCode.Size = new Size(156, 31);
+            vraagCode.Size = new Size(224, 46);
             vraagCode.TabIndex = 2;
             vraagCode.Text = "VUL JE CODE IN:";
             // 
             // confirmBtn
             // 
-            confirmBtn.Location = new Point(467, 220);
+            confirmBtn.Location = new Point(667, 367);
+            confirmBtn.Margin = new Padding(4, 5, 4, 5);
             confirmBtn.Name = "confirmBtn";
-            confirmBtn.Size = new Size(95, 24);
+            confirmBtn.Size = new Size(136, 40);
             confirmBtn.TabIndex = 3;
             confirmBtn.Text = "Beginnen !";
             confirmBtn.UseVisualStyleBackColor = true;
@@ -80,16 +78,15 @@
             // 
             // userIdentification
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
             BackgroundImageLayout = ImageLayout.Stretch;
-            ClientSize = new Size(1021, 479);
+            ClientSize = new Size(1459, 798);
             Controls.Add(confirmBtn);
             Controls.Add(vraagCode);
             Controls.Add(textBox1);
             Controls.Add(label1);
-            Margin = new Padding(2, 2, 2, 2);
             Name = "userIdentification";
             Text = "userIdentification";
             Load += userIdentification_Load;
