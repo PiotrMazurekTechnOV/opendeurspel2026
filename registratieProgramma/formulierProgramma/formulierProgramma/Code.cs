@@ -22,7 +22,7 @@ namespace formulierProgramma
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
 
-            this.BackgroundImage = Image.FromFile("images/technov formulier.png");
+            this.BackgroundImage = Properties.Resources.technov_formulier_code;
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
     }

@@ -99,5 +99,8 @@
   <ItemGroup>
     <None Include="Resources\test.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\technov_formulier_code.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
