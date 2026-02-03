@@ -25,7 +25,6 @@ namespace formulierProgramma
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
 
-
         }
         static async Task<string> addUser(int Id, string NameGuardian, string NameChild, string Email, int Code)
         {
@@ -58,9 +57,9 @@ namespace formulierProgramma
             // Fullscreen
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
+            this.BackgroundImage = Properties.Resources.test;
 
             // achtergrond aanpassen
-            this.BackgroundImage = Image.FromFile("/images/technov formulier1.png");
             this.BackgroundImageLayout = ImageLayout.Stretch; // past aan naar het hele scherm
         }
 
