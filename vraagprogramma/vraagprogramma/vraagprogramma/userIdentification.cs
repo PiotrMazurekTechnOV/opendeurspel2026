@@ -1,4 +1,6 @@
-﻿using System;
+﻿
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -10,6 +12,7 @@ namespace vraagprogramma
 {
     public partial class userIdentification : Form
     {
+        static HttpClient client;
         public userIdentification()
         {
             InitializeComponent();
