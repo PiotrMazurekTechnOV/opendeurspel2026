@@ -60,7 +60,7 @@ namespace formulierProgramma
             this.WindowState = FormWindowState.Maximized;
 
             // achtergrond aanpassen
-            this.BackgroundImage = Image.FromFile("images/technov formulier1.png");
+            this.BackgroundImage = Image.FromFile("/images/technov formulier1.png");
             this.BackgroundImageLayout = ImageLayout.Stretch; // past aan naar het hele scherm
         }
 
