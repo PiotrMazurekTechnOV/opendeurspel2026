@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Text;
 using System.Windows.Forms;
 
@@ -12,6 +13,7 @@ namespace vraagprogramma
 {
     public partial class userIdentification : Form
     {
+        private int code;
         static HttpClient client;
         public userIdentification()
         {
@@ -36,6 +38,7 @@ namespace vraagprogramma
 
         private void confirmBtn_Click(object sender, EventArgs e)
         {
+            code = Convert.ToInt32(textBox1.Text);
             
         }
     }

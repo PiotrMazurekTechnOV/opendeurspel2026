@@ -10,6 +10,7 @@ namespace vraagprogramma
 {
     public partial class locationSelection : Form
     {
+        private int location;
         public locationSelection()
         {
             InitializeComponent();
@@ -29,10 +30,12 @@ namespace vraagprogramma
 
         private void klasBtn_Click(object sender, EventArgs e)
         {
+            location = Convert.ToInt32(codeTextbox.Text);
             userIdentification userIdentification = new userIdentification();
             this.Hide();
             userIdentification.Show();
         }
-
+        public int Location { get { return location; } set { Location = location; } }
     }
+    
 }
