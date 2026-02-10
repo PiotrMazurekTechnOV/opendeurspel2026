@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -6,16 +7,17 @@ using System.Drawing;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace formulierProgramma
 {
     public partial class form1 : Form
     {
         static HttpClient client;
+
         public form1()
         {
             InitializeComponent();
@@ -57,7 +59,7 @@ namespace formulierProgramma
             // Fullscreen
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
-            this.BackgroundImage = Properties.Resources.test;
+            this.BackgroundImage = Properties.Resources.formulier_foto1;
 
             // achtergrond aanpassen
             this.BackgroundImageLayout = ImageLayout.Stretch; // past aan naar het hele scherm
