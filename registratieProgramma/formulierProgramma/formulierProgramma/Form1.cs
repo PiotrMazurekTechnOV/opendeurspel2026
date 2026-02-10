@@ -22,7 +22,7 @@ namespace formulierProgramma
         {
             InitializeComponent();
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:8081/");
+            client.BaseAddress = new Uri("http://localhost:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
