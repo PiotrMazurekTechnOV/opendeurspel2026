@@ -86,17 +86,20 @@ namespace formulierProgramma
         {
 
         }
-
+        
         private void UpdateLabelPositions()
         {
-            naam_label.Left = this.ClientSize.Width/30;
-            naam_label.Top = this.ClientSize.Height/3;
+            naam_textbox.Left = this.ClientSize.Width / 5;
+            naam_textbox.Top = this.ClientSize.Height / 7 * 2;
 
-            naamOuder_label.Left = this.ClientSize.Width/30;
-            naamOuder_label.Top = this.ClientSize.Height/2;
+            naamOuders_textbox.Left = this.ClientSize.Width / 5;
+            naamOuders_textbox.Top = this.ClientSize.Height / 5*14/7;
 
-            email_Label.Left = this.ClientSize.Width/30;
-            email_Label.Top = this.ClientSize.Height / 3 * 2;
+            email_textbox.Left = this.ClientSize.Width / 5;
+            email_textbox.Top = this.ClientSize.Height / 102 * 50;
+
+            cuiButton1.Left = this.ClientSize.Width / 14 * 5;
+            cuiButton1.Top = this.ClientSize.Height / 7 * 4;
         }
 
 
