@@ -73,6 +73,16 @@ namespace formulierProgramma.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        public static System.Drawing.Bitmap formulier_foto2 {
+            get {
+                object obj = ResourceManager.GetObject("formulier_foto2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         public static System.Drawing.Bitmap technov_formulier_code {
             get {
                 object obj = ResourceManager.GetObject("technov_formulier_code", resourceCulture);

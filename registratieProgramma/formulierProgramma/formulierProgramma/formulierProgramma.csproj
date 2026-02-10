@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\formulier_foto1.png" />
+    <None Include="Resources\formulier_foto2.png" />
     <Content Include="Resources\technov_formulier_code.png" />
   </ItemGroup>
   <ItemGroup>

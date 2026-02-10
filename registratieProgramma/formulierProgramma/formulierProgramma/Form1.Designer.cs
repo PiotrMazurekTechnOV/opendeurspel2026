@@ -56,7 +56,7 @@
             this.cuiButton1.CheckedForeColor = System.Drawing.Color.Transparent;
             this.cuiButton1.CheckedImageTint = System.Drawing.Color.Transparent;
             this.cuiButton1.CheckedOutline = System.Drawing.Color.Transparent;
-            this.cuiButton1.Content = "Volgende";
+            this.cuiButton1.Content = "";
             this.cuiButton1.Cursor = System.Windows.Forms.Cursors.Arrow;
             this.cuiButton1.DialogResult = System.Windows.Forms.DialogResult.None;
             this.cuiButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
