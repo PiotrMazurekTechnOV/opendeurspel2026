@@ -200,7 +200,7 @@ server.get("/question/get/:id", async (req, res, next) => {
     const [rows] = await con.execute(query, [id]);
     con.end(); 
 
-    res.status(200).json({ message: "Question read successfully!", data: rows });
+    res.status(200).json(rows[0]);
   } catch (error) {
     res.status(500).json({ error: "Something went wrong with the server." });
   }

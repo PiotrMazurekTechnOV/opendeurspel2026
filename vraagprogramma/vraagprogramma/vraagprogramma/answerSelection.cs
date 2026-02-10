@@ -20,18 +20,19 @@ namespace vraagprogramma
             InitializeComponent();
 
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:8081/");
+            client.BaseAddress = new Uri("http://localhost:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.Load += answerSelection_Load;
-            questionLbl.Text = "question";
-            answer1.Text = "button1";
-            answer2.Text = "button2";
-            answer3.Text = "button3";
-            answer4.Text = "button4";
+            questionLbl.Text = "Question?";
+            answer1.Text = "Answer 1";
+            answer2.Text = "Answer 2";
+            answer3.Text = "Answer 3";
+            answer4.Text = "Answer 4";
+
 
         }
 
@@ -62,17 +63,7 @@ namespace vraagprogramma
 
         private async Task aanvraagvragen_Click(object sender, EventArgs e)
         {
-            try
-            {
-                var response = await client.GetAsync("/get/question/" + 1);
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                Question question = JsonConvert.DeserializeObject<Question>(jsonResponse);
-                questionLbl.Text = question.question;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
+            
         }
 
         private void answer1_Click(object sender, EventArgs e)
@@ -115,13 +106,28 @@ namespace vraagprogramma
 
 
         }
+
+        private async void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var response = await client.GetAsync("/question/get/" + 2);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                Question question = JsonConvert.DeserializeObject<Question>(jsonResponse);
+                questionLbl.Text = question.text;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+        }
     }
 
     public class  Question
     {
         public int id { get; set; }
-        public string question { get; set; }
-        public int locations_id { get; set; }
+        public string text { get; set; }
+        public int? locations_id { get; set; }
     }
 }
 
