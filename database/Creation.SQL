@@ -1,4 +1,4 @@
---table users aanmaken:
+#table users aanmaken:
 CREATE TABLE users(
 id INT Primary Key Auto_Increment,
 nameGuardian VARCHAR(50),
@@ -8,30 +8,31 @@ code INT UNIQUE,
 createdAt DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
---table locations aanmaken:
+#table locations aanmaken:
 CREATE TABLE locations(
 id INT Primary Key Auto_Increment,
 number INT UNIQUE,
 localName char(60)
 );
 
---table questions aanmaken:
+#table questions aanmaken:
 CREATE TABLE questions(
 id INT Primary Key Auto_Increment,
-question char(150),
-locations_id INT,
-FOREIGN KEY (locations_id) REFERENCES locations(id)
+text char(150),
+location_id INT,
+FOREIGN KEY (location_id) REFERENCES locations(id)
 );
 
---table answers aanmaken:
+#table answers aanmaken:
 CREATE TABLE answers(
 id INT Primary Key Auto_Increment,
-answers char(150),
-questions_id INT NOT NULL,
-FOREIGN KEY (questions_id) REFERENCES questions(id)
+text char(150),
+correct BOOLEAN DEFAULT false,
+question_id INT NOT NULL,
+FOREIGN KEY (question_id) REFERENCES questions(id)
 );
 
---table scores aanmaken:
+#table scores aanmaken:
 CREATE TABLE scores (
     id INT AUTO_INCREMENT PRIMARY KEY,
 	user_id INT NOT NULL,
@@ -42,9 +43,3 @@ CREATE TABLE scores (
 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );
-
-
-
-
-
-
