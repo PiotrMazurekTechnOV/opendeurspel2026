@@ -80,7 +80,7 @@ server.post("/user/add", async (req, res) => {
 
     const con = await connect();
     await con.execute(
-      "INSERT INTO users (nameGuardian, nameChild, email, code) VALUES (?, ?, ?, ?)",
+      "INSERT INTO users (nameGuardian, nameChild, email, code) VALUES (?, ?, ?, FLOOR(100 + RAND() * 900))",//change to random code
       [nameGuardian, nameChild, email, code]
     );
     await con.end();
