@@ -377,6 +377,35 @@ server.get("/locations/read/:id", async (req, res, next) => {
   }
 });
 
+//Read Locations
+server.get("/locations/get/number/:number", async (req, res, next) => {
+  try {
+    const { number } = req.params; 
+
+    if (!number) {
+      return res.status(400).json({ error: "Please provide a location number." });
+    }
+
+    const con = await connect(); 
+    const query = "SELECT * FROM locations WHERE number = ?";
+    
+    // Execute query properly
+    const [rows] = await con.execute(query, [number]);
+    console.log(rows)
+    con.end(); // Close connection after the query
+
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Location not found." });
+    }
+
+    res.json({ data: rows });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
 //GET locatios opvragen aan de hand van id
 server.get("/question/get/location/:location_id", async (req, res) => {
   try {

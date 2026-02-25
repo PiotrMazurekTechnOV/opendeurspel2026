@@ -74,10 +74,7 @@ namespace vraagprogramma
             }
         }
 
-        private async Task aanvraagvragen_Click(object sender, EventArgs e)
-        {
-            
-        }
+        
 
         private void answer1_Click(object sender, EventArgs e)
         {

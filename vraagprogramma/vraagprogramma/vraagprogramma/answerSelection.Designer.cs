@@ -34,7 +34,6 @@
             answer3 = new Button();
             answer4 = new Button();
             technovLogo = new PictureBox();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)technovLogo).BeginInit();
             SuspendLayout();
             // 
@@ -114,16 +113,6 @@
             technovLogo.TabIndex = 5;
             technovLogo.TabStop = false;
             // 
-            // button1
-            // 
-            button1.Location = new Point(349, 239);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 6;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
-            // 
             // answerSelection
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -132,7 +121,6 @@
             BackgroundImage = Properties.Resources.questionBackground;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
-            Controls.Add(button1);
             Controls.Add(technovLogo);
             Controls.Add(answer4);
             Controls.Add(answer3);
@@ -154,6 +142,5 @@
         private Button answer3;
         private Button answer4;
         private PictureBox technovLogo;
-        private Button button1;
     }
 }
