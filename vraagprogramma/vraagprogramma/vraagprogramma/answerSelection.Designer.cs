@@ -107,7 +107,7 @@
             technovLogo.BackColor = Color.Transparent;
             technovLogo.BackgroundImage = Properties.Resources.technov_logo_transparant;
             technovLogo.BackgroundImageLayout = ImageLayout.Stretch;
-            technovLogo.Location = new Point(607, 19);
+            technovLogo.Location = new Point(638, 19);
             technovLogo.Name = "technovLogo";
             technovLogo.Size = new Size(150, 75);
             technovLogo.TabIndex = 5;
