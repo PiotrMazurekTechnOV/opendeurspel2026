@@ -225,6 +225,29 @@ server.get("/answer/get/question/:questionId", async (req, res) => {
   }
 });
 
+//GET correct antwoord via question id
+server.get("/answer/get/correct/:question_id", async (req, res) => {
+  try {
+    const { question_id } = req.params;
+
+    const con = await connect();
+    const query = `
+      SELECT * FROM answers 
+      WHERE question_id = ? AND isCorrect = 1
+    `;
+    const [rows] = await con.execute(query, [question_id]);
+    await con.end();
+
+    res.status(200).json({
+      message: "Correct answer retrieved!",
+      data: rows
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
 // POST add answer
 server.post("/answer/add", async (req, res) => {
   try {
@@ -283,6 +306,7 @@ server.post("/answer/delete/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
 //locations
 //locations(voorbeeld code)
 server.post("/locations/create", async (req, res) => {
@@ -348,6 +372,29 @@ server.get("/locations/read/:id", async (req, res, next) => {
 
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+//GET locatios opvragen aan de hand van id
+server.get("/question/get/location/:location_id", async (req, res) => {
+  try {
+    const { location_id } = req.params;
+
+    const con = await connect();
+    const query = `
+      SELECT * FROM questions 
+      WHERE location_id = ?
+    `;
+    const [rows] = await con.execute(query, [location_id]);
+    await con.end();
+
+    res.status(200).json({
+      message: "Question(s) retrieved!",
+      data: rows
+    });
+
+  } catch (error) {
     res.status(500).json({ error: "Something went wrong." });
   }
 });
