@@ -108,6 +108,10 @@ GET /location/get/id/:id
 Haalt een locatie op via id.  
 Verwacht: id
 
+GET /location/get/number/:number
+Haalt locatie op via lokaalnummer  
+Verwacht: lokaal nummer
+
 POST /location/add  
 Voegt een locatie toe.  
 Verwacht: naam
