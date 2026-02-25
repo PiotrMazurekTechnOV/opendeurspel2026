@@ -27,7 +27,6 @@ namespace vraagprogramma
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.Load += answerSelection_Load;
-            questionLbl.Text = "Question?";
             answer1.Text = "Answer 1";
             answer2.Text = "Answer 2";
             answer3.Text = "Answer 3";
@@ -37,8 +36,10 @@ namespace vraagprogramma
         }
 
 
-        private void answerSelection_Load(object sender, EventArgs e)
+        private async void answerSelection_Load(object sender, EventArgs e)
         {
+
+
             technovLogo.Size = new Size(this.ClientSize.Width / 4, this.ClientSize.Height / 5);
             technovLogo.Location = new Point(this.ClientSize.Width - technovLogo.Width, 0);
             float fontSize = this.ClientSize.Height / 25;
@@ -59,6 +60,18 @@ namespace vraagprogramma
             answer3.Location = new Point(Convert.ToInt32(this.ClientSize.Width * 0.25) - answer3.Width / 2, Convert.ToInt32(this.ClientSize.Height * 0.75));
 
             answer4.Location = new Point(Convert.ToInt32(this.ClientSize.Width * 0.75) - answer4.Width / 2, Convert.ToInt32(this.ClientSize.Height * 0.75));
+
+            try
+            {
+                var response = await client.GetAsync("/question/get/" + 2);
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+                Question question = JsonConvert.DeserializeObject<Question>(jsonResponse);
+                questionLbl.Text = question.text;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         private async Task aanvraagvragen_Click(object sender, EventArgs e)
