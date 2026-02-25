@@ -94,10 +94,10 @@ namespace formulierProgramma
         }
         private void UpdateLabelPositions()
         {
-            SetPosition(naam_textbox, 0.20, 0.28);
-            SetPosition(naamOuders_textbox, 0.20, 0.40);
+            SetPosition(naam_textbox, 0.20, 0.265);
+            SetPosition(naamOuders_textbox, 0.20, 0.38);
             SetPosition(email_textbox, 0.20, 0.49);
-            SetPosition(cuiButton1, 0.35, 0.57);
+            SetPosition(cuiButton1, 0.35, 0.59);
         }
 
 
