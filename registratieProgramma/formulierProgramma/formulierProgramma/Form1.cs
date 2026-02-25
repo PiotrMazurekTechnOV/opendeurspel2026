@@ -86,22 +86,19 @@ namespace formulierProgramma
         {
 
         }
-        
+
+        private void SetPosition(Control c, double xPercent, double yPercent)
+        {
+            c.Left = (int)(ClientSize.Width * xPercent);
+            c.Top = (int)(ClientSize.Height * yPercent);
+        }
         private void UpdateLabelPositions()
         {
-            naam_textbox.Left = this.ClientSize.Width / 5;
-            naam_textbox.Top = this.ClientSize.Height / 7 * 2;
-
-            naamOuders_textbox.Left = this.ClientSize.Width / 5;
-            naamOuders_textbox.Top = this.ClientSize.Height / 5*14/7;
-
-            email_textbox.Left = this.ClientSize.Width / 5;
-            email_textbox.Top = this.ClientSize.Height / 102 * 50;
-
-            cuiButton1.Left = this.ClientSize.Width / 14 * 5;
-            cuiButton1.Top = this.ClientSize.Height / 7 * 4;
+            SetPosition(naam_textbox, 0.20, 0.28);
+            SetPosition(naamOuders_textbox, 0.20, 0.40);
+            SetPosition(email_textbox, 0.20, 0.49);
+            SetPosition(cuiButton1, 0.35, 0.57);
         }
-
 
 
 
