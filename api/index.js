@@ -72,7 +72,8 @@ server.get("/user/get/code/:code", async (req, res) => {
 // POST add user
 server.post("/user/add", async (req, res) => {
   //try {
-    const { nameGuardian, nameChild, email, code } = req.body;
+    const { nameChild, nameGuardian, email } = req.body;
+    console.log(req.body)
 
     /*if (!nameGuardian || !nameChild || !email || code === undefined) {
       return res.status(400).json({ error: "nameGuardian, nameChild, email, code are required" });
@@ -80,8 +81,8 @@ server.post("/user/add", async (req, res) => {
 
     const con = await connect();
     await con.execute(
-      "INSERT INTO users (nameGuardian, nameChild, email, code) VALUES (?, ?, ?, ?)",
-      [nameGuardian, nameChild, email, code]
+      "INSERT INTO users (nameGuardian, nameChild, email) VALUES (?, ?, ?)",
+      [nameChild, nameGuardian, email]
     );
     await con.end();
 

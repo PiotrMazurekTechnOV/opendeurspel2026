@@ -37,8 +37,8 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.CodeLabel.BackColor = System.Drawing.Color.Transparent;
-            this.CodeLabel.Content = "Random\\ Code";
-            this.CodeLabel.Font = new System.Drawing.Font("Broadway", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CodeLabel.Content = "";
+            this.CodeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 36F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CodeLabel.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.CodeLabel.HorizontalAlignment = System.Drawing.StringAlignment.Center;
             this.CodeLabel.Location = new System.Drawing.Point(254, 77);
@@ -46,6 +46,7 @@
             this.CodeLabel.Size = new System.Drawing.Size(210, 47);
             this.CodeLabel.TabIndex = 0;
             this.CodeLabel.VerticalAlignment = System.Drawing.StringAlignment.Center;
+            this.CodeLabel.Load += new System.EventHandler(this.CodeLabel_Load);
             // 
             // Code
             // 

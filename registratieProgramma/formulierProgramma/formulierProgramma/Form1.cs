@@ -11,12 +11,19 @@ using System.Resources;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
 
 namespace formulierProgramma
 {
+
     public partial class form1 : Form
     {
         static HttpClient client;
+        string nameChild;
+        string nameGuardian;
+        string email;
+        public string result;
+
 
         public form1()
         {
@@ -28,17 +35,16 @@ namespace formulierProgramma
 
 
         }
-        static async Task<string> addUser(int Id, string NameGuardian, string NameChild, string Email, int Code)
+        static async Task<string> addUser(string nameChild, string nameGuardian, string Email)
         {
             User user = new User
-            {
-                id = Id,
-                nameGaurdian = NameGuardian,
-                nameChild = NameChild,
-                email = Email,
-                code = Code
+            { 
+                nameChild = nameChild,
+                nameGuardian = nameGuardian,
+                email = Email
+                
             };
-            StringContent json = new StringContent(JsonConvert.SerializeObject(user, Formatting.Indented), Encoding.UTF8,
+            StringContent json = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8,
                    "application/json");
 
             var response = await client.PostAsync(
@@ -68,23 +74,41 @@ namespace formulierProgramma
 
         public class User
         {
-            public int id { get; set; }
-            public string nameGaurdian { get; set; }
+            public string nameGuardian { get; set; }
             public string nameChild { get; set; }
             public string email { get; set; }
-            public int code { get; set; }
+            
         }
 
-        private void cuiButton1_Click(object sender, EventArgs e)
+        private async void cuiButton1_Click(object sender, EventArgs e)
         {
-            Code codewindow = new Code();
-            this.Hide();
-            codewindow.Show();
+            try
+            {
+                // waarden uit textboxes halen
+                 nameChild = naam_textbox.Text;
+                 nameGuardian = naamOuders_textbox.Text;
+                 email = email_textbox.Text;
+
+
+                // API call
+                result = await addUser(nameChild, nameGuardian, email);
+
+               
+
+                Code codewindow = new Code(result);
+                this.Hide();
+                codewindow.Show();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Fout bij verzenden: " + ex.Message);
+            }
         }
 
         private void cuiTextBox2_ContentChanged(object sender, EventArgs e)
         {
-
+            // naam ouders tekstbox
+         
         }
 
         private void SetPosition(Control c, double xPercent, double yPercent)
@@ -100,7 +124,14 @@ namespace formulierProgramma
             SetPosition(cuiButton1, 0.35, 0.59);
         }
 
+        private void naam_textbox_ContentChanged(object sender, EventArgs e)
+        {
+            
+        }
 
-
+        private void email_textbox_ContentChanged(object sender, EventArgs e)
+        {
+           
+        }
     }
 }
