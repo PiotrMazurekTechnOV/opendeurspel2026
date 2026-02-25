@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Text;
 using System.Windows.Forms;
+using Newtonsoft.Json.Linq;
 
 
 namespace vraagprogramma
@@ -21,6 +22,11 @@ namespace vraagprogramma
         {
             InitializeComponent();
             this.klas = klas;
+
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
         }
 
             
