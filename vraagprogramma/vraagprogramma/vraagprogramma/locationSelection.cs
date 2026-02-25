@@ -11,6 +11,7 @@ namespace vraagprogramma
     public partial class locationSelection : Form
     {
         private int location;
+        private string klas;
         public locationSelection()
         {
             InitializeComponent();
@@ -31,11 +32,32 @@ namespace vraagprogramma
         private void klasBtn_Click(object sender, EventArgs e)
         {
             location = Convert.ToInt32(codeTextbox.Text);
-            userIdentification userIdentification = new userIdentification();
+            switch (location)
+            {
+                case 112:
+                    klas = "INDUSTRIËLE ICT";
+                    break;
+                case 104:
+                    klas = "ELEKTROTECHNIEKEN";
+                    break;
+                case 116:
+                    klas = "NATUURWETENSCHAPPEN";
+                    break;
+                default:
+                    MessageBox.Show("Er is een fout opgetreden, probeer het opnieuw.");
+                    break;
+            }
+
+            userIdentification userIdentification = new userIdentification(klas);
             this.Hide();
             userIdentification.Show();
         }
-        public int Location { get { return location; } set { Location = location; } }
+        public string Klas
+        {
+            get { return klas; }
+        }
     }
-    
+
+
 }
+    
