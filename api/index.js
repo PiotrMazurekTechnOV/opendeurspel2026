@@ -130,16 +130,16 @@ server.post("/user/delete/:id", async (req, res) => {
 //question add
 server.post("/question/add", async (req, res) => {
   //try {
-      const { locations_id, question } = req.body;
+      const { location_number, text } = req.body;
 
-      /*if (!locations_id || !question) {
+      /*if (!location_number || !text) {
           return res.status(400).json({ error: "Some fields are required." });
       }*/ //not needed yet?
 
       const con = await connect(); 
-      const query = `INSERT INTO opendeurspel.users (locations_id, question) VALUES 
+      const query = `INSERT INTO questions (location_number, text) VALUES 
       (?, ?)`;
-      await con.execute(query, [locations_id, question]);
+      await con.execute(query, [location_number, text]);
 
       await con.end(); 
       res.status(201).json({ message: "Question added successfully!" });
