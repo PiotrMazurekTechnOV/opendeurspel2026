@@ -15,12 +15,14 @@ namespace AdminProgramma
 {
     public partial class Form1 : Form
     {
+
+        
         HttpClient client;
         public Form1()
         {
             InitializeComponent();
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:8081/");
+            client.BaseAddress = new Uri("http://localhost:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -41,7 +43,41 @@ namespace AdminProgramma
 
             StringContent json = new StringContent(JsonConvert.SerializeObject(user));
 
-            var response = await client.PostAsync("/create/user", json);
+            var response = await client.PostAsync("/user/add", json);
+
+            response.EnsureSuccessStatusCode();
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            return jsonResponse;
+        }
+
+        async Task<string> AddQuestion(string text)
+        {
+            
+
+            StringContent json = new StringContent(JsonConvert.SerializeObject(user));
+
+            var response = await client.PostAsync("/user/add", json);
+
+            response.EnsureSuccessStatusCode();
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+
+            return jsonResponse;
+        }
+
+        async Task<string> AddLocation(int locationNumber, string name)
+        {
+            Location location = new Location
+            {
+                number = locationNumber,
+                localName = name
+            };
+
+            StringContent json = new StringContent(JsonConvert.SerializeObject(location), Encoding.UTF8, "application/json");
+            
+            var response = await client.PostAsync("/location/add", json);
 
             response.EnsureSuccessStatusCode();
 
@@ -67,6 +103,37 @@ namespace AdminProgramma
 
             }
         }
+
+        private async void createQuestionBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var response = await client.GetAsync("/get/question/" + 1);
+
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                Question question = JsonConvert.DeserializeObject<Question>(jsonResponse);
+
+                MessageBox.Show(question.question);
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private async void createLocationBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var response = await AddLocation(Convert.ToInt32(locationNumberTxtBx.Text), locationNameTxtBx.Text);
+                MessageBox.Show(response);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 
     public class User
@@ -84,6 +151,13 @@ namespace AdminProgramma
         public int id { get; set; }
         public string question { get; set; }
         public int locations_id { get; set; }
+    }
+
+    public class Location
+    {
+        public int id { get; set; }
+        public int number { get; set; }
+        public string localName { get; set; }
     }
 
 }

@@ -37,8 +37,6 @@
             this.antwoord2 = new System.Windows.Forms.TextBox();
             this.antwoord4 = new System.Windows.Forms.TextBox();
             this.vraagtext = new System.Windows.Forms.TextBox();
-            this.locaties = new System.Windows.Forms.ListBox();
-            this.antwoorden = new System.Windows.Forms.ListBox();
             this.user = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -46,13 +44,14 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.klasnummer = new System.Windows.Forms.TextBox();
+            this.locationNumberTxtBx = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.klasnaam = new System.Windows.Forms.TextBox();
-            this.aanvraagnaam = new System.Windows.Forms.Button();
+            this.locationNameTxtBx = new System.Windows.Forms.TextBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.aanvraagvragen = new System.Windows.Forms.Button();
+            this.createQuestionBtn = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.createLocationBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // check1
@@ -139,26 +138,6 @@
             this.vraagtext.Size = new System.Drawing.Size(400, 22);
             this.vraagtext.TabIndex = 10;
             // 
-            // locaties
-            // 
-            this.locaties.FormattingEnabled = true;
-            this.locaties.ItemHeight = 16;
-            this.locaties.Location = new System.Drawing.Point(852, 50);
-            this.locaties.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.locaties.Name = "locaties";
-            this.locaties.Size = new System.Drawing.Size(184, 420);
-            this.locaties.TabIndex = 11;
-            // 
-            // antwoorden
-            // 
-            this.antwoorden.FormattingEnabled = true;
-            this.antwoorden.ItemHeight = 16;
-            this.antwoorden.Location = new System.Drawing.Point(654, 50);
-            this.antwoorden.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.antwoorden.Name = "antwoorden";
-            this.antwoorden.Size = new System.Drawing.Size(184, 420);
-            this.antwoorden.TabIndex = 12;
-            // 
             // user
             // 
             this.user.FormattingEnabled = true;
@@ -217,51 +196,41 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(46, 362);
+            this.label6.Location = new System.Drawing.Point(1200, 31);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(63, 16);
             this.label6.TabIndex = 19;
             this.label6.Text = "LOCATIE";
             // 
-            // klasnummer
+            // locationNumberTxtBx
             // 
-            this.klasnummer.Location = new System.Drawing.Point(41, 381);
-            this.klasnummer.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.klasnummer.Name = "klasnummer";
-            this.klasnummer.Size = new System.Drawing.Size(138, 22);
-            this.klasnummer.TabIndex = 20;
+            this.locationNumberTxtBx.Location = new System.Drawing.Point(1195, 50);
+            this.locationNumberTxtBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.locationNumberTxtBx.Name = "locationNumberTxtBx";
+            this.locationNumberTxtBx.Size = new System.Drawing.Size(138, 22);
+            this.locationNumberTxtBx.TabIndex = 20;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(46, 422);
+            this.label7.Location = new System.Drawing.Point(1200, 91);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 16);
             this.label7.TabIndex = 21;
             this.label7.Text = "KLASNAAM";
             // 
-            // klasnaam
+            // locationNameTxtBx
             // 
-            this.klasnaam.Location = new System.Drawing.Point(41, 441);
-            this.klasnaam.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.klasnaam.Name = "klasnaam";
-            this.klasnaam.Size = new System.Drawing.Size(138, 22);
-            this.klasnaam.TabIndex = 22;
-            // 
-            // aanvraagnaam
-            // 
-            this.aanvraagnaam.Location = new System.Drawing.Point(485, 489);
-            this.aanvraagnaam.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.aanvraagnaam.Name = "aanvraagnaam";
-            this.aanvraagnaam.Size = new System.Drawing.Size(118, 39);
-            this.aanvraagnaam.TabIndex = 23;
-            this.aanvraagnaam.Text = "vraag voor user";
-            this.aanvraagnaam.UseVisualStyleBackColor = true;
+            this.locationNameTxtBx.Location = new System.Drawing.Point(1195, 110);
+            this.locationNameTxtBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.locationNameTxtBx.Name = "locationNameTxtBx";
+            this.locationNameTxtBx.Size = new System.Drawing.Size(138, 22);
+            this.locationNameTxtBx.TabIndex = 22;
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(41, 506);
+            this.comboBox1.Location = new System.Drawing.Point(26, 659);
             this.comboBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(144, 24);
@@ -270,34 +239,54 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(46, 489);
+            this.label8.Location = new System.Drawing.Point(31, 642);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(54, 16);
             this.label8.TabIndex = 25;
             this.label8.Text = "VRAAG";
             // 
-            // aanvraagvragen
+            // createQuestionBtn
             // 
-            this.aanvraagvragen.Location = new System.Drawing.Point(664, 489);
-            this.aanvraagvragen.Name = "aanvraagvragen";
-            this.aanvraagvragen.Size = new System.Drawing.Size(165, 39);
-            this.aanvraagvragen.TabIndex = 26;
-            this.aanvraagvragen.Text = "alle vragen";
-            this.aanvraagvragen.UseVisualStyleBackColor = true;
-            this.aanvraagvragen.Click += new System.EventHandler(this.aanvraagvragen_Click);
+            this.createQuestionBtn.Location = new System.Drawing.Point(34, 324);
+            this.createQuestionBtn.Name = "createQuestionBtn";
+            this.createQuestionBtn.Size = new System.Drawing.Size(75, 23);
+            this.createQuestionBtn.TabIndex = 27;
+            this.createQuestionBtn.Text = "Maak aan";
+            this.createQuestionBtn.UseVisualStyleBackColor = true;
+            this.createQuestionBtn.Click += new System.EventHandler(this.createQuestionBtn_Click);
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(134, 324);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 28;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // createLocationBtn
+            // 
+            this.createLocationBtn.Location = new System.Drawing.Point(1195, 150);
+            this.createLocationBtn.Name = "createLocationBtn";
+            this.createLocationBtn.Size = new System.Drawing.Size(75, 23);
+            this.createLocationBtn.TabIndex = 29;
+            this.createLocationBtn.Text = "Maak locatie aan";
+            this.createLocationBtn.UseVisualStyleBackColor = true;
+            this.createLocationBtn.Click += new System.EventHandler(this.createLocationBtn_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
-            this.Controls.Add(this.aanvraagvragen);
+            this.ClientSize = new System.Drawing.Size(1349, 733);
+            this.Controls.Add(this.createLocationBtn);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.createQuestionBtn);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.aanvraagnaam);
-            this.Controls.Add(this.klasnaam);
+            this.Controls.Add(this.locationNameTxtBx);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.klasnummer);
+            this.Controls.Add(this.locationNumberTxtBx);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -305,8 +294,6 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.user);
-            this.Controls.Add(this.antwoorden);
-            this.Controls.Add(this.locaties);
             this.Controls.Add(this.vraagtext);
             this.Controls.Add(this.antwoord4);
             this.Controls.Add(this.antwoord2);
@@ -316,7 +303,7 @@
             this.Controls.Add(this.check3);
             this.Controls.Add(this.check2);
             this.Controls.Add(this.check1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -336,8 +323,6 @@
         private System.Windows.Forms.TextBox antwoord2;
         private System.Windows.Forms.TextBox antwoord4;
         private System.Windows.Forms.TextBox vraagtext;
-        private System.Windows.Forms.ListBox locaties;
-        private System.Windows.Forms.ListBox antwoorden;
         private System.Windows.Forms.ListBox user;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -345,13 +330,14 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox klasnummer;
+        private System.Windows.Forms.TextBox locationNumberTxtBx;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox klasnaam;
-        private System.Windows.Forms.Button aanvraagnaam;
+        private System.Windows.Forms.TextBox locationNameTxtBx;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Button aanvraagvragen;
+        private System.Windows.Forms.Button createQuestionBtn;
+        private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button createLocationBtn;
     }
 }
 
