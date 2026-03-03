@@ -59,17 +59,18 @@ server.get("/user/get/code/:code", async (req, res) => {
 // POST add user
 server.post("/user/add", async (req, res) => {
   try {
-    const { nameGuardian, nameChild, email, code } = req.body;
+    const { nameGuardian, nameChild, email} = req.body;
 
-    if (!nameGuardian || !nameChild || !email || code === undefined) {
-      return res.status(400).json({ error: "nameGuardian, nameChild, email, code are required" });
+    if (!nameGuardian || !nameChild || !email) {
+      return res.status(400).json({ error: "nameGuardian, nameChild, email are required" });
     }
 
     const con = await connect();
     await con.execute(
-      "INSERT INTO users (nameGuardian, nameChild, email, code) VALUES (?, ?, ?, FLOOR(100 + RAND() * 900))",//change to random code
-      [nameGuardian, nameChild, email, code]
+      "INSERT INTO users (nameGuardian, nameChild, email) VALUES (?, ?, ?)",
+      [nameGuardian, nameChild, email]
     );
+    
     await con.end();
 
     res.status(201).json({ message: "User added" });

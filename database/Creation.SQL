@@ -43,3 +43,21 @@ CREATE TABLE scores (
 	FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
 	FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE
 );
+
+#create trigger for random code
+DELIMITER $$
+CREATE TRIGGER before_insert_testingrand
+BEFORE INSERT ON testingrand
+FOR EACH ROW
+BEGIN
+  DECLARE done INT DEFAULT 0;
+  WHILE done = 0 DO
+    SET NEW.code = FLOOR(100 + RAND() * 900);
+    IF NOT EXISTS (
+      SELECT 1 FROM testingrand WHERE code = NEW.code) 
+      THEN
+      SET done = 1;
+    END IF;
+  END WHILE;
+END$$
+DELIMITER ;
