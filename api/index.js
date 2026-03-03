@@ -422,14 +422,14 @@ server.get("/locations/read/:id", async (req, res, next) => {
 });
 
 //GET locatios opvragen aan de hand van id
-server.get("/question/get/location/:number", async (req, res) => {
+server.get("/question/get/location/:location_number", async (req, res) => {
   try {
-    const { number } = req.params;
+    const { location_number } = req.params;
 
     const con = await connect();
     const query = `
-      SELECT * FROM questions 
-      WHERE number = ?
+      SELECT text FROM questions 
+      WHERE location_number = ?
     `;
     const [rows] = await con.execute(query, [number]);
     await con.end();
