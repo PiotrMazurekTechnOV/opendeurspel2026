@@ -423,7 +423,7 @@ server.get("/locations/read/:id", async (req, res, next) => {
 //GET locatios opvragen aan de hand van id
 server.get("/question/get/location/:number", async (req, res) => {
   try {
-    const { location_id } = req.params;
+    const { number } = req.params;
 
     const con = await connect();
     const query = `
@@ -515,10 +515,10 @@ server.post("/scores/create", async (req, res) => {
       return res.status(400).json({error: "All fields are required."});
     }
     const con = await connect(); 
-      const query = `UPDATE scores SET user_id = ?, correct = ?, WHERE location_id = ?`;
-      await con.execute(query, [location_id, text]);
+      const query = `UPDATE scores SET user_id = ?, correct = ?, WHERE location_number = ?`;
+      await con.execute(query, [location_number, text]);
 
-      await con.end(); 
+      await con.end(); s
       res.status(200).json({ message: "Data updated!" });
   } catch (error) {
     res.json(error);
