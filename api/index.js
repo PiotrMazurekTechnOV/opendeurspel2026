@@ -73,17 +73,18 @@ server.get("/user/get/all", async (req, res) => {
 // POST add user
 server.post("/user/add", async (req, res) => {
   try {
-    const { nameGuardian, nameChild, email, code } = req.body;
+    const { nameGuardian, nameChild, email} = req.body;
 
-    if (!nameGuardian || !nameChild || !email || code === undefined) {
-      return res.status(400).json({ error: "nameGuardian, nameChild, email, code are required" });
+    if (!nameGuardian || !nameChild || !email) {
+      return res.status(400).json({ error: "nameGuardian, nameChild, email are required" });
     }
 
     const con = await connect();
     await con.execute(
-      "INSERT INTO users (nameGuardian, nameChild, email, code) VALUES (?, ?, ?, FLOOR(100 + RAND() * 900))",//change to random code
-      [nameGuardian, nameChild, email, code]
+      "INSERT INTO users (nameGuardian, nameChild, email) VALUES (?, ?, ?)",
+      [nameGuardian, nameChild, email]
     );
+    
     await con.end();
 
     res.status(201).json({ message: "User added" });
@@ -129,16 +130,16 @@ server.post("/user/delete/:id", async (req, res) => {
 //question add
 server.post("/question/add", async (req, res) => {
   //try {
-      const { locations_id, question } = req.body;
+      const { location_number, text } = req.body;
 
-      /*if (!locations_id || !question) {
+      /*if (!location_number || !text) {
           return res.status(400).json({ error: "Some fields are required." });
       }*/ //not needed yet?
 
       const con = await connect(); 
-      const query = `INSERT INTO opendeurspel.users (locations_id, question) VALUES 
+      const query = `INSERT INTO questions (location_number, text) VALUES 
       (?, ?)`;
-      await con.execute(query, [locations_id, question]);
+      await con.execute(query, [location_number, text]);
 
       await con.end(); 
       res.status(201).json({ message: "Question added successfully!" });
@@ -453,7 +454,7 @@ server.get("/locations/get/number/:number", async (req, res, next) => {
 //GET locatios opvragen aan de hand van id
 server.get("/question/get/location/:number", async (req, res) => {
   try {
-    const { location_id } = req.params;
+    const { number } = req.params;
 
     const con = await connect();
     const query = `
@@ -545,10 +546,10 @@ server.post("/scores/create", async (req, res) => {
       return res.status(400).json({error: "All fields are required."});
     }
     const con = await connect(); 
-      const query = `UPDATE scores SET user_id = ?, correct = ?, WHERE location_id = ?`;
-      await con.execute(query, [location_id, text]);
+      const query = `UPDATE scores SET user_id = ?, correct = ?, WHERE location_number = ?`;
+      await con.execute(query, [location_number, text]);
 
-      await con.end(); 
+      await con.end(); s
       res.status(200).json({ message: "Data updated!" });
   } catch (error) {
     res.json(error);
