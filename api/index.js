@@ -431,7 +431,7 @@ server.get("/question/get/location/:location_number", async (req, res) => {
       SELECT text FROM questions 
       WHERE location_number = ?
     `;
-    const [rows] = await con.execute(query, [number]);
+    const [rows] = await con.execute(query, [location_number]);
     await con.end();
 
     res.status(200).json({
