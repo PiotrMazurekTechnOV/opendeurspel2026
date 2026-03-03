@@ -56,6 +56,20 @@ server.get("/user/get/code/:code", async (req, res) => {
   }
 });
 
+// GET all users
+server.get("/user/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM users", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // POST add user
 server.post("/user/add", async (req, res) => {
   try {
@@ -150,6 +164,7 @@ server.post("/question/update/", async (req, res)=>{
     //res.json(error);
   //}
 });
+
 // question delete
 server.post("/question/delete/", async (req, res)=>{
     try {
@@ -168,6 +183,7 @@ server.post("/question/delete/", async (req, res)=>{
     }
     catch (error){ res.status(500).json(error);}
 });
+
 // read question on id
 server.get("/question/read/:id", async (req, res, next) => {
   try {
@@ -194,6 +210,20 @@ server.get("/question/read/:id", async (req, res, next) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Something went wrong with the server." });
+  }
+});
+
+// GET all questions
+server.get("/question/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM question", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -308,6 +338,20 @@ server.post("/answer/delete/:id", async (req, res) => {
   }
 });
 
+// GET all answers
+server.get("/answer/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answer", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 //locations
 //locations(voorbeeld code)
 server.post("/locations/create", async (req, res) => {
@@ -407,16 +451,16 @@ server.get("/locations/get/number/:number", async (req, res, next) => {
 });
 
 //GET locatios opvragen aan de hand van id
-server.get("/question/get/location/:location_id", async (req, res) => {
+server.get("/question/get/location/:number", async (req, res) => {
   try {
     const { location_id } = req.params;
 
     const con = await connect();
     const query = `
       SELECT * FROM questions 
-      WHERE location_id = ?
+      WHERE number = ?
     `;
-    const [rows] = await con.execute(query, [location_id]);
+    const [rows] = await con.execute(query, [number]);
     await con.end();
 
     res.status(200).json({
@@ -455,9 +499,22 @@ server.get("/location/delete/:id", async (req, res) => {
   }
 });
 
+// GET all locations
+server.get("/location/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM location", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 
 //scores
-//voorbeeld code (niet met onze database verbonden)
 server.post("/scores/create", async (req, res) => {
   try {
       const { user_id, question_id, correct } = req.body;
@@ -548,6 +605,20 @@ server.post("/scores/create", async (req, res) => {
     res.json({ message: "Score deleted successfully!" });
   } catch (error) {
     res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+// GET all score's
+server.get("/score/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM score", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
