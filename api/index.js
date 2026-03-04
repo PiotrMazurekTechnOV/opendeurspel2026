@@ -133,14 +133,13 @@ server.post("/user/delete/", async (req, res) => {
 //question add
 server.post("/question/add", async (req, res) => {
   //try {
-      const { location_id, text } = req.body;
+      const { text, location_id } = req.body;
 
       /*if (!location_id || !text) {
           return res.status(400).json({ error: "Some fields are required." });
       }*/ //not needed yet?
-
       const con = await connect(); 
-      const query = `INSERT INTO opendeurspel.users (location_id, text) VALUES 
+      const query = `INSERT INTO opendeurspel.questions (location_id, question) VALUES 
       (?, ?)`;
       await con.execute(query, [location_id, text]);
 
@@ -206,25 +205,60 @@ server.get("/question/get/:id", async (req, res, next) => {
   }
 });
 
+//Read questions
+server.get("/questions/read", async (req, res, next) => {
+  try {
+    const con = await connect(); 
+    const query = "SELECT * FROM questions";
+    
+    // Execute query properly
+    const [rows] = await con.execute(query);
+    //console.log(rows)
+    con.end(); // Close connection after the query
+
+    /*
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Location not found." });
+    }
+    */
+    res.status(200).json(rows);
+
+  } catch (error) {
+    //console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
 //answers
 // POST add answer
-server.post("/answer/add", async (req, res) => {
-  //try {
-    const { text, question_id } = req.body;
-    //if (!text || question_id === undefined) {
-      //return res.status(400).json({ error: "answer and question_id are required" });
-    //}
+server.post("/answers/add", async (req, res) => {
+  try {
+    const answers = req.body; // Expecting an array of { text, question_id, correct }
+    console.log(answers)
+    if (!Array.isArray(answers) || answers.length === 0) {
+      return res.status(400).json({ error: "Answers array is required" });
+    }
 
     const con = await connect();
-    await con.execute(
-      "INSERT INTO answers (text, question_id) VALUES (?, ?)",
-      [text, question_id]
-    );
+
+    // Use a transaction for multiple inserts
+    await con.beginTransaction();
+
+    for (const ans of answers) {
+      const { text, question_id, correct } = ans;
+      await con.execute(
+        "INSERT INTO answers (text, question_id, correct) VALUES (?, ?, ?)",
+        [text, question_id, correct]
+      );
+    }
+
+    await con.commit();
     await con.end();
-    res.status(201).json({ message: "Answer added" });
-  //} catch (err) {
-    //res.status(500).json({ error: err.message });
-  //}
+
+    res.status(201).json({ message: "Answers added", count: answers.length });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // POST update answer
@@ -313,7 +347,7 @@ server.get("/answer/get/question/:question_id", async (req, res) => {//`_` shoul
 
 //locations
 //location add
-server.post("/locations/add", async (req, res) => {
+server.post("/location/add", async (req, res) => {
   //try {
       const { number, localName } = req.body;
 
@@ -393,6 +427,30 @@ server.get("/locations/read/:id", async (req, res, next) => {
     }
     */
     res.status(200).json({message: "Data read successfully!", data: rows});
+
+  } catch (error) {
+    //console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+//Read Locations
+server.get("/locations/read", async (req, res, next) => {
+  try {
+    const con = await connect(); 
+    const query = "SELECT * FROM locations";
+    
+    // Execute query properly
+    const [rows] = await con.execute(query);
+    //console.log(rows)
+    con.end(); // Close connection after the query
+
+    /*
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Location not found." });
+    }
+    */
+    res.status(200).json(rows);
 
   } catch (error) {
     //console.error(error);
