@@ -60,13 +60,12 @@ server.get("/user/get/code/:code", async (req, res) => {
 server.get("/user/get/all", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM users");
     await con.end();
 
-    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
     res.json(rows[0]);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    res.status(500).json({ error: `server error` });
   }
 });
 
@@ -75,8 +74,8 @@ server.post("/user/add", async (req, res) => {
   try {
     const { nameGuardian, nameChild, email} = req.body;
 
-    if (!nameGuardian || !nameChild || !email) {
-      return res.status(400).json({ error: "nameGuardian, nameChild, email are required" });
+    if (!email) {
+      return res.status(400).json({ error: "email is required"});
     }
 
     const con = await connect();
@@ -245,10 +244,23 @@ server.get("/answer/get/id/:id", async (req, res) => {
 });
 
 // GET answers via questionId
-server.get("/answer/get/question/:questionId", async (req, res) => {
+server.get("/answer/get/question-on-id/:questionId", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM answers WHERE questions_id = ?", [req.params.questionId]);
+    const [rows] = await con.execute("SELECT * FROM answers WHERE question_id = ?", [req.params.questionId]);
+    await con.end();
+
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET answers via location number
+server.get("/answer/get/question-on-location/:location_number", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answers JOIN questions ON answers.question_id = questions.id JOIN locations ON questions.location_number = locations.number", [req.params.location_number]);
     await con.end();
 
     res.json(rows);
@@ -455,16 +467,19 @@ server.get("/locations/get/number/:number", async (req, res, next) => {
 server.get("/question/get/location/:location_number", async (req, res) => {
   try {
     const { location_number } = req.params;
-
+ 
     const con = await connect();
     const query = `
-      SELECT text FROM questions 
+      SELECT text FROM questions
       WHERE location_number = ?
     `;
     const [rows] = await con.execute(query, [location_number]);
     await con.end();
 
-    res.status(200).json(rows[0]);
+    res.status(200).json({
+      message: "Question(s) retrieved!",
+      data: rows
+    });
 
   } catch (error) {
     res.status(500).json({ error: "Something went wrong." });
