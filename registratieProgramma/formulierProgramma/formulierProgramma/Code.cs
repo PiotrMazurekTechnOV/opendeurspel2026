@@ -18,7 +18,7 @@ namespace formulierProgramma
         public Code(string result)
         {
             InitializeComponent();
-
+            this.result = result;   
         }
 
         private void Code_Load(object sender, EventArgs e)
@@ -33,7 +33,7 @@ namespace formulierProgramma
         
         private void CodeLabel_Load(object sender, EventArgs e)
         {
-            CodeLabel.Content = "User toegevoegd!";
+            CodeLabel.Content = "User toegevoegd! "+ this.result ;
         }
 
   
