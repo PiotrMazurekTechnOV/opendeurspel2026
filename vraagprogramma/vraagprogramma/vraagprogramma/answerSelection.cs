@@ -63,9 +63,11 @@ namespace vraagprogramma
 
             try
             {
-                var response = await client.GetAsync("/question/get/locations/" + 112);
+                var response = await client.GetAsync("/question/get/location/" + 112);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
+            
                 Question question = JsonConvert.DeserializeObject<Question>(jsonResponse);
+                
                 questionLbl.Text = question.text;
             }
             catch (Exception ex)
