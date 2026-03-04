@@ -186,7 +186,7 @@ server.post("/question/delete/:id", async (req, res)=>{
 });
 
 // read question on id
-server.get("/question/read/:id", async (req, res, next) => {
+server.get("/question/get/:id", async (req, res, next) => {
   try {
     const { id } = req.params; // Get the question ID from the URL
 
@@ -353,8 +353,7 @@ server.get("/answer/get/all", async (req, res) => {
 });
 
 //locations
-//locations(voorbeeld code)
-server.post("/locations/create", async (req, res) => {
+server.post("/locations/add", async (req, res) => {
   try {
       const { number, name } = req.body;
 
@@ -375,7 +374,7 @@ server.post("/locations/create", async (req, res) => {
 });
 
 //UPDATES
-server.post("/location/update", async (req, res)=>{
+server.post("/location/update/:nuber", async (req, res)=>{
   try {
     const { number, name} = req.body;
     if(!number || !name) {
@@ -393,7 +392,7 @@ server.post("/location/update", async (req, res)=>{
 );
 
 //Read Locations
-server.get("/locations/read/:id", async (req, res, next) => {
+server.get("/locations/get/:id", async (req, res, next) => {
   try {
     const { id } = req.params; 
 
@@ -422,23 +421,21 @@ server.get("/locations/read/:id", async (req, res, next) => {
 });
 
 //GET locatios opvragen aan de hand van id
-server.get("/question/get/location/:number", async (req, res) => {
+//alexander had hier een fix, kijk od deze verder ergens anders nodig is?
+server.get("/question/get/location/:location_number", async (req, res) => {
   try {
-    const { number } = req.params;
-
+    const { location_number } = req.params;
+ 
     const con = await connect();
     const query = `
-      SELECT * FROM questions 
-      WHERE number = ?
+      SELECT text FROM questions
+      WHERE location_number = ?
     `;
-    const [rows] = await con.execute(query, [number]);
+    const [rows] = await con.execute(query, [location_number]);
     await con.end();
-
-    res.status(200).json({
-      message: "Question(s) retrieved!",
-      data: rows
-    });
-
+ 
+    res.status(200).json(rows[0]);
+ 
   } catch (error) {
     res.status(500).json({ error: "Something went wrong." });
   }
@@ -486,7 +483,7 @@ server.get("/location/get/all", async (req, res) => {
 
 
 //scores
-server.post("/scores/create", async (req, res) => {
+server.post("/scores/add", async (req, res) => {
   try {
       const { user_id, question_id, correct } = req.body;
 
@@ -509,7 +506,7 @@ server.post("/scores/create", async (req, res) => {
   }})
 
   //update score
-  server.post("/score/update/", async (req, res)=>{
+  server.post("/score/update/:location_number", async (req, res)=>{
   try {
     const { user_id, question_id, correct} = req.body;
     if(!user_id || !question_id || !correct) {
@@ -527,7 +524,7 @@ server.post("/scores/create", async (req, res) => {
 
 
     //Read scores
-  server.get("/scores/read/:id", async (req, res, next) => {
+  server.get("/scores/get/:id", async (req, res, next) => {
   try {
     const { id } = req.params; 
 
