@@ -101,7 +101,8 @@ namespace formulierProgramma
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Fout bij verzenden: " + ex.Message);
+              MessageBox.Show("Fout bij verzenden: " + ex.Message);
+              
             }
         }
 
