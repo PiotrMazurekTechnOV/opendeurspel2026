@@ -33,9 +33,9 @@ namespace AdminProgramma
             answer4CheckBox.Tag = answer4Box;
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private async void Form1_Load(object sender, EventArgs e)
         {
-            
+            RefreshBoxes();
         }
 
         async Task<string> AddUser(string nameChild, string nameGuardian, string email)
@@ -181,25 +181,7 @@ namespace AdminProgramma
 
         private async void refreshBtn_Click(object sender, EventArgs e)
         {
-            List<Location> locations = await GetAllLocations();
-            List<ComboBoxItem> locationItems = new List<ComboBoxItem>();
-            foreach(Location location in locations)
-            {
-                locationItems.Add(new ComboBoxItem { Id = location.id, Name = location.number + " " + location.localName });
-            }
-            locationsComboBox.DataSource = locationItems;
-            locationsComboBox.DisplayMember = "Name";
-            locationsComboBox.ValueMember = "Id";
-
-            List<Question> questions = await GetAllQuestions();
-            List<ComboBoxItem> questionItems = new List<ComboBoxItem>();
-            foreach (Question question in questions) { 
-                questionItems.Add(new ComboBoxItem { Id = question.id, Name = question.text });
-            }
-            questionsComboBox.DataSource = questionItems;
-            questionsComboBox.DisplayMember = "Name";
-            questionsComboBox.ValueMember = "Id";
-
+            RefreshBoxes();
         }
 
         private async Task<string> createAnswers()
@@ -217,7 +199,7 @@ namespace AdminProgramma
             }
 
             StringContent json = new StringContent(JsonConvert.SerializeObject(answers), Encoding.UTF8, "application/json");
-            MessageBox.Show(json.ToString());
+
             var response = await client.PostAsync("/answers/add", json);
 
             response.EnsureSuccessStatusCode();
@@ -238,6 +220,30 @@ namespace AdminProgramma
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private async void RefreshBoxes()
+        {
+            List<Location> locations = await GetAllLocations();
+            List<ComboBoxItem> locationItems = new List<ComboBoxItem>();
+            foreach (Location location in locations)
+            {
+                locationItems.Add(new ComboBoxItem { Id = location.id, Name = location.number + " " + location.localName });
+            }
+            locationsComboBox.DataSource = locationItems;
+            locationsComboBox.DisplayMember = "Name";
+            locationsComboBox.ValueMember = "Id";
+
+            List<Question> questions = await GetAllQuestions();
+            List<ComboBoxItem> questionItems = new List<ComboBoxItem>();
+            foreach (Question question in questions)
+            {
+                questionItems.Add(new ComboBoxItem { Id = question.id, Name = question.text });
+            }
+            questionsComboBox.DataSource = questionItems;
+            questionsComboBox.DisplayMember = "Name";
+            questionsComboBox.ValueMember = "Id";
+
         }
     }
 

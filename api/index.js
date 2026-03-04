@@ -234,7 +234,7 @@ server.get("/questions/read", async (req, res, next) => {
 server.post("/answers/add", async (req, res) => {
   try {
     const answers = req.body; // Expecting an array of { text, question_id, correct }
-    console.log(answers)
+
     if (!Array.isArray(answers) || answers.length === 0) {
       return res.status(400).json({ error: "Answers array is required" });
     }

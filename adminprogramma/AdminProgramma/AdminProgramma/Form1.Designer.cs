@@ -48,7 +48,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.locationNameTxtBx = new System.Windows.Forms.TextBox();
             this.locationsComboBox = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
             this.createQuestionBtn = new System.Windows.Forms.Button();
             this.createAnswersBtn = new System.Windows.Forms.Button();
             this.createLocationBtn = new System.Windows.Forms.Button();
@@ -56,7 +55,13 @@
             this.refreshBtn = new System.Windows.Forms.Button();
             this.questionsComboBox = new System.Windows.Forms.ComboBox();
             this.answersGroupbox = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.answersGroupbox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // answer1CheckBox
@@ -137,17 +142,17 @@
             // 
             // questionTextTxtBx
             // 
-            this.questionTextTxtBx.Location = new System.Drawing.Point(919, 229);
+            this.questionTextTxtBx.Location = new System.Drawing.Point(6, 82);
             this.questionTextTxtBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.questionTextTxtBx.Name = "questionTextTxtBx";
-            this.questionTextTxtBx.Size = new System.Drawing.Size(400, 22);
+            this.questionTextTxtBx.Size = new System.Drawing.Size(221, 22);
             this.questionTextTxtBx.TabIndex = 10;
             // 
             // user
             // 
             this.user.FormattingEnabled = true;
             this.user.ItemHeight = 16;
-            this.user.Location = new System.Drawing.Point(456, 50);
+            this.user.Location = new System.Drawing.Point(952, 11);
             this.user.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.user.Name = "user";
             this.user.Size = new System.Drawing.Size(184, 420);
@@ -156,7 +161,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(916, 172);
+            this.label1.Location = new System.Drawing.Point(6, 25);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(54, 16);
             this.label1.TabIndex = 14;
@@ -201,7 +206,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1200, 31);
+            this.label6.Location = new System.Drawing.Point(6, 28);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(63, 16);
             this.label6.TabIndex = 19;
@@ -209,7 +214,7 @@
             // 
             // locationNumberTxtBx
             // 
-            this.locationNumberTxtBx.Location = new System.Drawing.Point(1195, 50);
+            this.locationNumberTxtBx.Location = new System.Drawing.Point(6, 47);
             this.locationNumberTxtBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.locationNumberTxtBx.Name = "locationNumberTxtBx";
             this.locationNumberTxtBx.Size = new System.Drawing.Size(138, 22);
@@ -218,7 +223,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1200, 91);
+            this.label7.Location = new System.Drawing.Point(6, 88);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(79, 16);
             this.label7.TabIndex = 21;
@@ -226,7 +231,7 @@
             // 
             // locationNameTxtBx
             // 
-            this.locationNameTxtBx.Location = new System.Drawing.Point(1195, 110);
+            this.locationNameTxtBx.Location = new System.Drawing.Point(6, 107);
             this.locationNameTxtBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.locationNameTxtBx.Name = "locationNameTxtBx";
             this.locationNameTxtBx.Size = new System.Drawing.Size(138, 22);
@@ -235,24 +240,15 @@
             // locationsComboBox
             // 
             this.locationsComboBox.FormattingEnabled = true;
-            this.locationsComboBox.Location = new System.Drawing.Point(919, 201);
+            this.locationsComboBox.Location = new System.Drawing.Point(6, 54);
             this.locationsComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.locationsComboBox.Name = "locationsComboBox";
             this.locationsComboBox.Size = new System.Drawing.Size(144, 24);
             this.locationsComboBox.TabIndex = 24;
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(44, 454);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(54, 16);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "VRAAG";
-            // 
             // createQuestionBtn
             // 
-            this.createQuestionBtn.Location = new System.Drawing.Point(919, 256);
+            this.createQuestionBtn.Location = new System.Drawing.Point(6, 109);
             this.createQuestionBtn.Name = "createQuestionBtn";
             this.createQuestionBtn.Size = new System.Drawing.Size(221, 23);
             this.createQuestionBtn.TabIndex = 27;
@@ -262,7 +258,7 @@
             // 
             // createAnswersBtn
             // 
-            this.createAnswersBtn.Location = new System.Drawing.Point(30, 344);
+            this.createAnswersBtn.Location = new System.Drawing.Point(6, 341);
             this.createAnswersBtn.Name = "createAnswersBtn";
             this.createAnswersBtn.Size = new System.Drawing.Size(211, 23);
             this.createAnswersBtn.TabIndex = 28;
@@ -272,7 +268,7 @@
             // 
             // createLocationBtn
             // 
-            this.createLocationBtn.Location = new System.Drawing.Point(1195, 150);
+            this.createLocationBtn.Location = new System.Drawing.Point(6, 147);
             this.createLocationBtn.Name = "createLocationBtn";
             this.createLocationBtn.Size = new System.Drawing.Size(124, 23);
             this.createLocationBtn.TabIndex = 29;
@@ -284,7 +280,7 @@
             // 
             this.locationsLstBx.FormattingEnabled = true;
             this.locationsLstBx.ItemHeight = 16;
-            this.locationsLstBx.Location = new System.Drawing.Point(697, 50);
+            this.locationsLstBx.Location = new System.Drawing.Point(1153, 11);
             this.locationsLstBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.locationsLstBx.Name = "locationsLstBx";
             this.locationsLstBx.Size = new System.Drawing.Size(184, 420);
@@ -292,7 +288,7 @@
             // 
             // refreshBtn
             // 
-            this.refreshBtn.Location = new System.Drawing.Point(1087, 536);
+            this.refreshBtn.Location = new System.Drawing.Point(428, 511);
             this.refreshBtn.Name = "refreshBtn";
             this.refreshBtn.Size = new System.Drawing.Size(221, 23);
             this.refreshBtn.TabIndex = 31;
@@ -303,7 +299,7 @@
             // questionsComboBox
             // 
             this.questionsComboBox.FormattingEnabled = true;
-            this.questionsComboBox.Location = new System.Drawing.Point(23, 23);
+            this.questionsComboBox.Location = new System.Drawing.Point(6, 20);
             this.questionsComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.questionsComboBox.Name = "questionsComboBox";
             this.questionsComboBox.Size = new System.Drawing.Size(144, 24);
@@ -323,42 +319,75 @@
             this.answersGroupbox.Controls.Add(this.label3);
             this.answersGroupbox.Controls.Add(this.label4);
             this.answersGroupbox.Controls.Add(this.label5);
-            this.answersGroupbox.Location = new System.Drawing.Point(23, 64);
+            this.answersGroupbox.Location = new System.Drawing.Point(6, 61);
             this.answersGroupbox.Name = "answersGroupbox";
             this.answersGroupbox.Size = new System.Drawing.Size(272, 265);
             this.answersGroupbox.TabIndex = 33;
             this.answersGroupbox.TabStop = false;
             this.answersGroupbox.Text = "Antwoorden";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.locationNumberTxtBx);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.locationNameTxtBx);
+            this.groupBox1.Controls.Add(this.createLocationBtn);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(158, 213);
+            this.groupBox1.TabIndex = 34;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Locaties";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.questionTextTxtBx);
+            this.groupBox2.Controls.Add(this.locationsComboBox);
+            this.groupBox2.Controls.Add(this.createQuestionBtn);
+            this.groupBox2.Location = new System.Drawing.Point(176, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(247, 147);
+            this.groupBox2.TabIndex = 35;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Vragen";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.questionsComboBox);
+            this.groupBox3.Controls.Add(this.createAnswersBtn);
+            this.groupBox3.Controls.Add(this.answersGroupbox);
+            this.groupBox3.Location = new System.Drawing.Point(12, 244);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(278, 391);
+            this.groupBox3.TabIndex = 36;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Antwoorden";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1349, 733);
-            this.Controls.Add(this.answersGroupbox);
-            this.Controls.Add(this.questionsComboBox);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.refreshBtn);
             this.Controls.Add(this.locationsLstBx);
-            this.Controls.Add(this.createLocationBtn);
-            this.Controls.Add(this.createAnswersBtn);
-            this.Controls.Add(this.createQuestionBtn);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.locationsComboBox);
-            this.Controls.Add(this.locationNameTxtBx);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.locationNumberTxtBx);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label1);
             this.Controls.Add(this.user);
-            this.Controls.Add(this.questionTextTxtBx);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.answersGroupbox.ResumeLayout(false);
             this.answersGroupbox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -384,7 +413,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox locationNameTxtBx;
         private System.Windows.Forms.ComboBox locationsComboBox;
-        private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button createQuestionBtn;
         private System.Windows.Forms.Button createAnswersBtn;
         private System.Windows.Forms.Button createLocationBtn;
@@ -392,6 +420,9 @@
         private System.Windows.Forms.Button refreshBtn;
         private System.Windows.Forms.ComboBox questionsComboBox;
         private System.Windows.Forms.GroupBox answersGroupbox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
 
