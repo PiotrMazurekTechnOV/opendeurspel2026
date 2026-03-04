@@ -490,6 +490,9 @@ server.post("/scores/add", async (req, res) => {
     //console.error(error);
   }});
 
+//printer
+
+
 // Start server
 const PORT = process.env.PORT;
 server.listen(PORT, () => {
@@ -498,3 +501,4 @@ server.listen(PORT, () => {
 server.get("/", (req, res) => {
   res.send("WELKOM!!!"); 
 });
+
