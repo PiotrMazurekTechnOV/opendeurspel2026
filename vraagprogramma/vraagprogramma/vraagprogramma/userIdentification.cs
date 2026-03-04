@@ -34,7 +34,7 @@ namespace vraagprogramma
         {
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
-            label1.Text = "WELKOM BIJ " +  klas;
+            label1.Text = "WELKOM BIJ " + ;
             label1.BackColor = Color.Transparent;
             label1.Left = (this.ClientSize.Width - label1.Width) / 2;
             label1.Top = (this.ClientSize.Height - label1.Height) / 3;
@@ -48,12 +48,15 @@ namespace vraagprogramma
 
           
         }
-
         private void confirmBtn_Click(object sender, EventArgs e)
         {
             code = Convert.ToInt32(textBox1.Text);
+
             
+
         }
+
+        
         
     }
 }

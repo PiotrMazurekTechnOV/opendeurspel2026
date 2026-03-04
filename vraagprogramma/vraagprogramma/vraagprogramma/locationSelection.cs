@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
+﻿using Newtonsoft.Json;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace vraagprogramma
 {
@@ -12,6 +7,8 @@ namespace vraagprogramma
     {
         private int location;
         private string klas;
+        static HttpClient client;
+
         public locationSelection()
         {
             InitializeComponent();
@@ -29,35 +26,45 @@ namespace vraagprogramma
 
         }
 
-        private void klasBtn_Click(object sender, EventArgs e)
+        private async void klasBtn_Click(object sender, EventArgs e)
         {
-            location = Convert.ToInt32(codeTextbox.Text);
-            switch (location)
+            try
             {
-                case 112:
-                    klas = "INDUSTRIËLE ICT";
-                    break;
-                case 104:
-                    klas = "ELEKTROTECHNIEKEN";
-                    break;
-                case 116:
-                    klas = "NATUURWETENSCHAPPEN";
-                    break;
-                default:
-                    MessageBox.Show("Er is een fout opgetreden, probeer het opnieuw.");
-                    break;
+                var response = await client.GetAsync("/location/get/number/" + Convert.ToInt32(codeTextbox.Text));
+                var jsonResponse = await response.Content.ReadAsStringAsync();
+
+                Location location = JsonConvert.DeserializeObject<Location>(jsonResponse);
+                
+                
+
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
 
             userIdentification userIdentification = new userIdentification(klas);
             this.Hide();
             userIdentification.Show();
         }
+
+        /*
         public string Klas
         {
             get { return klas; }
         }
+
+        */
+       
     }
 
-
-}
+        public class Location
+        {
+            public int id { get; set; }
+            public string localName { get; set; }
+            public int number { get; set; }
+        }
     
+}
+
