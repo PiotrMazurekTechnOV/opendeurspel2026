@@ -65,15 +65,18 @@ namespace vraagprogramma
             {
                 var response = await client.GetAsync("/question/get/location/" + 112);
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-            
+
                 Question question = JsonConvert.DeserializeObject<Question>(jsonResponse);
-                
                 questionLbl.Text = question.text;
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
+
+
+
+
         }
 
         
@@ -119,20 +122,7 @@ namespace vraagprogramma
 
         }
 
-        private async void button1_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                var response = await client.GetAsync("/question/get/" + 2);
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                Question question = JsonConvert.DeserializeObject<Question>(jsonResponse);
-                questionLbl.Text = question.text;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-        }
+        
     }
 
     public class  Question
@@ -141,6 +131,8 @@ namespace vraagprogramma
         public string text { get; set; }
         public int? locations_id { get; set; }
     }
+    
+
 }
 
 

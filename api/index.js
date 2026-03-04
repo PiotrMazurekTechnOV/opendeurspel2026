@@ -263,7 +263,7 @@ server.get("/answer/get/question-on-location/:location_number", async (req, res)
     const [rows] = await con.execute("SELECT * FROM answers JOIN questions ON answers.question_id = questions.id JOIN locations ON questions.location_number = locations.number", [req.params.location_number]);
     await con.end();
 
-    res.json(rows);
+    res.json(rows[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -476,10 +476,7 @@ server.get("/question/get/location/:location_number", async (req, res) => {
     const [rows] = await con.execute(query, [location_number]);
     await con.end();
 
-    res.status(200).json({
-      message: "Question(s) retrieved!",
-      data: rows
-    });
+    res.status(200).json(rows[0]);
 
   } catch (error) {
     res.status(500).json({ error: "Something went wrong." });
