@@ -60,10 +60,9 @@ server.get("/user/get/code/:code", async (req, res) => {
 server.get("/user/get/all", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM user WHERE naam IS NOT NULL", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM users");
     await con.end();
 
-    if (rows.length === 0) return res.status(404).json({ error: "Users not found" });
     res.json(rows[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -75,8 +74,8 @@ server.post("/user/add", async (req, res) => {
   try {
     const { nameGuardian, nameChild, email} = req.body;
 
-    if (!nameGuardian || !nameChild || !email) {
-      return res.status(400).json({ error: "nameGuardian, nameChild, email are required" });
+    if (!email) {
+      return res.status(400).json({ error: "email required" });
     }
 
     const con = await connect();
@@ -221,7 +220,7 @@ server.get("/question/get/all", async (req, res) => {
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "questions not found" });
-    res.json(rows[0]);
+    res.json(rows);   // <-- hier veranderd
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -242,12 +241,10 @@ server.get("/answer/get/id/:id", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
-
-// GET answers via questionId
-server.get("/answer/get/question/:questionId", async (req, res) => {
+server.get("/answer/get/question-on-id/:questionId", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM answers WHERE questions_id = ?", [req.params.questionId]);
+    const [rows] = await con.execute("SELECT * FROM answers WHERE question_id = ?", [req.params.questionId]);
     await con.end();
 
     res.json(rows);
@@ -255,6 +252,21 @@ server.get("/answer/get/question/:questionId", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// GET answers via location number
+server.get("/answer/get/question-on-location/:location_number", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answers JOIN questions ON answers.question_id = questions.id JOIN locations ON questions.location_number = locations.number", [req.params.location_number]);
+    await con.end();
+
+    res.json(rows[0]);
+  }catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+
 
 //GET correct antwoord via question id
 server.get("/answer/get/correct/:question_id", async (req, res) => {
@@ -421,7 +433,7 @@ server.get("/locations/get/:id", async (req, res, next) => {
 });
 
 //GET locatios opvragen aan de hand van id
-//alexander had hier een fix, kijk od deze verder ergens anders nodig is?
+
 server.get("/question/get/location/:location_number", async (req, res) => {
   try {
     const { location_number } = req.params;
