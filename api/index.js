@@ -493,8 +493,20 @@ server.post("/scores/add", async (req, res) => {
 //printer
 server.post("/print", async (req,res) => {
   //user opzoeken
+const { user_id } = req.body;
+  const con = await connect();
+  const [userRows] = await con.execute(
+    "SELECT * FROM users WHERE id = ?",
+    [user_id]
+  );
+  const user = userRows[0];
   //score bereken
+const [scoreRows] = await con.execute(
+    "SELECT * FROM scores WHERE user_id = ?",
+    [user_id]
+  );
   //pdf genereren
+
   //pdf afdrukken
 })
 
