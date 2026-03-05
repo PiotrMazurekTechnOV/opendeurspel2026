@@ -28,301 +28,414 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.check1 = new System.Windows.Forms.CheckBox();
-            this.check2 = new System.Windows.Forms.CheckBox();
-            this.check3 = new System.Windows.Forms.CheckBox();
-            this.check4 = new System.Windows.Forms.CheckBox();
-            this.antwoord1 = new System.Windows.Forms.TextBox();
-            this.antwoord3 = new System.Windows.Forms.TextBox();
-            this.antwoord2 = new System.Windows.Forms.TextBox();
-            this.antwoord4 = new System.Windows.Forms.TextBox();
-            this.vraagtext = new System.Windows.Forms.TextBox();
-            this.locaties = new System.Windows.Forms.ListBox();
-            this.antwoorden = new System.Windows.Forms.ListBox();
-            this.user = new System.Windows.Forms.ListBox();
+            this.answer1CheckBox = new System.Windows.Forms.CheckBox();
+            this.answer2CheckBox = new System.Windows.Forms.CheckBox();
+            this.answer3CheckBox = new System.Windows.Forms.CheckBox();
+            this.answer4CheckBox = new System.Windows.Forms.CheckBox();
+            this.answer1Box = new System.Windows.Forms.TextBox();
+            this.answer3Box = new System.Windows.Forms.TextBox();
+            this.answer2Box = new System.Windows.Forms.TextBox();
+            this.answer4Box = new System.Windows.Forms.TextBox();
+            this.questionTextTxtBx = new System.Windows.Forms.TextBox();
+            this.usersLstBx = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.klasnummer = new System.Windows.Forms.TextBox();
+            this.locationNumberTxtBx = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.klasnaam = new System.Windows.Forms.TextBox();
-            this.aanvraagnamen = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
+            this.locationNameTxtBx = new System.Windows.Forms.TextBox();
+            this.locationsComboBox = new System.Windows.Forms.ComboBox();
+            this.createQuestionBtn = new System.Windows.Forms.Button();
+            this.createAnswersBtn = new System.Windows.Forms.Button();
+            this.createLocationBtn = new System.Windows.Forms.Button();
+            this.locationsLstBx = new System.Windows.Forms.ListBox();
+            this.refreshBtn = new System.Windows.Forms.Button();
+            this.questionsComboBox = new System.Windows.Forms.ComboBox();
+            this.answersGroupbox = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.questionsLstBx = new System.Windows.Forms.ListBox();
+            this.answersGroupbox.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
-            // check1
+            // answer1CheckBox
             // 
-            this.check1.AutoSize = true;
-            this.check1.Location = new System.Drawing.Point(197, 138);
-            this.check1.Name = "check1";
-            this.check1.Size = new System.Drawing.Size(114, 24);
-            this.check1.TabIndex = 2;
-            this.check1.Text = "antwoord 1";
-            this.check1.UseVisualStyleBackColor = true;
+            this.answer1CheckBox.AutoSize = true;
+            this.answer1CheckBox.Location = new System.Drawing.Point(157, 47);
+            this.answer1CheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.answer1CheckBox.Name = "answer1CheckBox";
+            this.answer1CheckBox.Size = new System.Drawing.Size(94, 20);
+            this.answer1CheckBox.TabIndex = 2;
+            this.answer1CheckBox.Text = "antwoord 1";
+            this.answer1CheckBox.UseVisualStyleBackColor = true;
             // 
-            // check2
+            // answer2CheckBox
             // 
-            this.check2.AutoSize = true;
-            this.check2.Location = new System.Drawing.Point(201, 215);
-            this.check2.Name = "check2";
-            this.check2.Size = new System.Drawing.Size(114, 24);
-            this.check2.TabIndex = 3;
-            this.check2.Text = "antwoord 2";
-            this.check2.UseVisualStyleBackColor = true;
+            this.answer2CheckBox.AutoSize = true;
+            this.answer2CheckBox.Location = new System.Drawing.Point(156, 109);
+            this.answer2CheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.answer2CheckBox.Name = "answer2CheckBox";
+            this.answer2CheckBox.Size = new System.Drawing.Size(94, 20);
+            this.answer2CheckBox.TabIndex = 3;
+            this.answer2CheckBox.Text = "antwoord 2";
+            this.answer2CheckBox.UseVisualStyleBackColor = true;
             // 
-            // check3
+            // answer3CheckBox
             // 
-            this.check3.AutoSize = true;
-            this.check3.Location = new System.Drawing.Point(201, 285);
-            this.check3.Name = "check3";
-            this.check3.Size = new System.Drawing.Size(114, 24);
-            this.check3.TabIndex = 4;
-            this.check3.Text = "antwoord 3";
-            this.check3.UseVisualStyleBackColor = true;
+            this.answer3CheckBox.AutoSize = true;
+            this.answer3CheckBox.Location = new System.Drawing.Point(157, 165);
+            this.answer3CheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.answer3CheckBox.Name = "answer3CheckBox";
+            this.answer3CheckBox.Size = new System.Drawing.Size(94, 20);
+            this.answer3CheckBox.TabIndex = 4;
+            this.answer3CheckBox.Text = "antwoord 3";
+            this.answer3CheckBox.UseVisualStyleBackColor = true;
             // 
-            // check4
+            // answer4CheckBox
             // 
-            this.check4.AutoSize = true;
-            this.check4.Location = new System.Drawing.Point(197, 359);
-            this.check4.Name = "check4";
-            this.check4.Size = new System.Drawing.Size(114, 24);
-            this.check4.TabIndex = 5;
-            this.check4.Text = "antwoord 4";
-            this.check4.UseVisualStyleBackColor = true;
+            this.answer4CheckBox.AutoSize = true;
+            this.answer4CheckBox.Location = new System.Drawing.Point(153, 224);
+            this.answer4CheckBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.answer4CheckBox.Name = "answer4CheckBox";
+            this.answer4CheckBox.Size = new System.Drawing.Size(94, 20);
+            this.answer4CheckBox.TabIndex = 5;
+            this.answer4CheckBox.Text = "antwoord 4";
+            this.answer4CheckBox.UseVisualStyleBackColor = true;
             // 
-            // antwoord1
+            // answer1Box
             // 
-            this.antwoord1.Location = new System.Drawing.Point(33, 138);
-            this.antwoord1.Name = "antwoord1";
-            this.antwoord1.Size = new System.Drawing.Size(155, 26);
-            this.antwoord1.TabIndex = 6;
+            this.answer1Box.Location = new System.Drawing.Point(7, 47);
+            this.answer1Box.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.answer1Box.Name = "answer1Box";
+            this.answer1Box.Size = new System.Drawing.Size(138, 22);
+            this.answer1Box.TabIndex = 6;
             // 
-            // antwoord3
+            // answer3Box
             // 
-            this.antwoord3.Location = new System.Drawing.Point(33, 285);
-            this.antwoord3.Name = "antwoord3";
-            this.antwoord3.Size = new System.Drawing.Size(155, 26);
-            this.antwoord3.TabIndex = 7;
+            this.answer3Box.Location = new System.Drawing.Point(7, 165);
+            this.answer3Box.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.answer3Box.Name = "answer3Box";
+            this.answer3Box.Size = new System.Drawing.Size(138, 22);
+            this.answer3Box.TabIndex = 7;
             // 
-            // antwoord2
+            // answer2Box
             // 
-            this.antwoord2.Location = new System.Drawing.Point(33, 215);
-            this.antwoord2.Name = "antwoord2";
-            this.antwoord2.Size = new System.Drawing.Size(155, 26);
-            this.antwoord2.TabIndex = 8;
+            this.answer2Box.Location = new System.Drawing.Point(7, 109);
+            this.answer2Box.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.answer2Box.Name = "answer2Box";
+            this.answer2Box.Size = new System.Drawing.Size(138, 22);
+            this.answer2Box.TabIndex = 8;
             // 
-            // antwoord4
+            // answer4Box
             // 
-            this.antwoord4.Location = new System.Drawing.Point(33, 359);
-            this.antwoord4.Name = "antwoord4";
-            this.antwoord4.Size = new System.Drawing.Size(155, 26);
-            this.antwoord4.TabIndex = 9;
+            this.answer4Box.Location = new System.Drawing.Point(7, 224);
+            this.answer4Box.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.answer4Box.Name = "answer4Box";
+            this.answer4Box.Size = new System.Drawing.Size(138, 22);
+            this.answer4Box.TabIndex = 9;
             // 
-            // vraagtext
+            // questionTextTxtBx
             // 
-            this.vraagtext.Location = new System.Drawing.Point(33, 62);
-            this.vraagtext.Name = "vraagtext";
-            this.vraagtext.Size = new System.Drawing.Size(449, 26);
-            this.vraagtext.TabIndex = 10;
+            this.questionTextTxtBx.Location = new System.Drawing.Point(6, 82);
+            this.questionTextTxtBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.questionTextTxtBx.Name = "questionTextTxtBx";
+            this.questionTextTxtBx.Size = new System.Drawing.Size(221, 22);
+            this.questionTextTxtBx.TabIndex = 10;
             // 
-            // locaties
+            // usersLstBx
             // 
-            this.locaties.FormattingEnabled = true;
-            this.locaties.ItemHeight = 20;
-            this.locaties.Location = new System.Drawing.Point(958, 62);
-            this.locaties.Name = "locaties";
-            this.locaties.Size = new System.Drawing.Size(207, 524);
-            this.locaties.TabIndex = 11;
-            // 
-            // antwoorden
-            // 
-            this.antwoorden.FormattingEnabled = true;
-            this.antwoorden.ItemHeight = 20;
-            this.antwoorden.Location = new System.Drawing.Point(736, 62);
-            this.antwoorden.Name = "antwoorden";
-            this.antwoorden.Size = new System.Drawing.Size(207, 524);
-            this.antwoorden.TabIndex = 12;
-            // 
-            // user
-            // 
-            this.user.FormattingEnabled = true;
-            this.user.ItemHeight = 20;
-            this.user.Location = new System.Drawing.Point(513, 62);
-            this.user.Name = "user";
-            this.user.Size = new System.Drawing.Size(207, 524);
-            this.user.TabIndex = 13;
+            this.usersLstBx.FormattingEnabled = true;
+            this.usersLstBx.ItemHeight = 16;
+            this.usersLstBx.Location = new System.Drawing.Point(1153, 11);
+            this.usersLstBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.usersLstBx.Name = "usersLstBx";
+            this.usersLstBx.Size = new System.Drawing.Size(184, 420);
+            this.usersLstBx.TabIndex = 13;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(121, 39);
+            this.label1.Location = new System.Drawing.Point(6, 25);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(67, 20);
+            this.label1.Size = new System.Drawing.Size(54, 16);
             this.label1.TabIndex = 14;
             this.label1.Text = "VRAAG";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(68, 115);
+            this.label2.Location = new System.Drawing.Point(38, 29);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(84, 20);
+            this.label2.Size = new System.Drawing.Size(69, 16);
             this.label2.TabIndex = 15;
             this.label2.Text = "antwoord1";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(68, 199);
+            this.label3.Location = new System.Drawing.Point(38, 96);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 20);
+            this.label3.Size = new System.Drawing.Size(69, 16);
             this.label3.TabIndex = 16;
             this.label3.Text = "antwoord2";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(68, 262);
+            this.label4.Location = new System.Drawing.Point(38, 147);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(84, 20);
+            this.label4.Size = new System.Drawing.Size(69, 16);
             this.label4.TabIndex = 17;
             this.label4.Text = "antwoord3";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(68, 336);
+            this.label5.Location = new System.Drawing.Point(38, 206);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(84, 20);
+            this.label5.Size = new System.Drawing.Size(69, 16);
             this.label5.TabIndex = 18;
             this.label5.Text = "antwoord4";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(52, 453);
+            this.label6.Location = new System.Drawing.Point(6, 28);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(77, 20);
+            this.label6.Size = new System.Drawing.Size(63, 16);
             this.label6.TabIndex = 19;
             this.label6.Text = "LOCATIE";
             // 
-            // klasnummer
+            // locationNumberTxtBx
             // 
-            this.klasnummer.Location = new System.Drawing.Point(46, 476);
-            this.klasnummer.Name = "klasnummer";
-            this.klasnummer.Size = new System.Drawing.Size(155, 26);
-            this.klasnummer.TabIndex = 20;
+            this.locationNumberTxtBx.Location = new System.Drawing.Point(6, 47);
+            this.locationNumberTxtBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.locationNumberTxtBx.Name = "locationNumberTxtBx";
+            this.locationNumberTxtBx.Size = new System.Drawing.Size(138, 22);
+            this.locationNumberTxtBx.TabIndex = 20;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(52, 528);
+            this.label7.Location = new System.Drawing.Point(6, 88);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(96, 20);
+            this.label7.Size = new System.Drawing.Size(79, 16);
             this.label7.TabIndex = 21;
             this.label7.Text = "KLASNAAM";
             // 
-            // klasnaam
+            // locationNameTxtBx
             // 
-            this.klasnaam.Location = new System.Drawing.Point(46, 551);
-            this.klasnaam.Name = "klasnaam";
-            this.klasnaam.Size = new System.Drawing.Size(155, 26);
-            this.klasnaam.TabIndex = 22;
+            this.locationNameTxtBx.Location = new System.Drawing.Point(6, 107);
+            this.locationNameTxtBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.locationNameTxtBx.Name = "locationNameTxtBx";
+            this.locationNameTxtBx.Size = new System.Drawing.Size(138, 22);
+            this.locationNameTxtBx.TabIndex = 22;
             // 
-            // aanvraagnamen
+            // locationsComboBox
             // 
-            this.aanvraagnamen.Location = new System.Drawing.Point(546, 611);
-            this.aanvraagnamen.Name = "aanvraagnamen";
-            this.aanvraagnamen.Size = new System.Drawing.Size(133, 49);
-            this.aanvraagnamen.TabIndex = 23;
-            this.aanvraagnamen.Text = "vraag voor users";
-            this.aanvraagnamen.UseVisualStyleBackColor = true;
+            this.locationsComboBox.FormattingEnabled = true;
+            this.locationsComboBox.Location = new System.Drawing.Point(6, 54);
+            this.locationsComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.locationsComboBox.Name = "locationsComboBox";
+            this.locationsComboBox.Size = new System.Drawing.Size(144, 24);
+            this.locationsComboBox.TabIndex = 24;
             // 
-            // comboBox1
+            // createQuestionBtn
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(46, 632);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(162, 28);
-            this.comboBox1.TabIndex = 24;
+            this.createQuestionBtn.Location = new System.Drawing.Point(6, 109);
+            this.createQuestionBtn.Name = "createQuestionBtn";
+            this.createQuestionBtn.Size = new System.Drawing.Size(221, 23);
+            this.createQuestionBtn.TabIndex = 27;
+            this.createQuestionBtn.Text = "Maak vraag aan";
+            this.createQuestionBtn.UseVisualStyleBackColor = true;
+            this.createQuestionBtn.Click += new System.EventHandler(this.createQuestionBtn_Click);
             // 
-            // label8
+            // createAnswersBtn
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(52, 611);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(67, 20);
-            this.label8.TabIndex = 25;
-            this.label8.Text = "VRAAG";
+            this.createAnswersBtn.Location = new System.Drawing.Point(6, 341);
+            this.createAnswersBtn.Name = "createAnswersBtn";
+            this.createAnswersBtn.Size = new System.Drawing.Size(211, 23);
+            this.createAnswersBtn.TabIndex = 28;
+            this.createAnswersBtn.Text = "Maak antwoorden aan";
+            this.createAnswersBtn.UseVisualStyleBackColor = true;
+            this.createAnswersBtn.Click += new System.EventHandler(this.createAnswersBtn_Click);
+            // 
+            // createLocationBtn
+            // 
+            this.createLocationBtn.Location = new System.Drawing.Point(6, 147);
+            this.createLocationBtn.Name = "createLocationBtn";
+            this.createLocationBtn.Size = new System.Drawing.Size(124, 23);
+            this.createLocationBtn.TabIndex = 29;
+            this.createLocationBtn.Text = "Maak locatie aan";
+            this.createLocationBtn.UseVisualStyleBackColor = true;
+            this.createLocationBtn.Click += new System.EventHandler(this.createLocationBtn_Click);
+            // 
+            // locationsLstBx
+            // 
+            this.locationsLstBx.FormattingEnabled = true;
+            this.locationsLstBx.ItemHeight = 16;
+            this.locationsLstBx.Location = new System.Drawing.Point(670, 16);
+            this.locationsLstBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.locationsLstBx.Name = "locationsLstBx";
+            this.locationsLstBx.Size = new System.Drawing.Size(184, 420);
+            this.locationsLstBx.TabIndex = 30;
+            // 
+            // refreshBtn
+            // 
+            this.refreshBtn.Location = new System.Drawing.Point(428, 511);
+            this.refreshBtn.Name = "refreshBtn";
+            this.refreshBtn.Size = new System.Drawing.Size(221, 23);
+            this.refreshBtn.TabIndex = 31;
+            this.refreshBtn.Text = "Hernieuw";
+            this.refreshBtn.UseVisualStyleBackColor = true;
+            this.refreshBtn.Click += new System.EventHandler(this.refreshBtn_Click);
+            // 
+            // questionsComboBox
+            // 
+            this.questionsComboBox.FormattingEnabled = true;
+            this.questionsComboBox.Location = new System.Drawing.Point(6, 20);
+            this.questionsComboBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.questionsComboBox.Name = "questionsComboBox";
+            this.questionsComboBox.Size = new System.Drawing.Size(144, 24);
+            this.questionsComboBox.TabIndex = 32;
+            // 
+            // answersGroupbox
+            // 
+            this.answersGroupbox.Controls.Add(this.label2);
+            this.answersGroupbox.Controls.Add(this.answer1CheckBox);
+            this.answersGroupbox.Controls.Add(this.answer2CheckBox);
+            this.answersGroupbox.Controls.Add(this.answer3CheckBox);
+            this.answersGroupbox.Controls.Add(this.answer4CheckBox);
+            this.answersGroupbox.Controls.Add(this.answer1Box);
+            this.answersGroupbox.Controls.Add(this.answer3Box);
+            this.answersGroupbox.Controls.Add(this.answer2Box);
+            this.answersGroupbox.Controls.Add(this.answer4Box);
+            this.answersGroupbox.Controls.Add(this.label3);
+            this.answersGroupbox.Controls.Add(this.label4);
+            this.answersGroupbox.Controls.Add(this.label5);
+            this.answersGroupbox.Location = new System.Drawing.Point(6, 61);
+            this.answersGroupbox.Name = "answersGroupbox";
+            this.answersGroupbox.Size = new System.Drawing.Size(272, 265);
+            this.answersGroupbox.TabIndex = 33;
+            this.answersGroupbox.TabStop = false;
+            this.answersGroupbox.Text = "Antwoorden";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.locationNumberTxtBx);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.locationNameTxtBx);
+            this.groupBox1.Controls.Add(this.createLocationBtn);
+            this.groupBox1.Location = new System.Drawing.Point(12, 12);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(158, 213);
+            this.groupBox1.TabIndex = 34;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Locaties";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.questionTextTxtBx);
+            this.groupBox2.Controls.Add(this.locationsComboBox);
+            this.groupBox2.Controls.Add(this.createQuestionBtn);
+            this.groupBox2.Location = new System.Drawing.Point(176, 12);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(247, 147);
+            this.groupBox2.TabIndex = 35;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Vragen";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.questionsComboBox);
+            this.groupBox3.Controls.Add(this.createAnswersBtn);
+            this.groupBox3.Controls.Add(this.answersGroupbox);
+            this.groupBox3.Location = new System.Drawing.Point(12, 244);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(278, 391);
+            this.groupBox3.TabIndex = 36;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Antwoorden";
+            // 
+            // questionsLstBx
+            // 
+            this.questionsLstBx.FormattingEnabled = true;
+            this.questionsLstBx.ItemHeight = 16;
+            this.questionsLstBx.Location = new System.Drawing.Point(933, 16);
+            this.questionsLstBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.questionsLstBx.Name = "questionsLstBx";
+            this.questionsLstBx.Size = new System.Drawing.Size(184, 420);
+            this.questionsLstBx.TabIndex = 37;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1200, 692);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.aanvraagnamen);
-            this.Controls.Add(this.klasnaam);
-            this.Controls.Add(this.label7);
-            this.Controls.Add(this.klasnummer);
-            this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.user);
-            this.Controls.Add(this.antwoorden);
-            this.Controls.Add(this.locaties);
-            this.Controls.Add(this.vraagtext);
-            this.Controls.Add(this.antwoord4);
-            this.Controls.Add(this.antwoord2);
-            this.Controls.Add(this.antwoord3);
-            this.Controls.Add(this.antwoord1);
-            this.Controls.Add(this.check4);
-            this.Controls.Add(this.check3);
-            this.Controls.Add(this.check2);
-            this.Controls.Add(this.check1);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ClientSize = new System.Drawing.Size(1349, 733);
+            this.Controls.Add(this.questionsLstBx);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.refreshBtn);
+            this.Controls.Add(this.locationsLstBx);
+            this.Controls.Add(this.usersLstBx);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.answersGroupbox.ResumeLayout(false);
+            this.answersGroupbox.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.CheckBox check1;
-        private System.Windows.Forms.CheckBox check2;
-        private System.Windows.Forms.CheckBox check3;
-        private System.Windows.Forms.CheckBox check4;
-        private System.Windows.Forms.TextBox antwoord1;
-        private System.Windows.Forms.TextBox antwoord3;
-        private System.Windows.Forms.TextBox antwoord2;
-        private System.Windows.Forms.TextBox antwoord4;
-        private System.Windows.Forms.TextBox vraagtext;
-        private System.Windows.Forms.ListBox locaties;
-        private System.Windows.Forms.ListBox antwoorden;
-        private System.Windows.Forms.ListBox user;
+        private System.Windows.Forms.CheckBox answer1CheckBox;
+        private System.Windows.Forms.CheckBox answer2CheckBox;
+        private System.Windows.Forms.CheckBox answer3CheckBox;
+        private System.Windows.Forms.CheckBox answer4CheckBox;
+        private System.Windows.Forms.TextBox answer1Box;
+        private System.Windows.Forms.TextBox answer3Box;
+        private System.Windows.Forms.TextBox answer2Box;
+        private System.Windows.Forms.TextBox answer4Box;
+        private System.Windows.Forms.TextBox questionTextTxtBx;
+        private System.Windows.Forms.ListBox usersLstBx;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox klasnummer;
+        private System.Windows.Forms.TextBox locationNumberTxtBx;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox klasnaam;
-        private System.Windows.Forms.Button aanvraagnamen;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox locationNameTxtBx;
+        private System.Windows.Forms.ComboBox locationsComboBox;
+        private System.Windows.Forms.Button createQuestionBtn;
+        private System.Windows.Forms.Button createAnswersBtn;
+        private System.Windows.Forms.Button createLocationBtn;
+        private System.Windows.Forms.ListBox locationsLstBx;
+        private System.Windows.Forms.Button refreshBtn;
+        private System.Windows.Forms.ComboBox questionsComboBox;
+        private System.Windows.Forms.GroupBox answersGroupbox;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ListBox questionsLstBx;
     }
 }
 
