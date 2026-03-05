@@ -69,7 +69,7 @@ server.get("/user/get/all", async (req, res) => {
   }
 });
 
-// POST add user
+// POST add user 
 server.post("/user/add", async (req, res) => {
   try {
     const { nameGuardian, nameChild, email} = req.body;
@@ -83,10 +83,11 @@ server.post("/user/add", async (req, res) => {
       "INSERT INTO users (nameGuardian, nameChild, email) VALUES (?, ?, ?)",
       [nameGuardian, nameChild, email]
     );
-    
+    const [rows] = await con.execute(`SELECT code FROM users WHERE email = ?`,[email]);
     await con.end();
+ 
+    res.status(200).json(rows[0]);
 
-    res.status(201).json({ message: "User added" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
