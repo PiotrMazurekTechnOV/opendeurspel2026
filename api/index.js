@@ -29,10 +29,11 @@ async function connect() {
 //user
 
 // GET user via id
+//why do we need this?
 server.get("/user/get/id/:id", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users WHERE id = ?", [req.params.id]);
+    const [rows] = await con.execute("SELECT id FROM users WHERE id = ?", [req.params.id]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
@@ -43,10 +44,11 @@ server.get("/user/get/id/:id", async (req, res) => {
 });
 
 // GET user via code
+//why do we need this too?
 server.get("/user/get/code/:code", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
+    const [rows] = await con.execute("SELECT code FROM users WHERE code = ?", [req.params.code]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
@@ -56,7 +58,10 @@ server.get("/user/get/code/:code", async (req, res) => {
   }
 });
 
+//should add get user via email
+
 // GET all users
+//I see no way we can use it, but alr
 server.get("/user/get/all", async (req, res) => {
   try {
     const con = await connect();
@@ -83,6 +88,7 @@ server.post("/user/add", async (req, res) => {
       "INSERT INTO users (nameGuardian, nameChild, email) VALUES (?, ?, ?)",
       [nameGuardian, nameChild, email]
     );
+    //sends the user code back
     const [rows] = await con.execute(`SELECT code FROM users WHERE email = ?`,[email]);
     await con.end();
  
@@ -93,15 +99,15 @@ server.post("/user/add", async (req, res) => {
   }
 });
 
-// POST update user
-server.post("/user/update/:id", async (req, res) => {
+// POST update user on code
+server.post("/user/update/:code", async (req, res) => {
   try {
-    const { nameGuardian, nameChild, email, code } = req.body;
+    const { nameGuardian, nameChild, email } = req.body;
 
     const con = await connect();
     const [result] = await con.execute(
-      "UPDATE users SET nameGuardian = ?, nameChild = ?, email = ?, code = ? WHERE id = ?",
-      [nameGuardian, nameChild, email, code, req.params.id]
+      "UPDATE users SET nameGuardian = ?, nameChild = ?, email = ?, WHERE code = ?",
+      [nameGuardian, nameChild, email, code, req.params.code]
     );
     await con.end();
 
