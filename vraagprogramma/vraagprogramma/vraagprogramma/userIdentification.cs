@@ -16,17 +16,18 @@ namespace vraagprogramma
     public partial class userIdentification : Form
     {
         private int code;
-        private string klas;
+        private Location location;
         static HttpClient client;
-        public userIdentification(string klas)
+        public userIdentification(Location location)
         {
             InitializeComponent();
-            this.klas = klas;
+            this.location = location;
 
             client = new HttpClient();
             client.BaseAddress = new Uri("http://localhost:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+         
         }
 
             
@@ -34,7 +35,7 @@ namespace vraagprogramma
         {
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
-            label1.Text = "WELKOM BIJ " + ;
+            label1.Text = "WELKOM BIJ " + location.localName;
             label1.BackColor = Color.Transparent;
             label1.Left = (this.ClientSize.Width - label1.Width) / 2;
             label1.Top = (this.ClientSize.Height - label1.Height) / 3;
@@ -51,12 +52,17 @@ namespace vraagprogramma
         private void confirmBtn_Click(object sender, EventArgs e)
         {
             code = Convert.ToInt32(textBox1.Text);
+            //user opzoeken op basis van code
 
-            
+            //question opzoeken op basis van locatie "/question/get/location/:location_number"
+
+            //volgend formulier openen met user en question als gegevens
+
 
         }
 
-        
-        
+
+
     }
+
 }

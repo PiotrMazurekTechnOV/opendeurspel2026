@@ -12,6 +12,11 @@ namespace vraagprogramma
         public locationSelection()
         {
             InitializeComponent();
+            client = new HttpClient();
+            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.DefaultRequestHeaders.Accept.Clear();
+            client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
+
         }
 
         private void locationSelection_Load(object sender, EventArgs e)
@@ -34,9 +39,11 @@ namespace vraagprogramma
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
                 Location location = JsonConvert.DeserializeObject<Location>(jsonResponse);
-                
-                
+                klas = location.localName;
 
+                userIdentification userIdentification = new userIdentification(klas);
+                this.Hide();
+                userIdentification.Show();
             }
             catch (Exception ex)
             {
@@ -44,9 +51,7 @@ namespace vraagprogramma
             }
 
 
-            userIdentification userIdentification = new userIdentification(klas);
-            this.Hide();
-            userIdentification.Show();
+            
         }
 
         /*

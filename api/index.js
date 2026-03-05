@@ -435,7 +435,7 @@ server.get("/locations/read/:id", async (req, res, next) => {
 });
 
 //Read Locations
-server.get("/locations/get/number/:number", async (req, res, next) => {
+server.get("/location/get/number/:number", async (req, res, next) => {
   try {
     const { number } = req.params; 
 
@@ -456,6 +456,7 @@ server.get("/locations/get/number/:number", async (req, res, next) => {
     }
 
     res.json({ data: rows });
+    res.json(rows[0]);
 
   } catch (error) {
     console.error(error);
