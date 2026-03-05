@@ -37,7 +37,7 @@
             this.answer2Box = new System.Windows.Forms.TextBox();
             this.answer4Box = new System.Windows.Forms.TextBox();
             this.questionTextTxtBx = new System.Windows.Forms.TextBox();
-            this.user = new System.Windows.Forms.ListBox();
+            this.usersLstBx = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -58,6 +58,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.questionsLstBx = new System.Windows.Forms.ListBox();
             this.answersGroupbox.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -148,15 +149,15 @@
             this.questionTextTxtBx.Size = new System.Drawing.Size(221, 22);
             this.questionTextTxtBx.TabIndex = 10;
             // 
-            // user
+            // usersLstBx
             // 
-            this.user.FormattingEnabled = true;
-            this.user.ItemHeight = 16;
-            this.user.Location = new System.Drawing.Point(952, 11);
-            this.user.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.user.Name = "user";
-            this.user.Size = new System.Drawing.Size(184, 420);
-            this.user.TabIndex = 13;
+            this.usersLstBx.FormattingEnabled = true;
+            this.usersLstBx.ItemHeight = 16;
+            this.usersLstBx.Location = new System.Drawing.Point(1153, 11);
+            this.usersLstBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.usersLstBx.Name = "usersLstBx";
+            this.usersLstBx.Size = new System.Drawing.Size(184, 420);
+            this.usersLstBx.TabIndex = 13;
             // 
             // label1
             // 
@@ -280,7 +281,7 @@
             // 
             this.locationsLstBx.FormattingEnabled = true;
             this.locationsLstBx.ItemHeight = 16;
-            this.locationsLstBx.Location = new System.Drawing.Point(1153, 11);
+            this.locationsLstBx.Location = new System.Drawing.Point(670, 16);
             this.locationsLstBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.locationsLstBx.Name = "locationsLstBx";
             this.locationsLstBx.Size = new System.Drawing.Size(184, 420);
@@ -365,17 +366,28 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Antwoorden";
             // 
+            // questionsLstBx
+            // 
+            this.questionsLstBx.FormattingEnabled = true;
+            this.questionsLstBx.ItemHeight = 16;
+            this.questionsLstBx.Location = new System.Drawing.Point(933, 16);
+            this.questionsLstBx.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.questionsLstBx.Name = "questionsLstBx";
+            this.questionsLstBx.Size = new System.Drawing.Size(184, 420);
+            this.questionsLstBx.TabIndex = 37;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1349, 733);
+            this.Controls.Add(this.questionsLstBx);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.refreshBtn);
             this.Controls.Add(this.locationsLstBx);
-            this.Controls.Add(this.user);
+            this.Controls.Add(this.usersLstBx);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -402,7 +414,7 @@
         private System.Windows.Forms.TextBox answer2Box;
         private System.Windows.Forms.TextBox answer4Box;
         private System.Windows.Forms.TextBox questionTextTxtBx;
-        private System.Windows.Forms.ListBox user;
+        private System.Windows.Forms.ListBox usersLstBx;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -423,6 +435,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.ListBox questionsLstBx;
     }
 }
 
