@@ -491,7 +491,12 @@ server.post("/scores/add", async (req, res) => {
   }});
 
 //printer
-
+server.post("/print", async (req,res) => {
+  //user opzoeken
+  //score bereken
+  //pdf genereren
+  //pdf afdrukken
+})
 
 // Start server
 const PORT = process.env.PORT;
