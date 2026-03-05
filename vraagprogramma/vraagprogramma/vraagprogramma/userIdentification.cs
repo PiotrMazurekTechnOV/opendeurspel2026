@@ -1,5 +1,7 @@
 ﻿
+using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,7 +10,6 @@ using System.Drawing;
 using System.Drawing.Text;
 using System.Text;
 using System.Windows.Forms;
-using Newtonsoft.Json.Linq;
 
 
 namespace vraagprogramma
@@ -49,14 +50,34 @@ namespace vraagprogramma
 
           
         }
-        private void confirmBtn_Click(object sender, EventArgs e)
+        private async void confirmBtn_Click(object sender, EventArgs e)
         {
-            code = Convert.ToInt32(textBox1.Text);
-            //user opzoeken op basis van code
+            try
+            {
+                code = Convert.ToInt32(textBox1.Text);
 
-            //question opzoeken op basis van locatie "/question/get/location/:location_number"
+                var userResponse = await client.GetAsync("/user/get/code/" + code);
+                var userJson = await userResponse.Content.ReadAsStringAsync();
 
-            //volgend formulier openen met user en question als gegevens
+                User user = JsonConvert.DeserializeObject<User>(userJson);
+
+                if (user == null)
+                {
+                    MessageBox.Show("Gebruiker niet gevonden.");
+                    return;
+                }
+
+
+                //user opzoeken op basis van code
+
+                //question opzoeken op basis van locatie "/question/get/location/:location_number"
+
+                //volgend formulier openen met user en question als gegevens
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
 
 
         }

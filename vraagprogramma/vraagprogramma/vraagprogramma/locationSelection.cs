@@ -41,7 +41,7 @@ namespace vraagprogramma
                 Location location = JsonConvert.DeserializeObject<Location>(jsonResponse);
                 klas = location.localName;
 
-                userIdentification userIdentification = new userIdentification(klas);
+                userIdentification userIdentification = new userIdentification(location);
                 this.Hide();
                 userIdentification.Show();
             }
@@ -70,6 +70,22 @@ namespace vraagprogramma
             public string localName { get; set; }
             public int number { get; set; }
         }
+        
+        public class User
+        {
+            public int id { get; set; }
+            public string name { get; set; }
+            public int code { get; set; }
+        }
     
+        public class Question
+        {
+            public int id { get; set; }
+            public string questionText { get; set; }
+            public int locationNumber { get; set; }
+        }
+
+
+
 }
 
