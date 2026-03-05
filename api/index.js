@@ -455,7 +455,6 @@ server.get("/location/get/number/:number", async (req, res, next) => {
       return res.status(404).json({ error: "Location not found." });
     }
 
-    res.json({ data: rows });
     res.json(rows[0]);
 
   } catch (error) {
