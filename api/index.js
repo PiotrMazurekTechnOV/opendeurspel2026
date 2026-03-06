@@ -4,6 +4,7 @@ const express = require("express");
 const server = express();
 const mysql = require("mysql2/promise");
 const bodyParser = require("body-parser");
+const { exec } = require("child_process")
 require('dotenv').config()
 
 server.use(express.json());
@@ -692,12 +693,15 @@ server.post("/scores/add", async (req, res) => {
   }});
 
 //printer
-server.post("/print", async (req,res) => {
+server.get("/print", async (req,res) => {
+  exec("lp -d hp_LaserJet_1320_series_ \"test.pdf\"")
   //user opzoeken
   //score bereken
   //pdf genereren
   //pdf afdrukken
 })
+
+
    //DELETE score
    //er is geen DELETE voor score dus baseer mij op die van location
   server.get("/score/delete/:id", async (req, res) => {
