@@ -500,11 +500,13 @@ const { user_id } = req.body;
     [user_id]
   );
   const user = userRows[0];
+
   //score bereken
 const [scoreRows] = await con.execute(
     "SELECT * FROM scores WHERE user_id = ?",
     [user_id]
   );
+  
   //pdf genereren
 
   //pdf afdrukken
