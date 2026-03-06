@@ -73,7 +73,9 @@ namespace vraagprogramma
         public class User
         {
             public int id { get; set; }
-            public string name { get; set; }
+            public string nameGuardian { get; set; }
+            public string nameChild { get; set; }
+            public string email { get; set; }
             public int code { get; set; }
         }
    

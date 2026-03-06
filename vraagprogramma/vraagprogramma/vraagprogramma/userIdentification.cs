@@ -54,36 +54,37 @@ namespace vraagprogramma
         {
             try
             {
-                code = Convert.ToInt32(textBox1.Text);
-
-                var userResponse = await client.GetAsync("/user/get/code/" + code);
-                var userJson = await userResponse.Content.ReadAsStringAsync();
-
-                User user = JsonConvert.DeserializeObject<User>(userJson);
-
-                if (user == null)
-                {
-                    MessageBox.Show("Gebruiker niet gevonden.");
-                    return;
-                }
-
-
-                //user opzoeken op basis van code
-
                 //question opzoeken op basis van locatie "/question/get/location/:location_number"
 
                 //volgend formulier openen met user en question als gegevens
+
+                int code = Convert.ToInt32(textBox1.Text);
+
+                
+                var userResponse = await client.GetAsync("/user/get/code/" + code);
+                var userJson = await userResponse.Content.ReadAsStringAsync();
+                User user = JsonConvert.DeserializeObject<User>(userJson);
+
+                
+                var questionResponse = await client.GetAsync("/question/get/location/" + location.number);
+                var questionJson = await questionResponse.Content.ReadAsStringAsync();
+                Question question = JsonConvert.DeserializeObject<Question>(questionJson);
+
+                answerSelection answerForm = new answerSelection(user, question);
+                this.Hide();
+                answerForm.Show();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
-
         }
 
-
-
+        
     }
 
+
+
 }
+
+

@@ -15,7 +15,7 @@ namespace vraagprogramma
     public partial class answerSelection : Form
     {
         static HttpClient client;
-        public answerSelection()
+        public answerSelection(User user, Question question)
         {
             InitializeComponent();
 
@@ -32,7 +32,8 @@ namespace vraagprogramma
             answer3.Text = "Answer 3";
             answer4.Text = "Answer 4";
 
-
+            questionLbl.Text = question.text;
+            MessageBox.Show(user.nameChild);
         }
 
 
