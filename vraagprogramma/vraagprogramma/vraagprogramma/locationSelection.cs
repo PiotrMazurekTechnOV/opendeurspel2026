@@ -13,7 +13,7 @@ namespace vraagprogramma
         {
             InitializeComponent();
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri("http://192.168.0.231:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -77,13 +77,7 @@ namespace vraagprogramma
             public string name { get; set; }
             public int code { get; set; }
         }
-    
-        public class Question
-        {
-            public int id { get; set; }
-            public string questionText { get; set; }
-            public int locationNumber { get; set; }
-        }
+   
 
 
 
