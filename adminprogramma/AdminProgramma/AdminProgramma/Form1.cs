@@ -24,7 +24,7 @@ namespace AdminProgramma
         {
             InitializeComponent();
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://localhost:5000/");
+            client.BaseAddress = new Uri("http://192.168.0.231:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             answer1CheckBox.Tag = answer1Box;
@@ -63,7 +63,7 @@ namespace AdminProgramma
             Question question = new Question
             {
                 text = text,
-                location_id = location_id
+                location_number = location_id
             };
             
 
@@ -226,23 +226,31 @@ namespace AdminProgramma
         {
             List<Location> locations = await GetAllLocations();
             List<ComboBoxItem> locationItems = new List<ComboBoxItem>();
-            foreach (Location location in locations)
+            if(locations != null && locations.Count > 0)
             {
-                locationItems.Add(new ComboBoxItem { Id = location.id, Name = location.number + " " + location.localName });
+                foreach (Location location in locations)
+                {
+                    locationItems.Add(new ComboBoxItem { Id = location.number, Name = location.number + " " + location.localName });
+                }
+                locationsComboBox.DataSource = locationItems;
+                locationsComboBox.DisplayMember = "Name";
+                locationsComboBox.ValueMember = "Id";
             }
-            locationsComboBox.DataSource = locationItems;
-            locationsComboBox.DisplayMember = "Name";
-            locationsComboBox.ValueMember = "Id";
+            
 
             List<Question> questions = await GetAllQuestions();
             List<ComboBoxItem> questionItems = new List<ComboBoxItem>();
-            foreach (Question question in questions)
+            if(questions != null && questions.Count > 0)
             {
-                questionItems.Add(new ComboBoxItem { Id = question.id, Name = question.text });
+                foreach (Question question in questions)
+                {
+                    questionItems.Add(new ComboBoxItem { Id = question.id, Name = question.text });
+                }
+                questionsComboBox.DataSource = questionItems;
+                questionsComboBox.DisplayMember = "Name";
+                questionsComboBox.ValueMember = "Id";
             }
-            questionsComboBox.DataSource = questionItems;
-            questionsComboBox.DisplayMember = "Name";
-            questionsComboBox.ValueMember = "Id";
+            
 
         }
     }
@@ -261,7 +269,7 @@ namespace AdminProgramma
     {
         public int id { get; set; }
         public string text { get; set; }
-        public int location_id { get; set; }
+        public int location_number { get; set; }
     }
 
     public class Location
