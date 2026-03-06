@@ -29,10 +29,11 @@ async function connect() {
 //user
 
 // GET user via id
-server.get("npm ", async (req, res) => {
+//why do we need this?
+server.get("/user/get/id/:id", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users WHERE id = ?", [req.params.id]);
+    const [rows] = await con.execute("SELECT id FROM users WHERE id = ?", [req.params.id]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
@@ -43,10 +44,11 @@ server.get("npm ", async (req, res) => {
 });
 
 // GET user via code
+//why do we need this too?
 server.get("/user/get/code/:code", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
+    const [rows] = await con.execute("SELECT code FROM users WHERE code = ?", [req.params.code]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
@@ -56,20 +58,23 @@ server.get("/user/get/code/:code", async (req, res) => {
   }
 });
 
+//should add get user via email
+
 // GET all users
+//I see no way we can use it, but alr
 server.get("/user/get/all", async (req, res) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT * FROM users");
     await con.end();
 
-    res.json(rows[0]);
+    res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// POST add user
+// POST add user 
 server.post("/user/add", async (req, res) => {
   try {
     const { nameGuardian, nameChild, email} = req.body;
@@ -83,24 +88,26 @@ server.post("/user/add", async (req, res) => {
       "INSERT INTO users (nameGuardian, nameChild, email) VALUES (?, ?, ?)",
       [nameGuardian, nameChild, email]
     );
-    
+    //sends the user code back
+    const [rows] = await con.execute(`SELECT code FROM users WHERE email = ?`,[email]);
     await con.end();
+ 
+    res.status(200).json(rows[0]);
 
-    res.status(201).json({ message: "User added" });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// POST update user
-server.post("/user/update/:id", async (req, res) => {
+// POST update user on code
+server.post("/user/update/:code", async (req, res) => {
   try {
-    const { nameGuardian, nameChild, email, code } = req.body;
+    const { nameGuardian, nameChild, email } = req.body;
 
     const con = await connect();
     const [result] = await con.execute(
-      "UPDATE users SET nameGuardian = ?, nameChild = ?, email = ?, code = ? WHERE id = ?",
-      [nameGuardian, nameChild, email, code, req.params.id]
+      "UPDATE users SET nameGuardian = ?, nameChild = ?, email = ?, WHERE code = ?",
+      [nameGuardian, nameChild, email, code, req.params.code]
     );
     await con.end();
 
@@ -436,11 +443,11 @@ server.post("/answer/delete/:id", async (req, res) => {
 server.get("/answer/get/all", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM answer", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM answers", [req.params.code]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "answers not found" });
-    res.json(rows[0]);
+    res.json(rows);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -573,7 +580,7 @@ server.get("/location/delete/:id", async (req, res) => {
     }
 
     const con = await connect(); 
-    const query = "DELETE FROM location WHERE id = ?"; 
+    const query = "DELETE FROM locations WHERE id = ?"; 
     const [result] = await con.execute(query, [id]); // Voer de delete query uit
 
     await con.end(); 
@@ -592,7 +599,7 @@ server.get("/location/delete/:id", async (req, res) => {
 server.get("/location/get/all", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM location", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM locations", [req.params.code]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "locations not found" });
@@ -637,7 +644,7 @@ server.post("/scores/add", async (req, res) => {
       const query = `UPDATE scores SET user_id = ?, correct = ?, WHERE location_number = ?`;
       await con.execute(query, [location_number, text]);
 
-      await con.end(); s
+      await con.end();
       res.status(200).json({ message: "Data updated!" });
   } catch (error) {
     res.json(error);
@@ -689,10 +696,10 @@ server.post("/print", async (req,res) => {
     }
 
     const con = await connect(); 
-    const query = "DELETE FROM score WHERE id = ?"; 
+    const query = "DELETE FROM scores WHERE id = ?"; 
     const [result] = await con.execute(query, [id]); // Voer de delete query uit
 
-    await con.end(); 
+    await con.end();
     
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Score not found." });
@@ -708,7 +715,7 @@ server.post("/print", async (req,res) => {
 server.get("/score/get/all", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM score", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM scores", [req.params.code]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "scores not found" });
