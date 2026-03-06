@@ -48,7 +48,7 @@ server.get("/user/get/id/:id", async (req, res) => {
 server.get("/user/get/code/:code", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT code FROM users WHERE code = ?", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
@@ -599,7 +599,20 @@ server.get("/location/delete/:id", async (req, res) => {
 server.get("/location/get/all", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM locations", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM locations");
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "locations not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+server.get("/location/get/number/:code", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM locations WHERE number = ?", [req.params.code]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "locations not found" });
