@@ -5,8 +5,7 @@ namespace vraagprogramma
 {
     public partial class locationSelection : Form
     {
-        private int location;
-        private string klas;
+        private Location location;
         static HttpClient client;
 
         public locationSelection()
@@ -39,7 +38,7 @@ namespace vraagprogramma
                 var jsonResponse = await response.Content.ReadAsStringAsync();
 
                 Location location = JsonConvert.DeserializeObject<Location>(jsonResponse);
-                klas = location.localName;
+                
 
                 userIdentification userIdentification = new userIdentification(location);
                 this.Hide();
