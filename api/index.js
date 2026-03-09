@@ -548,32 +548,27 @@ server.get("/location/get/number/:number", async (req, res) => {
   }
 });
 
-
+//Yo, honestly just remake the whole scores table, user_code instead of id, and status, maybe just give it a better name
+//while I'm at it, or maybe just call it correct like it was in other table used
 //scores
 server.post("/scores/add", async (req, res) => {
   try {
-      const { user_id, question_id, correct } = req.body;
-
-
-
-
-      if (!user_id || !question_id ||!correct) {
-          return resjson({ error: "All fields are required." });
-      }
+      const { user_id, question_id, status } = req.body;
+      if (!user_id || !question_id ||!status) {return res.json({ error: "All fields are required." });}
 
       const con = await connect(); 
-      const query = `INSERT INTO users (user_id, question_id, correct) VALUES 
-      (?, ?, ?)`;
-      await con.execute(query, [user_id, question_id, correct]);
-
+      await con.execute(`INSERT INTO users (user_id, question_id, status) VALUES (?, ?, ?)`, [user_id, question_id, status]);
       await con.end(); 
-      res.status(201).json({ message: "Scores created successfully!" });
-  } catch (error) {
-    res.json(error);
-  }})
 
-  //update score
-  server.post("/score/update/:location_number", async (req, res)=>{
+      res.status(201).json({ message: "Scores created successfully!" });
+  } catch (error) 
+  {
+    res.status(400).json(error);
+  }
+});
+
+//update score
+server.post("/score/update/:location_number", async (req, res)=>{
   try {
     const { user_id, question_id, correct} = req.body;
     if(!user_id || !question_id || !correct) {
