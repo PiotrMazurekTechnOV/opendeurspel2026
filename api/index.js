@@ -515,7 +515,7 @@ server.get("/location/delete/number/", async (req, res) => {
     if (result.affectedRows == 0) {return res.json({ error: "Location not found." });}
     res.status(200).json({ message: "Location deleted successfully!" });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(400).json({ error });
   }
 });
 
@@ -530,7 +530,7 @@ server.get("/location/delete/localName", async (req, res) => {
     if (result.affectedRows == 0) {return res.json({ error: "Location not found." });}
     res.status(200).json({ message: "Location deleted successfully!" });
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(400).json({ error });
   }
 });
 
