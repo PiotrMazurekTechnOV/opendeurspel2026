@@ -503,29 +503,34 @@ server.get("/locations/get/all", async (req, res) => {
   }
 });
 
-//scores
 //DELETE location
-server.get("/location/delete/:id", async (req, res) => {
+server.get("/location/delete/number/", async (req, res) => {
   try {
-    const { id } = req.params; // Haal het answer ID uit de URL
-
-    if (!id) {
-      return res.json({ error: "Please provide an location ID." });
-    }
-
-    const con = await connect(); 
-    const query = "DELETE FROM locations WHERE id = ?"; 
-    const [result] = await con.execute(query, [id]); // Voer de delete query uit
-
+    const { number } = req.body;
+    if (!number) {return res.json({ error: "Please provide an location number." });}
+    const con = await connect();
+    const [result] = await con.execute("DELETE FROM locations WHERE number = ?", [number]);
     await con.end(); 
     
-    if (result.affectedRows == 0) {
-      return res.json({ error: "Location not found." });
-    }
-
-    res.json({ message: "Location deleted successfully!" });
+    if (result.affectedRows == 0) {return res.json({ error: "Location not found." });}
+    res.status(200).json({ message: "Location deleted successfully!" });
   } catch (error) {
-    res.status(500).json({ error: "Something went wrong." });
+    res.status(500).json({ error });
+  }
+});
+
+server.get("/location/delete/localName", async (req, res) => {
+  try {
+    const { localName } = req.body;
+    if (!localName) {return res.json({ error: "Please provide an location name." });}
+    const con = await connect();
+    const [result] = await con.execute("DELETE FROM locations WHERE localName = ?", [localName]);
+    await con.end(); 
+    
+    if (result.affectedRows == 0) {return res.json({ error: "Location not found." });}
+    res.status(200).json({ message: "Location deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ error });
   }
 });
 
