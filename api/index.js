@@ -487,27 +487,19 @@ server.get("/location/get/id/:id", async (req, res) => {
   }
 });
 
-//Read Locations
-server.get("/locations/read", async (req, res, next) => {
+//get Locations
+//at least this all can find it's use somewhere
+server.get("/locations/get/all", async (req, res) => {
   try {
-    const con = await connect(); 
-    const query = "SELECT * FROM locations";
-    
-    // Execute query properly
-    const [rows] = await con.execute(query);
-    //console.log(rows)
-    con.end(); // Close connection after the query
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM locations");
+    con.end();
 
-    /*
-    if (rows.length == 0) { // Checking if the result set is empty
-      return res.json({ error: "Location not found." });
-    }
-    */
+    if (rows.length == 0) {return res.json({ error: "No locations availible" });}
     res.status(200).json(rows);
-
-  } catch (error) {
-    //console.error(error);
-    res.status(500).json({ error: "Something went wrong." });
+  } catch (error) 
+  {
+    res.status(404).json({ error });
   }
 });
 
