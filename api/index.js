@@ -448,6 +448,7 @@ server.post("/location/update/localName", async (req, res)=>{
     await con.execute(`UPDATE locations SET localName = ? WHERE number = ?`, [localName, number]);
     await con.end(); 
 
+    if(con.affectedRows == 0) return res.json({error: "No such number found"})
     res.status(200).json({ message: "name updated!" });
   } catch (error) {
     res.json({ error });
@@ -464,6 +465,7 @@ server.post("/location/update/number", async (req, res)=>{
     await con.execute(`UPDATE locations SET number = ? WHERE localName = ?`, [number, localName]);
     await con.end(); 
 
+    if(con.affectedRows == 0) return res.json({error: "No such name found"})
     res.status(200).json({ message: "number updated!" });
   } catch (error) {
     res.json({ error });
