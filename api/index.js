@@ -534,16 +534,17 @@ server.get("/location/delete/localName", async (req, res) => {
   }
 });
 
-server.get("/location/get/number/:code", async (req, res) => {
+//I wonder when will this be used...
+server.get("/location/get/number/:number", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM locations WHERE number = ?", [req.params.code]);
+    const [rows] = await con.execute("SELECT localName FROM locations WHERE number = ?", [req.params.number]);
     await con.end();
 
-    if (rows.length == 0) return res.json({ error: "locations not found" });
+    if (rows.length == 0) return res.json({ error: "location number not found" });
     res.json(rows[0]);
   } catch (error) {
-    res.status(500).json({ error });
+    res.status(404).json({ error });
   }
 });
 
