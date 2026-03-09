@@ -437,21 +437,36 @@ server.post("/location/add", async (req, res) => {
   }
 });
 
-//UPDATES
-server.post("/location/update/:nuber", async (req, res)=>{
+//location UPDATES
+server.post("/location/update/localName", async (req, res)=>{
   try {
-    const { number, name} = req.body;
-    if(!number || !name) {
-      return res.json({error: "All fields are required."});
+    const { number, localName} = req.body;
+    if(!number || !localName) {
+      return res.json({error: "A location number and a location name are required."});
     }
-    const con = await connect(); 
-      const query = `UPDATE locations SET name = ? WHERE number = ?`;
-      await con.execute(query, [name, number]);
+    const con = await connect();
+    await con.execute(`UPDATE locations SET localName = ? WHERE number = ?`, [localName, number]);
+    await con.end(); 
 
-      await con.end(); 
-      res.status(200).json({ message: "Data updated!" });
+    res.status(200).json({ message: "name updated!" });
   } catch (error) {
-    res.json(error);
+    res.json({ error });
+  }}
+);
+
+server.post("/location/update/number", async (req, res)=>{
+  try {
+    const { number, localName} = req.body;
+    if(!number || !localName) {
+      return res.json({error: "A location number and a location name are required."});
+    }
+    const con = await connect();
+    await con.execute(`UPDATE locations SET number = ? WHERE localName = ?`, [number, localName]);
+    await con.end(); 
+
+    res.status(200).json({ message: "number updated!" });
+  } catch (error) {
+    res.json({ error });
   }}
 );
 
