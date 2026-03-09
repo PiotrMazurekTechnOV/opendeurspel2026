@@ -473,31 +473,17 @@ server.post("/location/update/number", async (req, res)=>{
 );
 
 //Read Locations
-server.get("/locations/get/:id", async (req, res, next) => {
+server.get("/location/get/id/:id", async (req, res) => {
   try {
-    const { id } = req.params; 
-
-    if (!id) {
-      return res.json({ error: "Please provide a location ID." });
-    }
-
     const con = await connect(); 
-    const query = "SELECT * FROM locations WHERE id = ?";
-    
-    // Execute query properly
-    const [rows] = await con.execute(query, [id]);
-    console.log(rows)
-    con.end(); // Close connection after the query
+    const [rows] = await con.execute("SELECT number,localName FROM locations WHERE id = ?", [req.params.id]);
+    con.end();
 
-    if (rows.length == 0) { // Checking if the result set is empty
-      return res.json({ error: "Location not found." });
-    }
-
-    res.json({ data: rows });
-
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Something went wrong." });
+    if (rows.length == 0) {return res.json({ error: "Id has not been found." });}
+    res.status(200).json(rows[0]);
+  } catch (error) 
+  {
+    res.status(500).json({ error });
   }
 });
 
