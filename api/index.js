@@ -424,19 +424,16 @@ server.post("/location/add", async (req, res) => {
   try {
       const { number, localName } = req.body;
 
-      if (!number || !name) {
-          return res.json({ error: "All fields are required." });
+      if (!number || !localName) {
+        return res.json({ error: "location needs both a number and a location name." });
       }
-
       const con = await connect(); 
-      const query = `INSERT INTO users (number, name) VALUES 
-      (?, ?)`;
-      await con.execute(query, [number, name]);
-
+      await con.execute(`INSERT INTO locations (number, localname) VALUES (?, ?)`, [number, localName]);
       await con.end(); 
+
       res.status(201).json({ message: "Location created successfully!" });
   } catch (error) {
-    res.json(error);
+    res.json({ error });
   }
 });
 
