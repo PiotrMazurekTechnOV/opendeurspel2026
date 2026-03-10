@@ -97,7 +97,7 @@
             this.naam_textbox.ImageExpand = new System.Drawing.Point(0, 0);
             this.naam_textbox.ImageOffset = new System.Drawing.Point(0, 0);
             this.naam_textbox.Location = new System.Drawing.Point(337, 283);
-            this.naam_textbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.naam_textbox.Margin = new System.Windows.Forms.Padding(4);
             this.naam_textbox.Multiline = false;
             this.naam_textbox.Name = "naam_textbox";
             this.naam_textbox.NormalImageTint = System.Drawing.Color.White;
@@ -127,7 +127,7 @@
             this.naamOuders_textbox.ImageExpand = new System.Drawing.Point(0, 0);
             this.naamOuders_textbox.ImageOffset = new System.Drawing.Point(0, 0);
             this.naamOuders_textbox.Location = new System.Drawing.Point(337, 354);
-            this.naamOuders_textbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.naamOuders_textbox.Margin = new System.Windows.Forms.Padding(4);
             this.naamOuders_textbox.Multiline = false;
             this.naamOuders_textbox.Name = "naamOuders_textbox";
             this.naamOuders_textbox.NormalImageTint = System.Drawing.Color.White;
@@ -157,7 +157,7 @@
             this.email_textbox.ImageExpand = new System.Drawing.Point(0, 0);
             this.email_textbox.ImageOffset = new System.Drawing.Point(0, 0);
             this.email_textbox.Location = new System.Drawing.Point(337, 428);
-            this.email_textbox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.email_textbox.Margin = new System.Windows.Forms.Padding(4);
             this.email_textbox.Multiline = false;
             this.email_textbox.Name = "email_textbox";
             this.email_textbox.NormalImageTint = System.Drawing.Color.White;
@@ -184,7 +184,7 @@
             this.Controls.Add(this.cuiButton1);
             this.Controls.Add(this.label1);
             this.Cursor = System.Windows.Forms.Cursors.Default;
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
