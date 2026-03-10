@@ -48,8 +48,12 @@ namespace vraagprogramma
             float fontSize = this.ClientSize.Height / 25;
 
             questionLbl.Font = new Font(questionLbl.Font.FontFamily, fontSize, questionLbl.Font.Style);
+            welkomLbl.Font = new Font(questionLbl.Font.FontFamily, fontSize, questionLbl.Font.Style);
+
 
             questionLbl.Location = new Point((this.ClientSize.Width - questionLbl.Width) / 2, (int)(this.ClientSize.Height * 0.25));
+            welkomLbl.Location = new Point((this.ClientSize.Width - welkomLbl.Width) / 2, (int)(this.ClientSize.Height * 0.25) - questionLbl.Height);
+
 
             answer1.Font = new Font(answer1.Font.FontFamily, fontSize / 3, answer1.Font.Style);
             answer2.Font = new Font(answer2.Font.FontFamily, fontSize / 3, answer2.Font.Style);

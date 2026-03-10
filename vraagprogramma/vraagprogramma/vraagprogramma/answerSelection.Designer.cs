@@ -34,6 +34,7 @@
             answer3 = new Button();
             answer4 = new Button();
             technovLogo = new PictureBox();
+            welkomLbl = new Label();
             ((System.ComponentModel.ISupportInitialize)technovLogo).BeginInit();
             SuspendLayout();
             // 
@@ -45,9 +46,9 @@
             questionLbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             questionLbl.Location = new Point(384, 69);
             questionLbl.Name = "questionLbl";
-            questionLbl.Size = new Size(46, 25);
+            questionLbl.Size = new Size(61, 25);
             questionLbl.TabIndex = 0;
-            questionLbl.Text = "text";
+            questionLbl.Text = "Vraag";
             questionLbl.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // answer1
@@ -113,6 +114,19 @@
             technovLogo.TabIndex = 5;
             technovLogo.TabStop = false;
             // 
+            // welkomLbl
+            // 
+            welkomLbl.Anchor = AnchorStyles.None;
+            welkomLbl.AutoSize = true;
+            welkomLbl.BackColor = Color.Transparent;
+            welkomLbl.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            welkomLbl.Location = new Point(345, 32);
+            welkomLbl.Name = "welkomLbl";
+            welkomLbl.Size = new Size(134, 25);
+            welkomLbl.TabIndex = 6;
+            welkomLbl.Text = "Verwelkoming";
+            welkomLbl.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // answerSelection
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -121,6 +135,7 @@
             BackgroundImage = Properties.Resources.questionBackground;
             BackgroundImageLayout = ImageLayout.Stretch;
             ClientSize = new Size(800, 450);
+            Controls.Add(welkomLbl);
             Controls.Add(technovLogo);
             Controls.Add(answer4);
             Controls.Add(answer3);
@@ -142,5 +157,6 @@
         private Button answer3;
         private Button answer4;
         private PictureBox technovLogo;
+        private Label welkomLbl;
     }
 }

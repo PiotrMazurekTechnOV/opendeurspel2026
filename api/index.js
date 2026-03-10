@@ -44,7 +44,7 @@ server.get("/user/get/id/:id", async (req, res) => {
 server.get("/user/get/code/:code", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
+    const [rows] = await con.execute("SELECT nameChild FROM users WHERE code = ?", [req.params.code]);
     await con.end();
 
     if (rows.length == 0) return res.json({ error: "User not found" });
