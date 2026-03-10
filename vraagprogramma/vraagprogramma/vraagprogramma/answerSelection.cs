@@ -5,6 +5,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Net.Http.Headers;
+using System.Net.Mail;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace vraagprogramma
     {
         static HttpClient client;
         private Question question;
+        private User user;
         public answerSelection(User user, Question question)
         {
             InitializeComponent();
@@ -34,6 +36,7 @@ namespace vraagprogramma
             answer4.Text = "Answer 4";
 
             this.question = question;
+            this.user = user;
             questionLbl.Text = question.text;
             
         }
@@ -83,18 +86,36 @@ namespace vraagprogramma
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
-
-
-
         }
 
-        
 
-        private void answer1_Click(object sender, EventArgs e)
+        async Task<string> SendScore(bool correct)
+        {
+            //post request om data (user_id, question_id, correct) te sturen
+            //endpoint -> /scores/add
+
+            /*
+                * Location location = new Location
+            {
+                number = locationNumber,
+                localName = name
+            };
+
+            StringContent json = new StringContent(JsonConvert.SerializeObject(location), Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("/location/add", json);
+
+            response.EnsureSuccessStatusCode();
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            */
+
+            return "";
+        }
+        private async void answer1_Click(object sender, EventArgs e)
         {
             //stuur 1 naar database
-
+            var response = await SendScore((bool)(sender as Button).Tag);
             feedBack feedback = new();
             feedback.Show();
             feedback.FormClosed += (s, args) => this.Close();
@@ -103,36 +124,36 @@ namespace vraagprogramma
 
         private void answer2_Click(object sender, EventArgs e)
         {
-            //stuur 2 naar database
+        //stuur 2 naar database
 
-            feedBack feedback = new();
-            feedback.Show();
-            feedback.FormClosed += (s, args) => this.Close();
+        feedBack feedback = new();
+        feedback.Show();
+        feedback.FormClosed += (s, args) => this.Close();
 
         }
 
         private void answer3_Click(object sender, EventArgs e)
         {
-            //stuur 3 naar database
+        //stuur 3 naar database
 
-            feedBack feedback = new();
-            feedback.Show();
-            feedback.FormClosed += (s, args) => this.Close();
+        feedBack feedback = new();
+        feedback.Show();
+        feedback.FormClosed += (s, args) => this.Close();
 
         }
 
         private void answer4_Click(object sender, EventArgs e)
         {
-            //stuur 4 naar database
+        //stuur 4 naar database
 
-            feedBack feedback = new();
-            feedback.Show();
-            feedback.FormClosed += (s, args) => this.Close();
+        feedBack feedback = new();
+        feedback.Show();
+        feedback.FormClosed += (s, args) => this.Close();
 
 
         }
 
-        
+
     }
 
     public class  Question
@@ -149,11 +170,11 @@ namespace vraagprogramma
 
         public bool correct
         {
-            get; set; 
+        get; set; 
         }
         public int question_id { get; set; }
     }
-    
+
 
 }
 
