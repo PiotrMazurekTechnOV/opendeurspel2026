@@ -583,6 +583,9 @@ server.post("/score/update/:user_id", async (req, res)=>{
     res.json({ error });
   }
 });
+server.get("/score/update/", async (req, res)=>{
+  res.status(404).json("user_id is missing")
+});
 
 server.post("/score/update/code/:user_code", async (req, res)=>{
   try {
@@ -600,7 +603,7 @@ server.post("/score/update/code/:user_code", async (req, res)=>{
   }
 });
 server.get("/score/update/code", async (req, res)=>{
-  res.status(404).json("something is missing")
+  res.status(404).json("code is missing")
 });
 
 //DELETE score
@@ -636,6 +639,9 @@ server.get("/score/get/:user_code", async (req,res) =>{
     res.status(404).json({ error })
   }
 });
+server.get("/score/get", async (req, res)=>{
+  res.status(404).json("user code is missing")
+});
 
 // GET all scores
 server.get("/score/get/all", async (req, res) => {
@@ -658,13 +664,16 @@ server.get("/diploma/get/:user_id", async (req, res, next) => {
     const [rows] = await con.execute("SELECT ROUND(AVG(status),2) * 100 FROM scores WHERE user_id = ?", [req.params.user_id]);
     con.end();
 
-    if (rows.length == 0) {return res.json({ error: " not found." });}
+    if (rows.length == 0) {return res.json({ error: "user not found." });}
     res.json(rows[0]);
   } 
   catch (error) 
   {
     res.status(404).json({ error })
   }});
+server.get("/diploma/get", async (req, res)=>{
+  res.status(404).json("user has not been specified")
+});
 
 // Start server
 const PORT = process.env.PORT;
