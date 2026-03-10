@@ -29,7 +29,7 @@ async function connect() {
 //user
 
 // GET user via id
-server.get("/user/get/id/:id", async (req, res) => {
+server.get("npm ", async (req, res) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT * FROM users WHERE id = ?", [req.params.id]);
@@ -60,12 +60,13 @@ server.get("/user/get/code/:code", async (req, res) => {
 server.get("/user/get/all", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users");
+    const [rows] = await con.execute("SELECT * FROM user WHERE naam IS NOT NULL", [req.params.code]);
     await con.end();
 
+    if (rows.length === 0) return res.status(404).json({ error: "Users not found" });
     res.json(rows[0]);
   } catch (err) {
-    res.status(500).json({ error: `server error` });
+    res.status(500).json({ error: err.message });
   }
 });
 
@@ -74,8 +75,8 @@ server.post("/user/add", async (req, res) => {
   try {
     const { nameGuardian, nameChild, email} = req.body;
 
-    if (!email) {
-      return res.status(400).json({ error: "email is required"});
+    if (!nameGuardian || !nameChild || !email) {
+      return res.status(400).json({ error: "nameGuardian, nameChild, email are required" });
     }
 
     const con = await connect();
@@ -134,7 +135,6 @@ server.post("/question/add", async (req, res) => {
       /*if (!location_number || !text) {
           return res.status(400).json({ error: "Some fields are required." });
       }*/ //not needed yet?
-
       const con = await connect(); 
       const query = `INSERT INTO questions (location_number, text) VALUES 
       (?, ?)`;
@@ -148,7 +148,7 @@ server.post("/question/add", async (req, res) => {
 });
 
 // question update
-server.post("/question/update/", async (req, res)=>{
+server.post("/question/update/:id", async (req, res)=>{
  //try {
     const { id, question} = req.body;
      //if(!id || !question) {
@@ -166,8 +166,8 @@ server.post("/question/update/", async (req, res)=>{
 });
 
 // question delete
-server.post("/question/delete/", async (req, res)=>{
-    try {
+server.post("/question/delete/:id", async (req, res)=>{
+    try { 
     const id = req.body;
 
     if (!id) {
@@ -213,21 +213,104 @@ server.get("/question/read/:id", async (req, res, next) => {
   }
 });
 
-// GET all questions
-server.get("/question/get/all", async (req, res) => {
+//Read questions
+server.get("/questions/read", async (req, res, next) => {
   try {
+    const con = await connect(); 
+    const query = "SELECT * FROM questions";
+    
+    // Execute query properly
+    const [rows] = await con.execute(query);
+    //console.log(rows)
+    con.end(); // Close connection after the query
+
+    /*
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Location not found." });
+    }
+    */
+    res.status(200).json(rows);
+
+  } catch (error) {
+    //console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+//answers
+// POST add answer
+server.post("/answers/add", async (req, res) => {
+  try {
+    const answers = req.body; // Expecting an array of { text, question_id, correct }
+
+    if (!Array.isArray(answers) || answers.length === 0) {
+      return res.status(400).json({ error: "Answers array is required" });
+    }
+
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM question", [req.params.code]);
+
+    // Use a transaction for multiple inserts
+    await con.beginTransaction();
+
+    for (const ans of answers) {
+      const { text, question_id, correct } = ans;
+      await con.execute(
+        "INSERT INTO answers (text, question_id, correct) VALUES (?, ?, ?)",
+        [text, question_id, correct]
+      );
+    }
+
+    await con.commit();
     await con.end();
 
-    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
-    res.json(rows[0]);
+    res.status(201).json({ message: "Answers added", count: answers.length });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-//answers
+// POST update answer
+server.post("/answer/update/", async (req, res) => {
+  //try {
+    const { id, text } = req.body;
+
+    //if (!id || !text ) {
+      //return res.status(400).json({ error: "not all fields are filled" });
+    //}
+
+    const con = await connect();
+    await con.execute(
+      "UPDATE answers SET text = ? WHERE id = ?",
+      [id,text]
+    );
+    await con.end();
+
+    //if (result.affectedRows === 0) return res.status(404).json({ error: "Answer not found" });
+    res.status(200).json({ message: "Answer updated" });
+  //} catch (err) {
+    //res.status(500).json({ error: err.message });
+  //}
+});
+
+// POST delete answer
+server.post("/answer/delete/", async (req, res) => {
+  try {
+    const id = req.body;
+
+    if (!id) {
+      return res.status(400).json({ error: "Please provide an answer ID." });
+    }
+
+    const con = await connect(); 
+    const query = `DELETE FROM answers WHERE id = ?`;
+    await con.execute(query, [id]);
+    await con.end(); 
+
+      res.status(200).json({ message: "Answer deleted" });
+    }
+  catch (error){ res.status(500).json(error);}
+});
+ 
 
 // GET answer via id
 server.get("/answer/get/id/:id", async (req, res) => {
@@ -244,23 +327,10 @@ server.get("/answer/get/id/:id", async (req, res) => {
 });
 
 // GET answers via questionId
-server.get("/answer/get/question-on-id/:questionId", async (req, res) => {
+server.get("/answer/get/question/:questionId", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM answers WHERE question_id = ?", [req.params.questionId]);
-    await con.end();
-
-    res.json(rows);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-});
-
-// GET answers via location number
-server.get("/answer/get/question-on-location/:location_number", async (req, res) => {
-  try {
-    const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM answers JOIN questions ON answers.question_id = questions.id JOIN locations ON questions.location_number = locations.number", [req.params.location_number]);
+    const [rows] = await con.execute("SELECT * FROM answers WHERE questions_id = ?", [req.params.questionId]);
     await con.end();
 
     res.json(rows[0]);
@@ -358,7 +428,7 @@ server.get("/answer/get/all", async (req, res) => {
     const [rows] = await con.execute("SELECT * FROM answer", [req.params.code]);
     await con.end();
 
-    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    if (rows.length === 0) return res.status(404).json({ error: "answers not found" });
     res.json(rows[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -366,10 +436,10 @@ server.get("/answer/get/all", async (req, res) => {
 });
 
 //locations
-//locations(voorbeeld code)
-server.post("/locations/create", async (req, res) => {
+//location add
+server.post("/location/add", async (req, res) => {
   try {
-      const { number, name } = req.body;
+      const { number, localName } = req.body;
 
       if (!number || !name) {
           return res.status(400).json({ error: "All fields are required." });
@@ -466,14 +536,40 @@ server.get("/location/get/number/:number", async (req, res, next) => {
 //GET locatios opvragen aan de hand van id
 server.get("/question/get/location/:location_number", async (req, res) => {
   try {
-    const { location_number } = req.params;
- 
+    const con = await connect(); 
+    const query = "SELECT * FROM locations";
+    
+    // Execute query properly
+    const [rows] = await con.execute(query);
+    //console.log(rows)
+    con.end(); // Close connection after the query
+
+    /*
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Location not found." });
+    }
+    */
+    res.status(200).json(rows);
+
+  } catch (error) {
+    //console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+//scores
+//voorbeeld code (niet met onze database verbonden)
+//GET locatios opvragen aan de hand van id
+server.get("/question/get/location/:number", async (req, res) => {
+  try {
+    const { number } = req.params;
+
     const con = await connect();
     const query = `
-      SELECT text FROM questions
-      WHERE location_number = ?
+      SELECT * FROM questions 
+      WHERE number = ?
     `;
-    const [rows] = await con.execute(query, [location_number]);
+    const [rows] = await con.execute(query, [number]);
     await con.end();
 
     res.status(200).json(rows[0]);
@@ -516,7 +612,7 @@ server.get("/location/get/all", async (req, res) => {
     const [rows] = await con.execute("SELECT * FROM location", [req.params.code]);
     await con.end();
 
-    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    if (rows.length === 0) return res.status(404).json({ error: "locations not found" });
     res.json(rows[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -618,14 +714,14 @@ server.post("/scores/create", async (req, res) => {
   }
 });
 
-// GET all score's
+// GET all scores
 server.get("/score/get/all", async (req, res) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT * FROM score", [req.params.code]);
     await con.end();
 
-    if (rows.length === 0) return res.status(404).json({ error: "User not found" });
+    if (rows.length === 0) return res.status(404).json({ error: "scores not found" });
     res.json(rows[0]);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -637,6 +733,7 @@ const PORT = process.env.PORT;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
 server.get("/", (req, res) => {
   res.send("WELKOM!!!"); 
 });
