@@ -47,7 +47,7 @@ server.get("/user/get/id", async (req, res)=>{
 server.get("/user/get/code/:code", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
+    const [rows] = await con.execute("SELECT nameChild FROM users WHERE code = ?", [req.params.code]);
     await con.end();
 
     if (rows.length == 0) return res.json({ error: "User not found" });
@@ -697,7 +697,7 @@ server.get("/score/get/all", async (req, res) => {
 });
 
 //get diploma %
-server.get("/diploma/get/:user_id", async (req, res, next) => {
+server.get("/diploma/get/id/:user_id", async (req, res, next) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT ROUND(AVG(status),2) * 100 FROM scores WHERE user_id = ?", [req.params.user_id]);
@@ -710,8 +710,25 @@ server.get("/diploma/get/:user_id", async (req, res, next) => {
   {
     res.status(404).json({ error })
   }});
-server.get("/diploma/get", async (req, res)=>{
-  res.status(404).json("user has not been specified")
+server.get("/diploma/get/id", async (req, res)=>{
+  res.status(404).json("user ID has not been specified")
+});
+
+server.get("/diploma/get/code/:user_code", async (req, res, next) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT ROUND(AVG(status),2) * 100 FROM scores JOIN users ON scores.user_id = users.id WHERE users.code = ?", [req.params.user_code]);
+    con.end();
+
+    if (rows.length == 0) {return res.json({ error: "user not found." });}
+    res.json(rows[0]);
+  } 
+  catch (error) 
+  {
+    res.status(404).json({ error })
+  }});
+server.get("/diploma/get/code", async (req, res)=>{
+  res.status(404).json("user code has not been specified")
 });
 
 // Start server
