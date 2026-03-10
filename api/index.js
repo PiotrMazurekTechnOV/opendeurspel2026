@@ -695,10 +695,86 @@ server.post("/scores/add", async (req, res) => {
 //printer
 server.get("/print", async (req,res) => {
   exec("lp -d hp_LaserJet_1320_series_ \"test.pdf\"")
-  //user opzoeken
-  //score bereken
-  //pdf genereren
-  //pdf afdrukken
+  try {
+
+    const { user_id } = req.body;
+
+    const con = await connect();
+
+    //user opzoeken
+    const [userRows] = await con.execute(
+      "SELECT nameChild FROM users WHERE id = ?",
+      [user_id]
+    );
+
+    if (userRows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const nameChild = userRows[0].nameChild;
+
+    //score bereken
+    const [scoreRows] = await con.execute(
+      "SELECT status FROM scores WHERE user_id = ?",
+      [user_id]
+    );
+
+    const total = scoreRows.length;
+    const correct = scoreRows.filter(s => s.status === 1).length;
+    const score = `${correct}/${total}`;
+
+    await con.end();
+
+    //pdf genereren
+    const fs = require("fs");
+    const path = require("path");
+    const { exec } = require("child_process");
+    const PDFDocument = require("pdfkit");
+
+    const diplomasDir = path.join(__dirname, "diplomas");
+    if (!fs.existsSync(diplomasDir)) fs.mkdirSync(diplomasDir);
+
+    const pdfPath = path.join(diplomasDir, `${user_id}_diploma.pdf`);
+
+    const doc = new PDFDocument();
+    const stream = fs.createWriteStream(pdfPath);
+    doc.pipe(stream);
+
+    doc.fontSize(30).text("Diploma", { align: "center" });
+    doc.moveDown();
+    doc.fontSize(18).text(`Naam: ${nameChild}`);
+    doc.text(`Score: ${score}`);
+    doc.text(`Datum: ${new Date().toLocaleDateString()}`);
+
+    doc.end();
+
+    stream.on("finish", () => {
+
+      //pdf afdrukken
+      const printerName = "hp_LaserJet_1320_series_";
+
+      exec(`lp -d ${printerName} "${pdfPath}"`, (err, stdout, stderr) => {
+        if (err) {
+          console.error("Print error:", err);
+          return;
+        }
+        console.log("Print job gestuurd:", stdout);
+      });
+
+    });
+
+    res.status(200).json({
+      message: "Diploma gemaakt",
+      nameChild: nameChild,
+      score: score
+    });
+
+  } catch (error) {
+
+    console.error(error);
+    res.status(500).json({ error: "Er ging iets mis." });
+
+  }
 })
 
 
