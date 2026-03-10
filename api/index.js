@@ -486,6 +486,9 @@ server.get("/location/get/id/:id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+server.get("/location/get/id", async (req, res)=>{
+  res.status(404).json("id is missing")
+});
 
 //get Locations
 //at least this all can find it's use somewhere
