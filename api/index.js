@@ -557,7 +557,7 @@ server.post("/scores/add", async (req, res) => {
       if (!user_id || !question_id ||!status) {return res.json({ error: "All fields are required." });}
 
       const con = await connect(); 
-      await con.execute(`INSERT INTO users (user_id, question_id, status) VALUES (?, ?, ?)`, [user_id, question_id, status]);
+      await con.execute(`INSERT INTO scores (user_id, question_id, status) VALUES (?, ?, ?)`, [user_id, question_id, status]);
       await con.end(); 
 
       res.status(201).json({ message: "Scores created successfully!" });
@@ -568,73 +568,40 @@ server.post("/scores/add", async (req, res) => {
 });
 
 //update score
-server.post("/score/update/:location_number", async (req, res)=>{
+server.post("/score/update/:user_id", async (req, res)=>{
   try {
-    const { user_id, question_id, correct} = req.body;
-    if(!user_id || !question_id || !correct) {
-      return resjson({error: "All fields are required."});
-    }
+    const {status,question_id} = req.body;
+    if(!status || !question_id) {return res.json({error: "new status is required and the question ID."});}
     const con = await connect(); 
-      const query = `UPDATE scores SET user_id = ?, correct = ?, WHERE location_number = ?`;
-      await con.execute(query, [location_number, text]);
+    await con.execute(`UPDATE scores SET status = ? WHERE user_id = ? AND question_id = ?`, [status,req.params.user_id,question_id]);
+    await con.end();
 
-      await con.end();
-      res.status(200).json({ message: "Data updated!" });
-  } catch (error) {
-    res.json(error);
-  }})
+    res.status(200).json({ message: "Data updated!" });
+  } 
+  catch (error) 
+  {
+    res.json({ error });
+  }
+});
 
-
-    //Read scores
-  server.get("/scores/get/:id", async (req, res, next) => {
-  try {
-    const { id } = req.params; 
-
-    if (!id) {
-      return resjson({ error: "Please provide a score ID." });
-    }
-
-    const con = await connect(); 
-    const query = "SELECT * FROM scores WHERE id = ?";
-    
-    // Execute query properly
-    const [rows] = await con.execute(query, [id]);
-    console.log(rows)
-    con.end(); // Close connection after the query
-
-    if (rows.length == 0) { // Checking if the result set is empty
-      return res.json({ error: " not found." });
-    }
-
-    res.json({ data: rows });
-
-  } catch (error) {
-    console.error(error);
-  }});
-
-   //DELETE score
-   //er is geen DELETE voor score dus baseer mij op die van location
-  server.get("/score/delete/:id", async (req, res) => {
+//DELETE score
+server.post("/score/delete/", async (req, res) => {
   try {
     const { id } = req.params; // Haal het answer ID uit de URL
-
-    if (!id) {
-      return resjson({ error: "Please provide an score ID." });
-    }
-
+    if (!id) {return res.json({ error: "Please provide an score ID." });}
     const con = await connect(); 
-    const query = "DELETE FROM scores WHERE id = ?"; 
-    const [result] = await con.execute(query, [id]); // Voer de delete query uit
-
+    const [result] = await con.execute("DELETE FROM scores WHERE id = ?", [id]); 
     await con.end();
     
     if (result.affectedRows == 0) {
-      return res.json({ error: "Score not found." });
+      return res.json({ error: "Score not found. Check the id" });
     }
 
     res.json({ message: "Score deleted successfully!" });
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong." });
+  } 
+  catch (error) 
+  {
+    res.status(400).json({ error });
   }
 });
 
@@ -642,15 +609,30 @@ server.post("/score/update/:location_number", async (req, res)=>{
 server.get("/score/get/all", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM scores", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM scores");
     await con.end();
 
     if (rows.length == 0) return res.json({ error: "scores not found" });
-    res.json(rows[0]);
+    res.status(200).json(rows);
   } catch (error) {
     res.status(500).json({ error });
   }
 });
+
+//get diploma %
+server.get("/diploma/get/:user_id", async (req, res, next) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT ROUND(AVG(status),2) * 100 FROM scores WHERE user_id = ?", [req.params.user_id]);
+    con.end();
+
+    if (rows.length == 0) {return res.json({ error: " not found." });}
+    res.json(rows[0]);
+  } 
+  catch (error) 
+  {
+    res.status(404).json({ error })
+  }});
 
 // Start server
 const PORT = process.env.PORT;
