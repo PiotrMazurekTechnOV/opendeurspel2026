@@ -386,6 +386,9 @@ server.get("/answer/get/question-on-location/:location_number", async (req, res)
     res.status(404).json({ error });
   }
 });
+server.get("/answer/get/question-on-location", async (req, res)=>{
+  res.status(404).json("location_number is missing")
+});
 
 //no idea where we will use that
 //GET correct antwoord via question_id
