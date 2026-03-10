@@ -359,6 +359,9 @@ server.get("/answer/get/id/:id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+server.get("/answer/get/id", async (req, res)=>{
+  res.status(404).json("id is missing")
+});
 
 //probably not needed
 server.get("/answer/get/question-on-id/:question_id", async (req, res) => {
