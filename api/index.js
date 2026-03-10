@@ -139,6 +139,9 @@ server.post("/user/update/:code", async (req, res) => {
     res.status(404).json({ error });
   }
 });
+server.get("/user/update/", async (req, res)=>{
+  res.status(404).json("code is missing")
+});
 
 // POST delete user
 server.post("/user/delete/", async (req, res) => {
