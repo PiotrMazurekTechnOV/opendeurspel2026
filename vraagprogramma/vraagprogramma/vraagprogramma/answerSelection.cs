@@ -30,12 +30,12 @@ namespace vraagprogramma
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.Load += answerSelection_Load;
-            
+
 
             this.question = question;
             this.user = user;
             questionLbl.Text = question.text;
-            
+
         }
 
 
@@ -71,13 +71,13 @@ namespace vraagprogramma
 
                 List<Answer> answers = JsonConvert.DeserializeObject<List<Answer>>(json);
                 int index = 0;
-                foreach(Button btn in Controls.OfType<Button>()) 
+                foreach (Button btn in Controls.OfType<Button>())
                 {
                     btn.Text = answers[index].text;
                     btn.Tag = answers[index].correct;
                     index++;
                 }
-             
+
             }
             catch (Exception ex)
             {
@@ -90,24 +90,23 @@ namespace vraagprogramma
         {
             //post request om data (user_id, question_id, correct) te sturen
             //endpoint -> /scores/add
-
-            /*
-                * Location location = new Location
+            MessageBox.Show("User ID: " + user.id + "\nQuestion ID: " + question.id + "\nCorrect: " + correct);
+            Score score = new Score
             {
-                number = locationNumber,
-                localName = name
+                user_id = user.id,
+                question_id = question.id,
+                status = correct
             };
 
-            StringContent json = new StringContent(JsonConvert.SerializeObject(location), Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync("/location/add", json);
+            StringContent json = new StringContent(JsonConvert.SerializeObject(score), Encoding.UTF8, "application/json");
+            
+            var response = await client.PostAsync("/scores/add", json);
 
             response.EnsureSuccessStatusCode();
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            */
+            return jsonResponse;
 
-            return "";
         }
         private async void answer1_Click(object sender, EventArgs e)
         {
@@ -119,33 +118,33 @@ namespace vraagprogramma
 
         }
 
-        private void answer2_Click(object sender, EventArgs e)
+        private async void answer2_Click(object sender, EventArgs e)
         {
-        //stuur 2 naar database
-
-        feedBack feedback = new();
-        feedback.Show();
-        feedback.FormClosed += (s, args) => this.Close();
+            //stuur 2 naar database
+            var response = await SendScore((bool)(sender as Button).Tag);
+            feedBack feedback = new();
+            feedback.Show();
+            feedback.FormClosed += (s, args) => this.Close();
 
         }
 
-        private void answer3_Click(object sender, EventArgs e)
+        private async void answer3_Click(object sender, EventArgs e)
         {
-        //stuur 3 naar database
-
-        feedBack feedback = new();
-        feedback.Show();
-        feedback.FormClosed += (s, args) => this.Close();
+            //stuur 3 naar database
+            var response = await SendScore((bool)(sender as Button).Tag);
+            feedBack feedback = new();
+            feedback.Show();
+            feedback.FormClosed += (s, args) => this.Close();
 
         }
 
-        private void answer4_Click(object sender, EventArgs e)
+        private async void answer4_Click(object sender, EventArgs e)
         {
-        //stuur 4 naar database
-
-        feedBack feedback = new();
-        feedback.Show();
-        feedback.FormClosed += (s, args) => this.Close();
+            //stuur 4 naar database
+            var response = await SendScore((bool)(sender as Button).Tag);
+            feedBack feedback = new();
+            feedback.Show();
+            feedback.FormClosed += (s, args) => this.Close();
 
 
         }
@@ -153,7 +152,7 @@ namespace vraagprogramma
 
     }
 
-    public class  Question
+    public class Question
     {
         public int id { get; set; }
         public string text { get; set; }
@@ -161,15 +160,22 @@ namespace vraagprogramma
     }
 
     public class Answer
-    { 
-        public int id { get; set; } 
+    {
+        public int id { get; set; }
         public string text { get; set; }
 
         public bool correct
         {
-        get; set; 
+            get; set;
         }
         public int question_id { get; set; }
+    }
+    public  class Score
+    {
+        public int id { get; set; }
+        public int user_id { get; set; }
+        public int question_id { get; set; }
+        public bool status { get; set; }
     }
 
 
