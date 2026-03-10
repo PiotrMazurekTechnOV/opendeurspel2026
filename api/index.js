@@ -402,6 +402,9 @@ server.get("/answer/get/correct/:question_id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+server.get("/answer/get/correct", async (req, res)=>{
+  res.status(404).json("question_id is missing")
+});
 
 // GET all answers
 //weid that we have it, but sure, why not
