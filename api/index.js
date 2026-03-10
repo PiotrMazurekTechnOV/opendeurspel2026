@@ -599,6 +599,9 @@ server.post("/score/update/code/:user_code", async (req, res)=>{
     res.json({ error });
   }
 });
+server.get("/score/update/code", async (req, res)=>{
+  res.status(404).json("something is missing")
+});
 
 //DELETE score
 server.post("/score/delete/", async (req, res) => {
