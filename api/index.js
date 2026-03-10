@@ -193,6 +193,9 @@ server.post("/question/update/:location_number", async (req, res)=>{
     res.status(400).json(error);
   }
 });
+server.get("/question/update", async (req, res)=>{
+  res.status(404).json("location number is missing")
+});
 
 // question delete
 server.post("/question/delete/", async (req, res)=>{
