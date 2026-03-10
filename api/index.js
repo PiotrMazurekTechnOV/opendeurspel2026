@@ -547,6 +547,9 @@ server.get("/location/get/number/:number", async (req, res) => {
     res.status(404).json({ error });
   }
 });
+server.get("/location/get/number", async (req, res)=>{
+  res.status(404).json("number is missing")
+});
 
 //Yo, honestly just remake the whole scores table, user_code instead of id, and status, maybe just give it a better name
 //while I'm at it, or maybe just call it correct like it was in other table used
