@@ -4,6 +4,7 @@ const express = require("express");
 const server = express();
 const mysql = require("mysql2/promise");
 const bodyParser = require("body-parser");
+const { exec } = require("child_process")
 require('dotenv').config()
 
 server.use(express.json());
@@ -24,125 +25,127 @@ async function connect() {
     }
 }
 
-//endpoints programmeren (correcte URL en correcte SQL queries uitvoeren) + response terugsturen
+//endpoints programmeren (correcte URL en correcte SQL queries uitvoeren) + response terugsturen//user
 
 //user
+
 // GET user via id
+//why do we need this?
 server.get("/user/get/id/:id", async (req, res) => {
   try {
-    const { id } = req.params; 
-
-    if (!id) {
-      return res.status(400).json({ error: "Please provide a user ID." });
-    }
-
     const con = await connect();
-    const [rows] = await con.execute("SELECT * FROM users WHERE id = ?", [req.params.id]);
+    const [rows] = await con.execute("SELECT id FROM users WHERE id = ?", [req.params.id]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
-    res.json({ message: "User read successfully!", data: rows });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Something went wrong with the server." });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
 // GET user via code
+//why do we need this too?
 server.get("/user/get/code/:code", async (req, res) => {
   try {
-    const { code } = req.params; 
-
-    if (!code) {
-      return res.status(400).json({ error: "Please provide a user code." });
-    }
     const con = await connect();
     const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
     await con.end();
 
     if (rows.length === 0) return res.status(404).json({ error: "User not found" });
-   
-    res.json({ message: "User read successfully!", data: rows });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Something went wrong with the server." });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
-// POST add user
-server.post("/user/add", async (req, res) => {
-  //try {
-    const { nameGuardian, nameChild, email, code } = req.body;
+//should add get user via email
 
-    /*if (!nameGuardian || !nameChild || !email || code === undefined) {
-      return res.status(400).json({ error: "nameGuardian, nameChild, email, code are required" });
-    }*/ // I assume not needed
+// GET all users
+//I see no way we can use it, but alr
+server.get("/user/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM users");
+    await con.end();
+
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST add user 
+server.post("/user/add", async (req, res) => {
+  try {
+    const { nameGuardian, nameChild, email} = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: "email required" });
+    }
 
     const con = await connect();
     await con.execute(
-      "INSERT INTO users (nameGuardian, nameChild, email, code) VALUES (?, ?, ?, ?)",
-      [nameGuardian, nameChild, email, code]
+      "INSERT INTO users (nameGuardian, nameChild, email) VALUES (?, ?, ?)",
+      [nameGuardian, nameChild, email]
     );
+    //sends the user code back
+    const [rows] = await con.execute(`SELECT code FROM users WHERE email = ?`,[email]);
     await con.end();
+ 
+    res.status(200).json(rows[0]);
 
-    res.status(201).json({ message: "User added" });
-  //} catch (err) {
-    //res.status(500).json({ error: err.message });
-  //}
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
-// POST update user
-server.post("/user/update/:id", async (req, res) => {
-  //try {
-    const { nameGuardian, nameChild, email, code } = req.body;
+// POST update user on code
+server.post("/user/update/:code", async (req, res) => {
+  try {
+    const { nameGuardian, nameChild, email } = req.body;
 
     const con = await connect();
     const [result] = await con.execute(
-      "UPDATE users SET nameGuardian = ?, nameChild = ?, email = ?, code = ? WHERE id = ?",
-      [nameGuardian, nameChild, email, code, req.params.id]
+      "UPDATE users SET nameGuardian = ?, nameChild = ?, email = ?, WHERE code = ?",
+      [nameGuardian, nameChild, email, code, req.params.code]
     );
     await con.end();
 
-    //if (result.affectedRows === 0) return res.status(404).json({ error: "User not found" });
+    if (result.affectedRows === 0) return res.status(404).json({ error: "User not found" });
     res.json({ message: "User updated" });
-  //} catch (err) {
-    //res.status(500).json({ error: err.message });
-  //}
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // POST delete user
-server.post("/user/delete/", async (req, res) => {
-    try {
-    const id = req.body;
+server.post("/user/delete/:id", async (req, res) => {
+  try {
+    const con = await connect();
+    const [result] = await con.execute("DELETE FROM users WHERE id = ?", [req.params.id]);
+    await con.end();
 
-    if (!id) {
-      return res.status(400).json({ error: "Please provide a user ID." });
-    }
-
-    const con = await connect(); 
-    const query = `DELETE FROM users WHERE id = ?`;
-    await con.execute(query, [id]);
-
-    await con.end(); 
-      res.status(200).json({ message: "User deleted" });
-    }
-    catch (error){ res.status(500).json(error);}
+    if (result.affectedRows === 0) return res.status(404).json({ error: "User not found" });
+    res.json({ message: "User deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 //questions
 //question add
 server.post("/question/add", async (req, res) => {
   //try {
-      const { location_id, text } = req.body;
+      const { location_number, text } = req.body;
 
-      /*if (!location_id || !text) {
+      /*if (!location_number || !text) {
           return res.status(400).json({ error: "Some fields are required." });
       }*/ //not needed yet?
-
       const con = await connect(); 
-      const query = `INSERT INTO opendeurspel.users (location_id, text) VALUES 
+      const query = `INSERT INTO questions (location_number, text) VALUES 
       (?, ?)`;
-      await con.execute(query, [location_id, text]);
+      await con.execute(query, [location_number, text]);
 
       await con.end(); 
       res.status(201).json({ message: "Question added successfully!" });
@@ -152,15 +155,15 @@ server.post("/question/add", async (req, res) => {
 });
 
 // question update
-server.post("/question/update/", async (req, res)=>{
+server.post("/question/update/:id", async (req, res)=>{
  //try {
-    const { id, text} = req.body;
-     //if(!id || !text) {
+    const { id, question} = req.body;
+     //if(!id || !question) {
       //return res.status(400).json({error: "All fields are required."});
     //}
     const con = await connect(); 
-      const query = `UPDATE opendeurspel.questions SET text = ? WHERE id = ?`;
-      await con.execute(query, [id, text]);
+      const query = `UPDATE opendeurspel.questions SET question = ? WHERE id = ?`;
+      await con.execute(query, [id, question]);
 
       await con.end(); 
       res.status(200).json({ message: "Data updated!" });
@@ -168,9 +171,10 @@ server.post("/question/update/", async (req, res)=>{
     //res.json(error);
   //}
 });
+
 // question delete
-server.post("/question/delete/", async (req, res)=>{
-    try {
+server.post("/question/delete/:id", async (req, res)=>{
+    try { 
     const id = req.body;
 
     if (!id) {
@@ -180,12 +184,13 @@ server.post("/question/delete/", async (req, res)=>{
     const con = await connect(); 
     const query = `DELETE FROM questions WHERE id = ?`;
     await con.execute(query, [id]);
-    await con.end(); 
 
+    await con.end(); 
       res.status(200).json({ message: "Question deleted" });
     }
-    catch (error){ res.status(500).json({error: "Something went terribly wrong"});}
+    catch (error){ res.status(500).json(error);}
 });
+
 // read question on id
 server.get("/question/get/:id", async (req, res, next) => {
   try {
@@ -197,34 +202,77 @@ server.get("/question/get/:id", async (req, res, next) => {
 
     const con = await connect(); 
     const query = "SELECT * FROM questions WHERE id = ?";
+    
     const [rows] = await con.execute(query, [id]);
+    console.log(rows)
     con.end(); 
 
-    res.status(200).json({ message: "Question read successfully!", data: rows });
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Question not found." });
+    }
+
+    res.json({ message: "Question read successfully!", data: rows });
+
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Something went wrong with the server." });
+  }
+});
+
+//Read questions
+server.get("/questions/read", async (req, res, next) => {
+  try {
+    const con = await connect(); 
+    const query = "SELECT * FROM questions";
+    
+    // Execute query properly
+    const [rows] = await con.execute(query);
+    //console.log(rows)
+    con.end(); // Close connection after the query
+
+    /*
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Location not found." });
+    }
+    */
+    res.status(200).json(rows);
+
+  } catch (error) {
+    //console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
   }
 });
 
 //answers
 // POST add answer
-server.post("/answer/add", async (req, res) => {
-  //try {
-    const { text, question_id } = req.body;
-    //if (!text || question_id === undefined) {
-      //return res.status(400).json({ error: "answer and question_id are required" });
-    //}
+server.post("/answers/add", async (req, res) => {
+  try {
+    const answers = req.body; // Expecting an array of { text, question_id, correct }
+
+    if (!Array.isArray(answers) || answers.length === 0) {
+      return res.status(400).json({ error: "Answers array is required" });
+    }
 
     const con = await connect();
-    await con.execute(
-      "INSERT INTO answers (text, question_id) VALUES (?, ?)",
-      [text, question_id]
-    );
+
+    // Use a transaction for multiple inserts
+    await con.beginTransaction();
+
+    for (const ans of answers) {
+      const { text, question_id, correct } = ans;
+      await con.execute(
+        "INSERT INTO answers (text, question_id, correct) VALUES (?, ?, ?)",
+        [text, question_id, correct]
+      );
+    }
+
+    await con.commit();
     await con.end();
-    res.status(201).json({ message: "Answer added" });
-  //} catch (err) {
-    //res.status(500).json({ error: err.message });
-  //}
+
+    res.status(201).json({ message: "Answers added", count: answers.length });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // POST update answer
@@ -273,105 +321,181 @@ server.post("/answer/delete/", async (req, res) => {
 // GET answer via id
 server.get("/answer/get/id/:id", async (req, res) => {
   try {
-    const { id } = req.params; // Get the answer ID
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answers WHERE id = ?", [req.params.id]);
+    await con.end();
 
-    if (!id) {
-      return res.status(400).json({ error: "Please provide a answer ID." });
-    }
+    if (rows.length === 0) return res.status(404).json({ error: "Answer not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+server.get("/answer/get/question-on-id/:questionId", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answers WHERE question_id = ?", [req.params.questionId]);
+    await con.end();
 
-    const con = await connect(); 
-    const query = "SELECT * FROM answers WHERE id = ?";
-    const [rows] = await con.execute(query, [id]);
-    con.end(); 
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
-    res.json({ message: "Answer read successfully!", data: rows });
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong with the server." });
+// GET answers via location number
+server.get("/answer/get/question-on-location/:location_number", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answers JOIN questions ON answers.question_id = questions.id JOIN locations ON questions.location_number = locations.number", [req.params.location_number]);
+    await con.end();
+
+    res.json(rows[0]);
+  }catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
   }
 });
 
 
-// GET answers via questionId
-server.get("/answer/get/question/:question_id", async (req, res) => {//`_` should be allowed to be used in URLs  
-  try {
-    const { question_id } = req.params; // Get the answer ID
 
-    if (!question_id) {
-      return res.status(400).json({ error: "Please provide a question ID." });
+//GET correct antwoord via question id
+server.get("/answer/get/correct/:question_id", async (req, res) => {
+  try {
+    const { question_id } = req.params;
+
+    const con = await connect();
+    const query = `
+      SELECT * FROM answers 
+      WHERE question_id = ? AND isCorrect = 1
+    `;
+    const [rows] = await con.execute(query, [question_id]);
+    await con.end();
+
+    res.status(200).json({
+      message: "Correct answer retrieved!",
+      data: rows
+    });
+
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+// POST add answer
+server.post("/answer/add", async (req, res) => {
+  try {
+    const { answers, questions_id } = req.body;
+
+    if (!answers || questions_id === undefined) {
+      return res.status(400).json({ error: "answers and questions_id are required" });
     }
 
-    const con = await connect(); 
-    const query = "SELECT * FROM answers WHERE question_id = ?";
-    const [rows] = await con.execute(query, [question_id]);
-    con.end(); 
+    const con = await connect();
+    await con.execute(
+      "INSERT INTO answers (answers, questions_id) VALUES (?, ?)",
+      [answers, questions_id]
+    );
+    await con.end();
 
-    res.json({ message: "Answer read successfully!", data: rows });
-  } catch (error) {
-    res.status(500).json({ error: "Something went wrong with the server." });
+    res.status(201).json({ message: "Answer added" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST update answer
+server.post("/answer/update/:id", async (req, res) => {
+  try {
+    const { answers, questions_id } = req.body;
+
+    if (!answers || questions_id === undefined) {
+      return res.status(400).json({ error: "answers and questions_id are required" });
+    }
+
+    const con = await connect();
+    const [result] = await con.execute(
+      "UPDATE answers SET answers = ?, questions_id = ? WHERE id = ?",
+      [answers, questions_id, req.params.id]
+    );
+    await con.end();
+
+    if (result.affectedRows === 0) return res.status(404).json({ error: "Answer not found" });
+    res.json({ message: "Answer updated" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST delete answer
+server.post("/answer/delete/:id", async (req, res) => {
+  try {
+    const con = await connect();
+    const [result] = await con.execute("DELETE FROM answers WHERE id = ?", [req.params.id]);
+    await con.end();
+
+    if (result.affectedRows === 0) return res.status(404).json({ error: "Answer not found" });
+    res.json({ message: "Answer deleted" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET all answers
+server.get("/answer/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM answers", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "answers not found" });
+    res.json(rows);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 });
 
 //locations
 //location add
-server.post("/locations/add", async (req, res) => {
-  //try {
+server.post("/location/add", async (req, res) => {
+  try {
       const { number, localName } = req.body;
 
-      /*if (!number || !localName) {
+      if (!number || !name) {
           return res.status(400).json({ error: "All fields are required." });
-      }*/
+      }
 
       const con = await connect(); 
-      const query = `INSERT INTO locations (number, localName) VALUES 
+      const query = `INSERT INTO users (number, name) VALUES 
       (?, ?)`;
-      await con.execute(query, [number, localName]);
+      await con.execute(query, [number, name]);
+
       await con.end(); 
       res.status(201).json({ message: "Location created successfully!" });
-  //} catch (error) {
-    ///res.json(error);
-  //}
-});
-
-//location UPDATE
-server.post("/location/update", async (req, res)=>{
-  //try {
-    const { number, localName} = req.body;
-    /*if(!number || !localName) {
-      return res.status(400).json({error: "Some fields are required."});
-    }*/
-    const con = await connect(); 
-      const query = `UPDATE locations SET localName = ? WHERE number = ?`;
-      await con.execute(query, [localName, number]);
-
-      await con.end(); 
-      res.status(200).json({ message: "Success!" });
-  //} catch (error) {
-    //res.json(error);
-  //}
-});
-
-//DELETE location
-server.post("/location/delete/", async (req, res) => {
-  try {
-    const { id } = req.params; // Haal het answer ID uit de URL
-
-    if (!id) {
-      return res.status(400).json({ error: "Please provide a location ID." });
-    }
-
-    const con = await connect(); 
-    const query = "DELETE FROM location WHERE id = ?"; 
-    await con.execute(query, [id]); // Voer de delete query uit
-    await con.end(); 
-
-    res.status(200).json({ message: "Location deleted successfully!" });
-  } 
-  catch (error) {
-    res.status(500).json({ error: "Something went wrong." });
+  } catch (error) {
+    res.json(error);
   }
 });
+
+//UPDATES
+server.post("/location/update/:nuber", async (req, res)=>{
+  try {
+    const { number, name} = req.body;
+    if(!number || !name) {
+      return res.status(400).json({error: "All fields are required."});
+    }
+    const con = await connect(); 
+      const query = `UPDATE locations SET name = ? WHERE number = ?`;
+      await con.execute(query, [name, number]);
+
+      await con.end(); 
+      res.status(200).json({ message: "Data updated!" });
+  } catch (error) {
+    res.json(error);
+  }}
+);
+
 //Read Locations
-server.get("/locations/read/:id", async (req, res, next) => {
+server.get("/locations/get/:id", async (req, res, next) => {
   try {
     const { id } = req.params; 
 
@@ -384,6 +508,29 @@ server.get("/locations/read/:id", async (req, res, next) => {
     
     // Execute query properly
     const [rows] = await con.execute(query, [id]);
+    console.log(rows)
+    con.end(); // Close connection after the query
+
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: "Location not found." });
+    }
+
+    res.json({ data: rows });
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+//Read Locations
+server.get("/locations/read", async (req, res, next) => {
+  try {
+    const con = await connect(); 
+    const query = "SELECT * FROM locations";
+    
+    // Execute query properly
+    const [rows] = await con.execute(query);
     //console.log(rows)
     con.end(); // Close connection after the query
 
@@ -392,7 +539,7 @@ server.get("/locations/read/:id", async (req, res, next) => {
       return res.status(404).json({ error: "Location not found." });
     }
     */
-    res.status(200).json({message: "Data read successfully!", data: rows});
+    res.status(200).json(rows);
 
   } catch (error) {
     //console.error(error);
@@ -402,68 +549,124 @@ server.get("/locations/read/:id", async (req, res, next) => {
 
 //scores
 //voorbeeld code (niet met onze database verbonden)
-//^ nu wel
-server.post("/scores/add", async (req, res) => {
-  //try {
-      const { user_id, question_id, status } = req.body;
+//GET locatios opvragen aan de hand van id
 
-      /*if (!user_id || !question_id ||!status) {
-          return res.status(400).json({ error: "All fields are required." });
-      }*/
+server.get("/question/get/location/:location_number", async (req, res) => {
+  try {
+    const { location_number } = req.params;
+ 
+    const con = await connect();
+    const query = `
+      SELECT text FROM questions
+      WHERE location_number = ?
+    `;
+    const [rows] = await con.execute(query, [location_number]);
+    await con.end();
+ 
+    res.status(200).json(rows[0]);
+ 
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
 
-      const con = await connect(); 
-      const query = `INSERT INTO users (user_id, question_id, status) VALUES 
-      (?, ?, ?)`;
-      await con.execute(query, [user_id, question_id, status]);
 
-      await con.end(); 
-      res.status(201).json({ message: "Score added successfully!" });
-  //} catch (error) {
-    //res.json(error);
-  //}
-  })
+//DELETE location
+server.get("/location/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Haal het answer ID uit de URL
 
-  //update score
-  server.post("/score/update/", async (req, res)=>{
-  //try {
-    const { question_id, status} = req.body;
-    /*if(!user_id || !question_id || !status) {
-      return res.status(400).json({error: "All fields are required."});
-    }*/
+    if (!id) {
+      return res.status(400).json({ error: "Please provide an location ID." });
+    }
+
     const con = await connect(); 
-      const query = `UPDATE scores SET status = ?, WHERE question_id = ?`;
-      await con.execute(query, [status, question_id]);
+    const query = "DELETE FROM locations WHERE id = ?"; 
+    const [result] = await con.execute(query, [id]); // Voer de delete query uit
 
-      await con.end(); 
-      res.status(200).json({ message: "Data updated!" });
-  //} catch (error) {
-    //res.json(error);
-  //}
-  })
+    await con.end(); 
+    
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Location not found." });
+    }
 
-   //score delete
-   //er is geen DELETE voor score dus baseer mij op die van location
-   //^ beter was om op die van question te baseren
-  server.post("/score/delete/", async (req, res) => {
-    try {
-      const id = req.body;
+    res.json({ message: "Location deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
 
-      if (!id) {
-        return res.status(400).json({ error: "Please provide a score ID." });
+// GET all locations
+server.get("/location/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM locations");
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "locations not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+server.get("/location/get/number/:code", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM locations WHERE number = ?", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "locations not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+
+//scores
+server.post("/scores/add", async (req, res) => {
+  try {
+      const { user_id, question_id, correct } = req.body;
+
+
+
+
+      if (!user_id || !question_id ||!correct) {
+          return res.status(400).json({ error: "All fields are required." });
       }
 
       const con = await connect(); 
-      const query = `DELETE FROM scores WHERE id = ?`;
-      await con.execute(query, [id]);
-      await con.end(); 
+      const query = `INSERT INTO users (user_id, question_id, correct) VALUES 
+      (?, ?, ?)`;
+      await con.execute(query, [user_id, question_id, correct]);
 
-      res.status(200).json({ message: "Score deleted" });
+      await con.end(); 
+      res.status(201).json({ message: "Scores created successfully!" });
+  } catch (error) {
+    res.json(error);
+  }})
+
+  //update score
+  server.post("/score/update/:location_number", async (req, res)=>{
+  try {
+    const { user_id, question_id, correct} = req.body;
+    if(!user_id || !question_id || !correct) {
+      return res.status(400).json({error: "All fields are required."});
     }
-    catch (error){ res.status(500).json({error: "But it refused"});}//heh
-});
+    const con = await connect(); 
+      const query = `UPDATE scores SET user_id = ?, correct = ?, WHERE location_number = ?`;
+      await con.execute(query, [location_number, text]);
+
+      await con.end();
+      res.status(200).json({ message: "Data updated!" });
+  } catch (error) {
+    res.json(error);
+  }})
+
 
     //Read scores
-  server.get("/scores/read/:id", async (req, res, next) => {
+  server.get("/scores/get/:id", async (req, res, next) => {
   try {
     const { id } = req.params; 
 
@@ -476,48 +679,63 @@ server.post("/scores/add", async (req, res) => {
     
     // Execute query properly
     const [rows] = await con.execute(query, [id]);
-    //console.log(rows)
+    console.log(rows)
     con.end(); // Close connection after the query
-    
-    /*if (rows.length === 0) { // Checking if the result set is empty
-      return res.status(404).json({ error: " not found." });
-    }*/
 
-    res.status(200).json({ message: "Score read successfully!", data: rows });
+    if (rows.length === 0) { // Checking if the result set is empty
+      return res.status(404).json({ error: " not found." });
+    }
+
+    res.json({ data: rows });
 
   } catch (error) {
-    res.status(500).json({error: "Something went wrong..."});
-    //console.error(error);
+    console.error(error);
   }});
 
 //printer
-server.post("/print", async (req,res) => {
-  //user opzoeken
-  //score bereken
-  server.post("/print", async (req, res) => { 
-
+server.get("/print", async (req,res) => {
+  exec("lp -d hp_LaserJet_1320_series_ \"test.pdf\"")
   try {
-    // Pak de gegevens uit de request body
-    const { user_id, nameChild, score } = req.body;
 
-    if (!user_id || !nameChild || !score) {
-      return res.status(400).json({ error: "user_id, nameChild en score zijn verplicht" });
+    const { user_id } = req.body;
+
+    const con = await connect();
+
+    //user opzoeken
+    const [userRows] = await con.execute(
+      "SELECT nameChild FROM users WHERE id = ?",
+      [user_id]
+    );
+
+    if (userRows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
     }
 
+    const nameChild = userRows[0].nameChild;
+
+    //score bereken
+    const [scoreRows] = await con.execute(
+      "SELECT status FROM scores WHERE user_id = ?",
+      [user_id]
+    );
+
+    const total = scoreRows.length;
+    const correct = scoreRows.filter(s => s.status === 1).length;
+    const score = `${correct}/${total}`;
+
+    await con.end();
+
+    //pdf genereren
     const fs = require("fs");
     const path = require("path");
     const { exec } = require("child_process");
     const PDFDocument = require("pdfkit");
 
-    //  Map om PDF's in op te slaan
     const diplomasDir = path.join(__dirname, "diplomas");
     if (!fs.existsSync(diplomasDir)) fs.mkdirSync(diplomasDir);
 
-    //  Bestandsnaam PDF
     const pdfPath = path.join(diplomasDir, `${user_id}_diploma.pdf`);
 
-    //PDF genereren
-    
     const doc = new PDFDocument();
     const stream = fs.createWriteStream(pdfPath);
     doc.pipe(stream);
@@ -531,10 +749,10 @@ server.post("/print", async (req,res) => {
     doc.end();
 
     stream.on("finish", () => {
-      console.log("PDF gegenereerd:", pdfPath);
 
-      //PDF afdrukken
-      const printerName = "hp_LaserJet_1320_series_"; // controleer via lpstat -a
+      //pdf afdrukken
+      const printerName = "hp_LaserJet_1320_series_";
+
       exec(`lp -d ${printerName} "${pdfPath}"`, (err, stdout, stderr) => {
         if (err) {
           console.error("Print error:", err);
@@ -542,23 +760,71 @@ server.post("/print", async (req,res) => {
         }
         console.log("Print job gestuurd:", stdout);
       });
+
     });
 
-    res.status(200).json({ message: "PDF gegenereerd en printopdracht gestuurd!" });
+    res.status(200).json({
+      message: "Diploma gemaakt",
+      nameChild: nameChild,
+      score: score
+    });
 
   } catch (error) {
+
     console.error(error);
-    res.status(500).json({ error: "Er ging iets mis bij het printen." });
+    res.status(500).json({ error: "Er ging iets mis." });
+
   }
 
 });
-})
+
+
+   //DELETE score
+   //er is geen DELETE voor score dus baseer mij op die van location
+  server.get("/score/delete/:id", async (req, res) => {
+  try {
+    const { id } = req.params; // Haal het answer ID uit de URL
+
+    if (!id) {
+      return res.status(400).json({ error: "Please provide an score ID." });
+    }
+
+    const con = await connect(); 
+    const query = "DELETE FROM scores WHERE id = ?"; 
+    const [result] = await con.execute(query, [id]); // Voer de delete query uit
+
+    await con.end();
+    
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Score not found." });
+    }
+
+    res.json({ message: "Score deleted successfully!" });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong." });
+  }
+});
+
+// GET all scores
+server.get("/score/get/all", async (req, res) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT * FROM scores", [req.params.code]);
+    await con.end();
+
+    if (rows.length === 0) return res.status(404).json({ error: "scores not found" });
+    res.json(rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
 
 // Start server
 const PORT = process.env.PORT;
 server.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
+
 server.get("/", (req, res) => {
   res.send("WELKOM!!!"); 
 });
