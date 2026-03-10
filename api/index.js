@@ -584,6 +584,22 @@ server.post("/score/update/:user_id", async (req, res)=>{
   }
 });
 
+server.post("/score/update/code/:user_code", async (req, res)=>{
+  try {
+    const {status,question_id} = req.body;
+    if(!status || !question_id) {return res.json({error: "new status is required and the question ID."});}
+    const con = await connect(); 
+    await con.execute(`UPDATE scores SET status = ? WHERE users.code = ? AND question_id = ? JOIN users ON scores.user_id = users.id`, [status,req.params.user_code,question_id]);
+    await con.end();
+
+    res.status(200).json({ message: "Data updated!" });
+  } 
+  catch (error) 
+  {
+    res.json({ error });
+  }
+});
+
 //DELETE score
 server.post("/score/delete/", async (req, res) => {
   try {
