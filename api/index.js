@@ -593,7 +593,7 @@ server.get("/location/get/number", async (req, res)=>{
 server.post("/score/add", async (req, res) => {
   try {
       const { user_id, question_id, status } = req.body;
-      if (!user_id || !question_id ||!status) {return res.json({ error: "All fields are required." });}
+      if (!user_id || !question_id || status != null) {return res.json({ error: "All fields are required." });}
 
       const con = await connect(); 
       await con.execute(`INSERT INTO scores (user_id, question_id, status) VALUES (?, ?, ?)`, [user_id, question_id, status]);
