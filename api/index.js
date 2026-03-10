@@ -229,6 +229,9 @@ server.get("/question/get/location/:location_number", async (req,res) => {
     res.status(400).json(error);
   }
 });
+server.get("/question/get/location", async (req, res)=>{
+  res.status(404).json("location number is missing")
+});
 
 //Get all questions
 //why tho?
