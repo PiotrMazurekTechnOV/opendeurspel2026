@@ -15,6 +15,7 @@ namespace vraagprogramma
     public partial class answerSelection : Form
     {
         static HttpClient client;
+        private Question question;
         public answerSelection(User user, Question question)
         {
             InitializeComponent();
@@ -32,8 +33,9 @@ namespace vraagprogramma
             answer3.Text = "Answer 3";
             answer4.Text = "Answer 4";
 
+            this.question = question;
             questionLbl.Text = question.text;
-            MessageBox.Show(user.nameChild);
+            
         }
 
 
@@ -64,11 +66,18 @@ namespace vraagprogramma
 
             try
             {
-                var response = await client.GetAsync("/question/get/location/" + 112);
-                var jsonResponse = await response.Content.ReadAsStringAsync();
+                var response = await client.GetAsync("/answer/get/question-on-id/" + this.question.id);
+                var json = await response.Content.ReadAsStringAsync();
 
-                Question question = JsonConvert.DeserializeObject<Question>(jsonResponse);
-                questionLbl.Text = question.text;
+                List<Answer> answers = JsonConvert.DeserializeObject<List<Answer>>(json);
+                int index = 0;
+                foreach(Button btn in Controls.OfType<Button>()) 
+                {
+                    btn.Text = answers[index].text;
+                    btn.Tag = answers[index].correct;
+                    index++;
+                }
+             
             }
             catch (Exception ex)
             {
@@ -131,6 +140,18 @@ namespace vraagprogramma
         public int id { get; set; }
         public string text { get; set; }
         public int? locations_id { get; set; }
+    }
+
+    public class Answer
+    { 
+        public int id { get; set; } 
+        public string text { get; set; }
+
+        public bool correct
+        {
+            get; set; 
+        }
+        public int question_id { get; set; }
     }
     
 

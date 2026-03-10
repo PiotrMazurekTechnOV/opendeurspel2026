@@ -65,7 +65,7 @@ namespace vraagprogramma
                 var userJson = await userResponse.Content.ReadAsStringAsync();
                 User user = JsonConvert.DeserializeObject<User>(userJson);
 
-                
+
                 var questionResponse = await client.GetAsync("/question/get/location/" + location.number);
                 var questionJson = await questionResponse.Content.ReadAsStringAsync();
                 Question question = JsonConvert.DeserializeObject<Question>(questionJson);
