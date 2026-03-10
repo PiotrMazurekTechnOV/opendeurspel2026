@@ -28,10 +28,7 @@ namespace vraagprogramma
             this.FormBorderStyle = FormBorderStyle.None;
             this.WindowState = FormWindowState.Maximized;
             this.Load += answerSelection_Load;
-            answer1.Text = "Answer 1";
-            answer2.Text = "Answer 2";
-            answer3.Text = "Answer 3";
-            answer4.Text = "Answer 4";
+            
 
             this.question = question;
             questionLbl.Text = question.text;
@@ -83,10 +80,6 @@ namespace vraagprogramma
             {
                 MessageBox.Show("Error: " + ex.Message);
             }
-
-
-
-
         }
 
         
