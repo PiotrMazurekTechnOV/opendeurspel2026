@@ -38,6 +38,9 @@ server.get("/user/get/id/:id", async (req, res) => {
     res.status(404).json({error});
   }
 });
+server.get("/user/get/id", async (req, res)=>{
+  res.status(404).json("id is missing")
+});
 
 // GET user via code
 //why do we need this too?
@@ -53,6 +56,9 @@ server.get("/user/get/code/:code", async (req, res) => {
     res.status(404).json({ error });
   }
 });
+server.get("/user/get/code", async (req, res)=>{
+  res.status(404).json("code is missing")
+});
 
 //get user via email
 server.get("/user/get/email/:email", async (req, res) => {
@@ -67,6 +73,9 @@ server.get("/user/get/email/:email", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+server.get("/user/get/email", async (req, res)=>{
+  res.status(404).json("email is missing")
+});
 
 server.get("/user/get/email-on-code/:code", async (req, res) => {
   try {
@@ -79,6 +88,9 @@ server.get("/user/get/email-on-code/:code", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error });
   }
+});
+server.get("/user/get/email-on-code", async (req, res)=>{
+  res.status(404).json("code is missing")
 });
 
 // GET all users
@@ -139,6 +151,9 @@ server.post("/user/update/:code", async (req, res) => {
     res.status(404).json({ error });
   }
 });
+server.get("/user/update/", async (req, res)=>{
+  res.status(404).json("code is missing")
+});
 
 // POST delete user
 server.post("/user/delete/", async (req, res) => {
@@ -193,6 +208,9 @@ server.post("/question/update/:location_number", async (req, res)=>{
     res.status(400).json(error);
   }
 });
+server.get("/question/update", async (req, res)=>{
+  res.status(404).json("location number is missing")
+});
 
 // question delete
 server.post("/question/delete/", async (req, res)=>{
@@ -228,6 +246,9 @@ server.get("/question/get/location/:location_number", async (req,res) => {
   {
     res.status(400).json(error);
   }
+});
+server.get("/question/get/location", async (req, res)=>{
+  res.status(404).json("location number is missing")
 });
 
 //Get all questions
@@ -359,6 +380,9 @@ server.get("/answer/get/id/:id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+server.get("/answer/get/id", async (req, res)=>{
+  res.status(404).json("id is missing")
+});
 
 //probably not needed
 server.get("/answer/get/question-on-id/:question_id", async (req, res) => {
@@ -371,6 +395,9 @@ server.get("/answer/get/question-on-id/:question_id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error });
   }
+});
+server.get("/answer/get/question-on-id", async (req, res)=>{
+  res.status(404).json("question_id is missing")
 });
 
 // GET answers via location number
@@ -385,6 +412,9 @@ server.get("/answer/get/question-on-location/:location_number", async (req, res)
   }catch (error) {
     res.status(404).json({ error });
   }
+});
+server.get("/answer/get/question-on-location", async (req, res)=>{
+  res.status(404).json("location_number is missing")
 });
 
 //no idea where we will use that
@@ -401,6 +431,9 @@ server.get("/answer/get/correct/:question_id", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error });
   }
+});
+server.get("/answer/get/correct", async (req, res)=>{
+  res.status(404).json("question_id is missing")
 });
 
 // GET all answers
@@ -486,6 +519,9 @@ server.get("/location/get/id/:id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+server.get("/location/get/id", async (req, res)=>{
+  res.status(404).json("id is missing")
+});
 
 //get Locations
 //at least this all can find it's use somewhere
@@ -547,14 +583,17 @@ server.get("/location/get/number/:number", async (req, res) => {
     res.status(404).json({ error });
   }
 });
+server.get("/location/get/number", async (req, res)=>{
+  res.status(404).json("number is missing")
+});
 
 //Yo, honestly just remake the whole scores table, user_code instead of id, and status, maybe just give it a better name
 //while I'm at it, or maybe just call it correct like it was in other table used
 //scores
-server.post("/scores/add", async (req, res) => {
+server.post("/score/add", async (req, res) => {
   try {
       const { user_id, question_id, status } = req.body;
-      if (!user_id || !question_id ||!status) {return res.json({ error: "All fields are required." });}
+      if (!user_id || !question_id || status != null) {return res.json({ error: "All fields are required." });}
 
       const con = await connect(); 
       await con.execute(`INSERT INTO scores (user_id, question_id, status) VALUES (?, ?, ?)`, [user_id, question_id, status]);
@@ -583,6 +622,28 @@ server.post("/score/update/:user_id", async (req, res)=>{
     res.json({ error });
   }
 });
+server.get("/score/update/", async (req, res)=>{
+  res.status(404).json("user_id is missing")
+});
+
+server.post("/score/update/code/:user_code", async (req, res)=>{
+  try {
+    const {status,question_id} = req.body;
+    if(!status || !question_id) {return res.json({error: "new status is required and the question ID."});}
+    const con = await connect(); 
+    await con.execute(`UPDATE scores SET status = ? WHERE users.code = ? AND question_id = ? JOIN users ON scores.user_id = users.id`, [status,req.params.user_code,question_id]);
+    await con.end();
+
+    res.status(200).json({ message: "Data updated!" });
+  } 
+  catch (error) 
+  {
+    res.json({ error });
+  }
+});
+server.get("/score/update/code", async (req, res)=>{
+  res.status(404).json("code is missing")
+});
 
 //DELETE score
 server.post("/score/delete/", async (req, res) => {
@@ -590,19 +651,35 @@ server.post("/score/delete/", async (req, res) => {
     const { id } = req.params; // Haal het answer ID uit de URL
     if (!id) {return res.json({ error: "Please provide an score ID." });}
     const con = await connect(); 
-    const [result] = await con.execute("DELETE FROM scores WHERE id = ?", [id]); 
+    const [rows] = await con.execute("DELETE FROM scores WHERE id = ?", [id]); 
     await con.end();
     
-    if (result.affectedRows == 0) {
-      return res.json({ error: "Score not found. Check the id" });
-    }
-
+    if (result.affectedRows == 0) {return res.json({ error: "Score not found. Check the id" });}
     res.json({ message: "Score deleted successfully!" });
   } 
   catch (error) 
   {
     res.status(400).json({ error });
   }
+});
+
+server.get("/score/get/:user_code", async (req,res) =>{
+  try 
+  {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT user_id,question_id,status,nameGuardian,nameChild,email FROM scores JOIN users ON scores.user_id = users.id WHERE users.code = ?",[req.params.user_code])
+    await con.end();
+
+    if(rows.length == 0){return res.json({error: "user code not found"})}
+    res.status(200).json(rows)
+  }
+  catch (error)
+  {
+    res.status(404).json({ error })
+  }
+});
+server.get("/score/get", async (req, res)=>{
+  res.status(404).json("user code is missing")
 });
 
 // GET all scores
@@ -620,19 +697,39 @@ server.get("/score/get/all", async (req, res) => {
 });
 
 //get diploma %
-server.get("/diploma/get/:user_id", async (req, res, next) => {
+server.get("/diploma/get/id/:user_id", async (req, res, next) => {
   try {
     const con = await connect();
     const [rows] = await con.execute("SELECT ROUND(AVG(status),2) * 100 FROM scores WHERE user_id = ?", [req.params.user_id]);
     con.end();
 
-    if (rows.length == 0) {return res.json({ error: " not found." });}
+    if (rows.length == 0) {return res.json({ error: "user not found." });}
     res.json(rows[0]);
   } 
   catch (error) 
   {
     res.status(404).json({ error })
   }});
+server.get("/diploma/get/id", async (req, res)=>{
+  res.status(404).json("user ID has not been specified")
+});
+
+server.get("/diploma/get/code/:user_code", async (req, res, next) => {
+  try {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT ROUND(AVG(status),2) * 100 FROM scores JOIN users ON scores.user_id = users.id WHERE users.code = ?", [req.params.user_code]);
+    con.end();
+
+    if (rows.length == 0) {return res.json({ error: "user not found." });}
+    res.json(rows[0]);
+  } 
+  catch (error) 
+  {
+    res.status(404).json({ error })
+  }});
+server.get("/diploma/get/code", async (req, res)=>{
+  res.status(404).json("user code has not been specified")
+});
 
 // Start server
 const PORT = process.env.PORT;
