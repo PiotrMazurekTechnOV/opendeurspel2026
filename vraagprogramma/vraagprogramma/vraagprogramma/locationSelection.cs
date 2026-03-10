@@ -69,7 +69,6 @@ namespace vraagprogramma
             public string localName { get; set; }
             public int number { get; set; }
         }
-        
         public class User
         {
             public int id { get; set; }
@@ -78,7 +77,8 @@ namespace vraagprogramma
             public string email { get; set; }
             public int code { get; set; }
         }
-   
+
+
 
 
 

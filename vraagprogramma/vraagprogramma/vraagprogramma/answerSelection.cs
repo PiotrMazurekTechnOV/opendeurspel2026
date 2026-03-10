@@ -18,7 +18,8 @@ namespace vraagprogramma
         static HttpClient client;
         private Question question;
         private User user;
-        public answerSelection(User user, Question question)
+        private Name name;
+        public answerSelection(User user, Question question, Name name)
         {
             InitializeComponent();
 
@@ -34,7 +35,10 @@ namespace vraagprogramma
 
             this.question = question;
             this.user = user;
+            this.name = name;
+
             questionLbl.Text = question.text;
+            welkomLbl.Text = "Welkom " + name.nameChild + "!";
 
         }
 
@@ -181,7 +185,7 @@ namespace vraagprogramma
         public int question_id { get; set; }
         public bool status { get; set; }
     }
-
+    
 
 }
 

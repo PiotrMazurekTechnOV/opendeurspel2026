@@ -1,5 +1,4 @@
-﻿
-using Microsoft.VisualBasic.ApplicationServices;
+﻿using Microsoft.VisualBasic.ApplicationServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
@@ -65,12 +64,15 @@ namespace vraagprogramma
                 var userJson = await userResponse.Content.ReadAsStringAsync();
                 User user = JsonConvert.DeserializeObject<User>(userJson);
 
+                var nameResponse = await client.GetAsync("/user/get/code/" + code);
+                var nameChildJson = await nameResponse.Content.ReadAsStringAsync();
+                Name name = JsonConvert.DeserializeObject<Name>(nameChildJson);
 
                 var questionResponse = await client.GetAsync("/question/get/location/" + location.number);
                 var questionJson = await questionResponse.Content.ReadAsStringAsync();
                 Question question = JsonConvert.DeserializeObject<Question>(questionJson);
 
-                answerSelection answerForm = new answerSelection(user, question);
+                answerSelection answerForm = new answerSelection(user, question, name);
                 this.Hide();
                 answerForm.Show();
             }
@@ -82,7 +84,10 @@ namespace vraagprogramma
 
         
     }
-
+    public class Name
+    {
+        public string nameChild { get; set; }
+    }
 
 
 }
