@@ -38,6 +38,9 @@ server.get("/user/get/id/:id", async (req, res) => {
     res.status(404).json({error});
   }
 });
+server.get("/user/get/id", async (req, res)=>{
+  res.status(404).json("id is missing")
+});
 
 // GET user via code
 //why do we need this too?
@@ -53,6 +56,9 @@ server.get("/user/get/code/:code", async (req, res) => {
     res.status(404).json({ error });
   }
 });
+server.get("/user/get/code", async (req, res)=>{
+  res.status(404).json("code is missing")
+});
 
 //get user via email
 server.get("/user/get/email/:email", async (req, res) => {
@@ -67,6 +73,9 @@ server.get("/user/get/email/:email", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+server.get("/user/get/email", async (req, res)=>{
+  res.status(404).json("email is missing")
+});
 
 server.get("/user/get/email-on-code/:code", async (req, res) => {
   try {
@@ -79,6 +88,9 @@ server.get("/user/get/email-on-code/:code", async (req, res) => {
   } catch (error) {
     res.status(500).json({ error });
   }
+});
+server.get("/user/get/email-on-code", async (req, res)=>{
+  res.status(404).json("code is missing")
 });
 
 // GET all users
