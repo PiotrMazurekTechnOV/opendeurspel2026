@@ -12,20 +12,21 @@ en stuurt deze correct door naar de database.
 
 ## Users
 
-GET /user/get/id/:id  
-Haalt een gebruiker op via id.  
-Verwacht: id
+GET npm
 
 GET /user/get/code/:code  
 Haalt een gebruiker op via code.  
 Verwacht: code
 
+GET /user/get/all
+toont alles uit user(s).
+
 POST /user/add  
 Voegt een gebruiker toe.  
 Verwacht: naam, email (optioneel)
 
-POST /user/update
-Past een gebruiker aan.  
+POST /user/update/id
+Past een gebruiker aan met id 
 Verwacht: nieuwe gegevens
 
 POST /user/delete
@@ -35,26 +36,24 @@ Verwacht: id
 
 ## Questions
 
-GET /question/get/id/:id  
-Haalt een vraag op via id.  
-Verwacht: id
-
-GET /question/get/location/:locationId  
-Haalt een vraag op via locatie.  
-Verwacht: locationId
-
 POST /question/add  
 Voegt een vraag toe.  
 Verwacht: vraagtekst, locationId
 
-POST /question/update
+POST /question/update/:id
 Past een vraag aan.  
 Verwacht: nieuwe gegevens
 
-POST /question/delete
+POST /question/delete/:id
 Verwijdert een vraag.  
 Verwacht: id
 
+GET /question/get/:id
+haal op uit queston met id
+vewacht: id
+
+GET /question/get/all
+haalt alles op uit questions
 
 ## Answers
 
@@ -66,45 +65,34 @@ GET /answer/get/question/:questionId
 Haalt antwoorden op via questionId.  
 Verwacht: questionId
 
+GET /answer/get/correct/:question_id
+het juiste antwoord opvragen.
+
 POST /answer/add  
 Voegt een antwoord toe.  
 Verwacht: questionId, antwoordtekst, correct/incorrect
 
-POST /answer/update
+POST /answer/update:id
 Past een antwoord aan.  
 Verwacht: nieuwe gegevens
 
-POST /answer/delete
+POST /answer/delete/:id
 Verwijdert een antwoord.  
 Verwacht: id
 
-
-## Score
-
-GET /score/get/id/:id  
-Haalt een score op via id.  
-Verwacht: id
-
-GET /score/get/code/:code  
-Haalt score(s) op via code.  
-Verwacht: code
-
-POST /score/add  
-Voegt een score toe.  
-Verwacht: code, questionId, answerId
-
-POST /score/update
-Past een score aan.  
-Verwacht: nieuwe gegevens
-
-POST /score/delete
-Verwijdert een score.  
-Verwacht: id
-
-
+GET /answer/get/all
+haalt alles uit answer op.
 ## Locations
 
-GET /location/get/id/:id  
+GET /locations/add
+Voegt een locatie toe.  
+Verwacht: number, naam
+
+POST /location/update/:number
+Past een locatie aan.  
+Verwacht: nieuwe gegevens , number
+
+GET /location/get/:id  
 Haalt een locatie op via id.  
 Verwacht: id
 
@@ -115,11 +103,34 @@ Verwacht: lokaal nummer
 POST /location/add  
 Voegt een locatie toe.  
 Verwacht: naam
+GET /question/get/location/:location_number
+location opvragen aan de hand van id
+verwacht: location_number
 
-POST /location/update
-Past een locatie aan.  
+GET /location/delete/:id
+Verwijdert een locatie.  
+vewacht: id 
+
+GET /location/get/all
+haalt alles uit locatiosn(s) op.
+
+## Score
+
+POST /score/add  
+Voegt een score toe.  
+Verwacht: user_id, question_id, correct
+
+POST /score/update/:location_number
+Past een score aan.  
 Verwacht: nieuwe gegevens
 
-POST /location/delete
-Verwijdert een locatie.  
+GET /score/get/:id  
+Haalt een score op via id.  
 Verwacht: id
+
+POST /score/delete/:id
+Verwijdert een score.  
+Verwacht: id
+
+GET /score/get/all
+haalt alles uit scaore(s) op.
