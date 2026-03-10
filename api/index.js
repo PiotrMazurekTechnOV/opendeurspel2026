@@ -551,7 +551,7 @@ server.get("/location/get/number/:number", async (req, res) => {
 //Yo, honestly just remake the whole scores table, user_code instead of id, and status, maybe just give it a better name
 //while I'm at it, or maybe just call it correct like it was in other table used
 //scores
-server.post("/scores/add", async (req, res) => {
+server.post("/score/add", async (req, res) => {
   try {
       const { user_id, question_id, status } = req.body;
       if (!user_id || !question_id ||!status) {return res.json({ error: "All fields are required." });}
@@ -590,18 +590,31 @@ server.post("/score/delete/", async (req, res) => {
     const { id } = req.params; // Haal het answer ID uit de URL
     if (!id) {return res.json({ error: "Please provide an score ID." });}
     const con = await connect(); 
-    const [result] = await con.execute("DELETE FROM scores WHERE id = ?", [id]); 
+    const [rows] = await con.execute("DELETE FROM scores WHERE id = ?", [id]); 
     await con.end();
     
-    if (result.affectedRows == 0) {
-      return res.json({ error: "Score not found. Check the id" });
-    }
-
+    if (result.affectedRows == 0) {return res.json({ error: "Score not found. Check the id" });}
     res.json({ message: "Score deleted successfully!" });
   } 
   catch (error) 
   {
     res.status(400).json({ error });
+  }
+});
+
+server.get("/score/get/:user_code", async (req,res) =>{
+  try 
+  {
+    const con = await connect();
+    const [rows] = await con.execute("SELECT user_id,question_id,status,nameGuardian,nameChild,email FROM scores JOIN users ON scores.user_id = users.id WHERE users.code = ?",[req.params.user_code])
+    await con.end();
+
+    if(rows.length == 0){return res.json({error: "user code not found"})}
+    res.status(200).json(rows)
+  }
+  catch (error)
+  {
+    res.status(404).json({ error })
   }
 });
 
