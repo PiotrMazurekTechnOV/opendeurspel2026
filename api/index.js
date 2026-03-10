@@ -372,6 +372,9 @@ server.get("/answer/get/question-on-id/:question_id", async (req, res) => {
     res.status(500).json({ error });
   }
 });
+server.get("/answer/get/question-on-id", async (req, res)=>{
+  res.status(404).json("question_id is missing")
+});
 
 // GET answers via location number
 server.get("/answer/get/question-on-location/:location_number", async (req, res) => {
