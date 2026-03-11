@@ -685,12 +685,52 @@ server.get("/print/:code", async (req,res) => {
     const stream = fs.createWriteStream(pdfPath);
     doc.pipe(stream);
  
-    doc.fontSize(30).text("Diploma", { align: "center" });
-    doc.moveDown();
-    doc.fontSize(18).text(`Naam: ${nameChild}`);
-    doc.text(`Score: ${score}%`);
-    doc.text(`Datum: ${new Date().toLocaleDateString()}`);
+    // Achtergrond kleur
+    doc.rect(0, 0, doc.page.width, doc.page.height).fill("#FFF8E7");
+ 
+    // Technov + Industriële ICT
+    doc
+      .fillColor("#0B3D91")
+      .fontSize(40)
+      .font("Times-Bold")
+      .text("TECHNOV", { align: "center" });
+ 
+    doc.moveDown(0.2);
+    doc
+      .fillColor("#0B3D91")
+      .fontSize(20)
+      .font("Times-Italic")
+      .text("Industriële ICT", { align: "center" });
+ 
+    doc.moveDown(2);
+ 
+    // Diploma titel
+    doc
+      .fillColor("#000")
+      .fontSize(32)
+      .text("DIPLOMA OF ACHIEVEMENT", { align: "center", underline: true });
+ 
+    doc.moveDown(2);
+ 
+    // Naam kind en score
+    doc.fontSize(24).fillColor("#333").text(`This certifies that`, { align: "center" });
+    doc.fontSize(28).fillColor("#000").font("Times-Bold").text(nameChild, { align: "center" });
+    doc.moveDown(1);
+    doc.fontSize(20).fillColor("#333").text(`has successfully completed the Technov Quiz with a score of`, { align: "center" });
+    doc.fontSize(24).fillColor("#000").text(`${score}%`, { align: "center" });
+ 
+    doc.moveDown(3);
+ 
+    // Datum + handtekening
+    const today = new Date().toLocaleDateString();
+    doc.fontSize(16).fillColor("#555").text(`Date: ${today}`, 100, doc.page.height - 150);
+    doc.fontSize(16).fillColor("#555").text(`_______________________`, doc.page.width - 250, doc.page.height - 150);
+    doc.fontSize(14).text(`Authorized Signature`, doc.page.width - 230, doc.page.height - 130);
+ 
+    // Sierlijke rand
+    doc.lineWidth(4).strokeColor("#0B3D91").rect(20, 20, doc.page.width - 40, doc.page.height - 40).stroke();
     doc.end();
+ 
  
     stream.on("finish", () => {
       // Printerregel tijdelijk uitgeschakeld voor testen
