@@ -4,6 +4,10 @@ const server = express();
 const mysql = require("mysql2/promise");
 const bodyParser = require("body-parser");
 const { exec } = require("child_process")
+const fs = require("fs");
+const path = require("path");
+const PDFDocument = require("pdfkit");
+ 
 require('dotenv').config()
 
 server.use(express.json());
@@ -644,45 +648,39 @@ server.post("/score/update/code/:user_code", async (req, res)=>{
 });
 
 // printer
-server.get("/print/:user_id", async (req,res) => {
+server.get("/print/:code", async (req,res) => {
   try {
-    const user_id = req.params.user_id;
+    const code = req.params.code;
  
     const con = await connect();
  
     // user opzoeken
-    const [userRows] = await con.execute(
-      "SELECT nameChild FROM users WHERE id = ?",
-      [user_id]
+    const user = await con.execute(
+      "SELECT * FROM users WHERE code = ? LIMIT 1",
+      [code]
     );
- 
-    if (userRows.length === 0) {
+    if (!user) {
       await con.end();
       return res.status(404).json({ error: "User not found" });
     }
  
-    const nameChild = userRows[0].nameChild;
+    const nameChild = user[0][0].nameChild;
+    const user_id = user[0][0].id;
+    const user_code = user[0][0].code;
  
     // score berekenen
-    const [scoreRows] = await con.execute(
-      "SELECT status FROM scores WHERE user_id = ?",
+    const finalScore = await con.execute(
+      "SELECT FLOOR(ROUND(AVG(status),2)*100) as final FROM scores WHERE user_id = ?",
       [user_id]
     );
-    await con.end();
- 
-    const total = scoreRows.length;
-    const correct = scoreRows.filter(s => s.status === 1).length;
-    const score = `${correct}/${total}`;
- 
+    await con.end();  
+    const score = finalScore[0][0].final;
     // PDF genereren
-    const fs = require("fs");
-    const path = require("path");
-    const PDFDocument = require("pdfkit");
- 
+    
     const diplomasDir = path.join(__dirname, "diplomas");
     if (!fs.existsSync(diplomasDir)) fs.mkdirSync(diplomasDir);
- 
-    const pdfPath = path.join(diplomasDir, `${user_id}_diploma.pdf`);
+   
+    const pdfPath = path.join(diplomasDir, `${user_code}_diploma.pdf`);
     const doc = new PDFDocument();
     const stream = fs.createWriteStream(pdfPath);
     doc.pipe(stream);
@@ -690,7 +688,7 @@ server.get("/print/:user_id", async (req,res) => {
     doc.fontSize(30).text("Diploma", { align: "center" });
     doc.moveDown();
     doc.fontSize(18).text(`Naam: ${nameChild}`);
-    doc.text(`Score: ${score}`);
+    doc.text(`Score: ${score}%`);
     doc.text(`Datum: ${new Date().toLocaleDateString()}`);
     doc.end();
  
@@ -710,7 +708,7 @@ server.get("/print/:user_id", async (req,res) => {
     res.status(200).json({
       message: "Diploma gemaakt",
       nameChild: nameChild,
-      score: score,
+      score: finalScore,
       pdfPath: pdfPath
     });
  
