@@ -47,7 +47,7 @@ server.get("/user/get/id", async (req, res)=>{
 server.get("/user/get/code/:code", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT nameChild FROM users WHERE code = ?", [req.params.code]);
+    const [rows] = await con.execute("SELECT * FROM users WHERE code = ?", [req.params.code]);
     await con.end();
 
     if (rows.length == 0) return res.json({ error: "User not found" });
@@ -235,7 +235,7 @@ server.post("/question/delete/", async (req, res)=>{
 server.get("/question/get/location/:location_number", async (req,res) => {
   try {
     const con = await connect(); 
-    const [rows] = await con.execute("SELECT text FROM questions WHERE location_number = ?", [req.params.location_number]);
+    const [rows] = await con.execute("SELECT * FROM questions WHERE location_number = ?", [req.params.location_number]);
     await con.end(); 
 
     if (rows.length == 0) { 
@@ -390,7 +390,7 @@ server.get("/answer/get/question-on-id/:question_id", async (req, res) => {
     const con = await connect();
     const [rows] = await con.execute("SELECT text,correct FROM answers WHERE question_id = ?", [req.params.question_id]);
     await con.end();
-
+    console.log(rows);
     res.json(rows);
   } catch (error) {
     res.status(500).json({ error });
@@ -574,7 +574,7 @@ server.get("/location/delete/localName", async (req, res) => {
 server.get("/location/get/number/:number", async (req, res) => {
   try {
     const con = await connect();
-    const [rows] = await con.execute("SELECT localName FROM locations WHERE number = ?", [req.params.number]);
+    const [rows] = await con.execute("SELECT * FROM locations WHERE number = ?", [req.params.number]);
     await con.end();
 
     if (rows.length == 0) return res.json({ error: "location number not found" });
@@ -587,15 +587,15 @@ server.get("/location/get/number", async (req, res)=>{
   res.status(404).json("number is missing")
 });
 
-//Yo, honestly just remake the whole scores table, user_code instead of id, and status, maybe just give it a better name
-//while I'm at it, or maybe just call it correct like it was in other table used
-//scores
+
 server.post("/score/add", async (req, res) => {
   try {
+    console.log(req.body)
       const { user_id, question_id, status } = req.body;
-      if (!user_id || !question_id || status != null) {return res.json({ error: "All fields are required." });}
+      if (!user_id || !question_id || status == null) {return res.json({ error: "All fields are required." });}
 
       const con = await connect(); 
+      console.log(user_id, question_id, status)
       await con.execute(`INSERT INTO scores (user_id, question_id, status) VALUES (?, ?, ?)`, [user_id, question_id, status]);
       await con.end(); 
 

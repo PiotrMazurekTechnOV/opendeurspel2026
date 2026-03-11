@@ -24,7 +24,7 @@ namespace vraagprogramma
             this.location = location;
 
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://192.168.0.231:5000/");
+            client.BaseAddress = new Uri("http://localhost:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new System.Net.Http.Headers.MediaTypeWithQualityHeaderValue("application/json"));
          
@@ -64,15 +64,11 @@ namespace vraagprogramma
                 var userJson = await userResponse.Content.ReadAsStringAsync();
                 User user = JsonConvert.DeserializeObject<User>(userJson);
 
-                var nameResponse = await client.GetAsync("/user/get/code/" + code);
-                var nameChildJson = await nameResponse.Content.ReadAsStringAsync();
-                Name name = JsonConvert.DeserializeObject<Name>(nameChildJson);
-
                 var questionResponse = await client.GetAsync("/question/get/location/" + location.number);
                 var questionJson = await questionResponse.Content.ReadAsStringAsync();
                 Question question = JsonConvert.DeserializeObject<Question>(questionJson);
 
-                answerSelection answerForm = new answerSelection(user, question, name);
+                answerSelection answerForm = new answerSelection(user, question, this.location);
                 this.Hide();
                 answerForm.Show();
             }
@@ -83,10 +79,6 @@ namespace vraagprogramma
         }
 
         
-    }
-    public class Name
-    {
-        public string nameChild { get; set; }
     }
 
 

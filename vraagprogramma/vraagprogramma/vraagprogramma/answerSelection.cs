@@ -18,13 +18,13 @@ namespace vraagprogramma
         static HttpClient client;
         private Question question;
         private User user;
-        private Name name;
-        public answerSelection(User user, Question question, Name name)
+        private Location location;
+        public answerSelection(User user, Question question, Location location)
         {
             InitializeComponent();
-
+            this.location = location;
             client = new HttpClient();
-            client.BaseAddress = new Uri("http://192.168.0.231:5000/");
+            client.BaseAddress = new Uri("http://localhost:5000/");
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -35,10 +35,9 @@ namespace vraagprogramma
 
             this.question = question;
             this.user = user;
-            this.name = name;
 
             questionLbl.Text = question.text;
-            welkomLbl.Text = "Welkom " + name.nameChild + "!";
+            welkomLbl.Text = "Welkom " + user.nameChild + "!";
 
         }
 
@@ -75,6 +74,7 @@ namespace vraagprogramma
             try
             {
                 var response = await client.GetAsync("/answer/get/question-on-id/" + this.question.id);
+
                 var json = await response.Content.ReadAsStringAsync();
 
                 List<Answer> answers = JsonConvert.DeserializeObject<List<Answer>>(json);
@@ -97,7 +97,7 @@ namespace vraagprogramma
         async Task<string> SendScore(bool correct)
         {
             //post request om data (user_id, question_id, correct) te sturen
-            //endpoint -> /scores/add
+            //endpoint -> /score/add
             MessageBox.Show("User ID: " + user.id + "\nQuestion ID: " + question.id + "\nCorrect: " + correct);
             Score score = new Score
             {
@@ -105,10 +105,11 @@ namespace vraagprogramma
                 question_id = question.id,
                 status = correct
             };
+            MessageBox.Show("User ID: " + score.user_id + "\nQuestion ID: " + score.question_id + "\nCorrect: " + score.status);
 
             StringContent json = new StringContent(JsonConvert.SerializeObject(score), Encoding.UTF8, "application/json");
             
-            var response = await client.PostAsync("/scores/add", json);
+            var response = await client.PostAsync("/score/add", json);
 
             response.EnsureSuccessStatusCode();
 
@@ -120,7 +121,7 @@ namespace vraagprogramma
         {
             //stuur 1 naar database
             var response = await SendScore((bool)(sender as Button).Tag);
-            feedBack feedback = new();
+            feedBack feedback = new((bool)(sender as Button).Tag, this.location);
             feedback.Show();
             feedback.FormClosed += (s, args) => this.Close();
 
@@ -130,7 +131,7 @@ namespace vraagprogramma
         {
             //stuur 2 naar database
             var response = await SendScore((bool)(sender as Button).Tag);
-            feedBack feedback = new();
+            feedBack feedback = new((bool)(sender as Button).Tag, this.location);
             feedback.Show();
             feedback.FormClosed += (s, args) => this.Close();
 
@@ -140,7 +141,7 @@ namespace vraagprogramma
         {
             //stuur 3 naar database
             var response = await SendScore((bool)(sender as Button).Tag);
-            feedBack feedback = new();
+            feedBack feedback = new((bool)(sender as Button).Tag, this.location);
             feedback.Show();
             feedback.FormClosed += (s, args) => this.Close();
 
@@ -150,7 +151,7 @@ namespace vraagprogramma
         {
             //stuur 4 naar database
             var response = await SendScore((bool)(sender as Button).Tag);
-            feedBack feedback = new();
+            feedBack feedback = new((bool)(sender as Button).Tag, this.location);
             feedback.Show();
             feedback.FormClosed += (s, args) => this.Close();
 
@@ -164,7 +165,7 @@ namespace vraagprogramma
     {
         public int id { get; set; }
         public string text { get; set; }
-        public int? locations_id { get; set; }
+        public int? location_number { get; set; }
     }
 
     public class Answer
