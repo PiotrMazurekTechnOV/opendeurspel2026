@@ -3,6 +3,11 @@ const express = require("express");
 const server = express();
 const mysql = require("mysql2/promise");
 const bodyParser = require("body-parser");
+const { exec } = require("child_process")
+const fs = require("fs");
+const path = require("path");
+const PDFDocument = require("pdfkit");
+ 
 require('dotenv').config()
 
 server.use(express.json());
@@ -641,10 +646,147 @@ server.post("/score/update/code/:user_code", async (req, res)=>{
     res.json({ error });
   }
 });
-server.get("/score/update/code", async (req, res)=>{
-  res.status(404).json("code is missing")
-});
 
+// printer
+server.get("/print/:code", async (req,res) => {
+  try {
+    const code = req.params.code;
+ 
+    const con = await connect();
+ 
+    // user opzoeken
+    const user = await con.execute(
+      "SELECT * FROM users WHERE code = ? LIMIT 1",
+      [code]
+    );
+    if (!user) {
+      await con.end();
+      return res.status(404).json({ error: "User not found" });
+    }
+ 
+    const nameChild = user[0][0].nameChild;
+    const user_id = user[0][0].id;
+    const user_code = user[0][0].code;
+ 
+    // score berekenen
+    const finalScore = await con.execute(
+      "SELECT FLOOR(ROUND(AVG(status),2)*100) as final FROM scores WHERE user_id = ?",
+      [user_id]
+    );
+    await con.end();  
+    const score = finalScore[0][0].final;
+    // PDF genereren
+    
+    const diplomasDir = path.join(__dirname, "diplomas");
+    if (!fs.existsSync(diplomasDir)) fs.mkdirSync(diplomasDir);
+   
+    const pdfPath = path.join(diplomasDir, `${user_code}_diploma.pdf`);
+    const doc = new PDFDocument();
+    const stream = fs.createWriteStream(pdfPath);
+    doc.pipe(stream);
+ 
+    // Achtergrond kleur
+    doc.rect(0, 0, doc.page.width, doc.page.height).fill("#FFF8E7");
+ 
+    // Titel
+    doc
+      .fillColor("#0B3D91")
+      .fontSize(40)
+      .font("Times-Bold")
+      .text("TECHNOV", { align: "center" });
+ 
+    doc.moveDown(0.2);
+ 
+    doc
+      .fillColor("#0B3D91")
+      .fontSize(20)
+      .font("Times-Italic")
+      .text("Industriële ICT", { align: "center" });
+ 
+    doc.moveDown(2);
+ 
+    // Diploma titel
+    doc
+      .fillColor("#000")
+      .fontSize(32)
+      .text("DIPLOMA", { align: "center", underline: true });
+ 
+    doc.moveDown(2);
+ 
+    // Naam kind
+    doc.fontSize(24).fillColor("#333").text("Dit certificaat wordt uitgereikt aan", { align: "center" });
+ 
+    doc
+      .fontSize(28)
+      .fillColor("#000")
+      .font("Times-Bold")
+      .text(nameChild, { align: "center" });
+ 
+    doc.moveDown(1);
+ 
+    // Score logica
+    doc
+  .fontSize(20)
+  .fillColor("#333")
+  .text("voor deelname aan de Technov Quiz", { align: "center" });
+doc
+  .fontSize(24)
+  .fillColor("#000")
+  .text(`Score: ${score}%`, { align: "center" });
+ 
+    doc.moveDown(3);
+ 
+    // Datum
+    const today = new Date().toLocaleDateString("nl-BE");
+ 
+    doc
+      .fontSize(16)
+      .fillColor("#555")
+      .text(`Datum: ${today}`, 100, doc.page.height - 150);
+ 
+    // Handtekening
+    doc
+      .fontSize(16)
+      .text("De leerlingen van 6ICT", doc.page.width - 250, doc.page.height - 130);
+ 
+    doc
+      .fontSize(14)
+      .text("Handtekening:", doc.page.width - 230, doc.page.height - 150);
+ 
+    // Rand
+    doc
+      .lineWidth(4)
+      .strokeColor("#0B3D91")
+      .rect(20, 20, doc.page.width - 40, doc.page.height - 40)
+      .stroke();
+ 
+    doc.end();
+ 
+    stream.on("finish", () => {
+      // Printerregel tijdelijk uitgeschakeld voor testen
+      
+      const { exec } = require("child_process");
+      const printerName = "hp_LaserJet_1320_series_";
+      exec(`lp -d ${printerName} "${pdfPath}"`, (err, stdout, stderr) => {
+        if (err) console.error("Print error:", err);
+        else console.log("Print job gestuurd:", stdout);
+      });
+      
+      console.log(`PDF gegenereerd: ${pdfPath}`);
+    });
+ 
+    res.status(200).json({
+      message: "Diploma gemaakt",
+      nameChild: nameChild,
+      score: finalScore,
+      pdfPath: pdfPath
+    });
+ 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "Er ging iets mis." });
+  }
+});
 //DELETE score
 server.post("/score/delete/", async (req, res) => {
   try {
@@ -740,3 +882,4 @@ server.listen(PORT, () => {
 server.get("/", (req, res) => {
   res.send("WELKOM!!!"); 
 });
+
