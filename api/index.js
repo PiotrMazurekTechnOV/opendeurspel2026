@@ -764,14 +764,14 @@ doc
  
     stream.on("finish", () => {
       // Printerregel tijdelijk uitgeschakeld voor testen
-      /*
+      
       const { exec } = require("child_process");
       const printerName = "hp_LaserJet_1320_series_";
       exec(`lp -d ${printerName} "${pdfPath}"`, (err, stdout, stderr) => {
         if (err) console.error("Print error:", err);
         else console.log("Print job gestuurd:", stdout);
       });
-      */
+      
       console.log(`PDF gegenereerd: ${pdfPath}`);
     });
  
