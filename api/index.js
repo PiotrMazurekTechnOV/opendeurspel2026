@@ -688,7 +688,7 @@ server.get("/print/:code", async (req,res) => {
     // Achtergrond kleur
     doc.rect(0, 0, doc.page.width, doc.page.height).fill("#FFF8E7");
  
-    // Technov + Industriële ICT
+    // Titel
     doc
       .fillColor("#0B3D91")
       .fontSize(40)
@@ -696,6 +696,7 @@ server.get("/print/:code", async (req,res) => {
       .text("TECHNOV", { align: "center" });
  
     doc.moveDown(0.2);
+ 
     doc
       .fillColor("#0B3D91")
       .fontSize(20)
@@ -708,29 +709,58 @@ server.get("/print/:code", async (req,res) => {
     doc
       .fillColor("#000")
       .fontSize(32)
-      .text("DIPLOMA OF ACHIEVEMENT", { align: "center", underline: true });
+      .text("DIPLOMA", { align: "center", underline: true });
  
     doc.moveDown(2);
  
-    // Naam kind en score
-    doc.fontSize(24).fillColor("#333").text(`This certifies that`, { align: "center" });
-    doc.fontSize(28).fillColor("#000").font("Times-Bold").text(nameChild, { align: "center" });
+    // Naam kind
+    doc.fontSize(24).fillColor("#333").text("Dit certificaat wordt uitgereikt aan", { align: "center" });
+ 
+    doc
+      .fontSize(28)
+      .fillColor("#000")
+      .font("Times-Bold")
+      .text(nameChild, { align: "center" });
+ 
     doc.moveDown(1);
-    doc.fontSize(20).fillColor("#333").text(`has successfully completed the Technov Quiz with a score of`, { align: "center" });
-    doc.fontSize(24).fillColor("#000").text(`${score}%`, { align: "center" });
+ 
+    // Score logica
+    doc
+  .fontSize(20)
+  .fillColor("#333")
+  .text("voor deelname aan de Technov Quiz", { align: "center" });
+doc
+  .fontSize(24)
+  .fillColor("#000")
+  .text(`Score: ${score}%`, { align: "center" });
  
     doc.moveDown(3);
  
-    // Datum + handtekening
-    const today = new Date().toLocaleDateString();
-    doc.fontSize(16).fillColor("#555").text(`Date: ${today}`, 100, doc.page.height - 150);
-    doc.fontSize(16).fillColor("#555").text(`_______________________`, doc.page.width - 250, doc.page.height - 150);
-    doc.fontSize(14).text(`Authorized Signature`, doc.page.width - 230, doc.page.height - 130);
+    // Datum
+    const today = new Date().toLocaleDateString("nl-BE");
  
-    // Sierlijke rand
-    doc.lineWidth(4).strokeColor("#0B3D91").rect(20, 20, doc.page.width - 40, doc.page.height - 40).stroke();
+    doc
+      .fontSize(16)
+      .fillColor("#555")
+      .text(`Datum: ${today}`, 100, doc.page.height - 150);
+ 
+    // Handtekening
+    doc
+      .fontSize(16)
+      .text("De leerlingen van 6ICT", doc.page.width - 250, doc.page.height - 130);
+ 
+    doc
+      .fontSize(14)
+      .text("Handtekening:", doc.page.width - 230, doc.page.height - 150);
+ 
+    // Rand
+    doc
+      .lineWidth(4)
+      .strokeColor("#0B3D91")
+      .rect(20, 20, doc.page.width - 40, doc.page.height - 40)
+      .stroke();
+ 
     doc.end();
- 
  
     stream.on("finish", () => {
       // Printerregel tijdelijk uitgeschakeld voor testen
